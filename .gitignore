@@ -1,0 +1,7 @@
+# 배포에 필요한 건 index.html 하나뿐이다.
+# 일봉 CSV 3,600개 · 분봉 45만봉 같은 데이터는 절대 올리지 않는다.
+*.csv
+*.pkl
+krx/
+history/
+__pycache__/
