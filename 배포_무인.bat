@@ -2,8 +2,8 @@
 REM ASCII only. cmd reads .bat in the OEM codepage and mangles Korean text.
 REM
 REM Unattended publish: git add -> commit -> push. Vercel redeploys on push.
-REM Same as 배포.bat but with no `pause`, and it logs instead of printing.
-REM Registered by 자동등록_배포.bat to run on weekdays at 07:10 and 16:30.
+REM Same as the manual deploy bat but with no pause; logs instead of printing.
+REM Registered by the auto-register bat to run on weekdays at 07:10 and 16:30.
 
 cd /d "%~dp0"
 set "LOG=%~dp0_deploy.log"

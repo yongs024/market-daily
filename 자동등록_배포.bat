@@ -1,7 +1,7 @@
 @echo off
 REM ASCII only. cmd reads .bat in the OEM codepage and mangles Korean text.
 REM
-REM Registers ë°°í¬_ë¬´ì¸.bat as TWO scheduled tasks. Run ONCE.
+REM Registers the unattended deploy bat as TWO scheduled tasks. Run ONCE.
 REM   07:10 weekdays - after the 06:30 Claude morning task rebuilds the page
 REM   16:30 weekdays - after the 16:00 Claude close task rebuilds the page
 REM
@@ -9,12 +9,12 @@ REM No pause: it writes the result to _register.log and closes by itself,
 REM so it can be launched unattended.
 REM
 REM First-time note: git push needs credentials. If GitHub has never been
-REM authorized on this PC, run ë°°í¬.bat manually once and finish the browser
+REM authorized on this PC, run the manual deploy bat once and finish the browser
 REM sign-in. After that the stored credential lets the task push with no prompt.
 
 setlocal
 cd /d "%~dp0"
-set "TARGET=%~dp0ë°°í¬_ë¬´ì¸.bat"
+set "TARGET=%~dp0¹èÆ÷_¹«ÀÎ.bat"
 set "LOG=%~dp0_register.log"
 
 echo ==================================================== > "%LOG%"
