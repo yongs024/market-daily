@@ -99,3 +99,26 @@ branch 'main' set up to track 'origin/main'.
  
 ==================================================== 
  START 2026-09-07  7:36:13.27 
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_deploy.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-26.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-27.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-28.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-31.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-01.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-02.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-03.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-04.html', LF will be replaced by CRLF the next time Git touches it
+[main 12ffa55] dashboard update
+ 3 files changed, 664 insertions(+), 94 deletions(-)
+ create mode 100644 days/2026-09-04.html
+To https://github.com/yongs024/market-daily.git
+   0cd5aa1..12ffa55  main -> main
+branch 'main' set up to track 'origin/main'.
+ pushed OK 
+ END   2026-09-07  7:36:16.77 
+ 
+==================================================== 
+ START 2026-09-07  7:50:00.65 
