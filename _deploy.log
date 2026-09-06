@@ -73,3 +73,29 @@ branch 'main' set up to track 'origin/main'.
  
 ==================================================== 
  START 2026-09-07  7:10:01.30 
+warning: in the working copy of '_deploy.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-26.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-27.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-28.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-31.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-01.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-02.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-03.html', LF will be replaced by CRLF the next time Git touches it
+[main 0cd5aa1] dashboard update
+ 10 files changed, 4062 insertions(+), 9 deletions(-)
+ create mode 100644 days/2026-08-26.html
+ create mode 100644 days/2026-08-27.html
+ create mode 100644 days/2026-08-28.html
+ create mode 100644 days/2026-08-31.html
+ create mode 100644 days/2026-09-01.html
+ create mode 100644 days/2026-09-02.html
+ create mode 100644 days/2026-09-03.html
+To https://github.com/yongs024/market-daily.git
+   ce33730..0cd5aa1  main -> main
+branch 'main' set up to track 'origin/main'.
+ pushed OK 
+ END   2026-09-07  7:10:07.74 
+ 
+==================================================== 
+ START 2026-09-07  7:36:13.27 
