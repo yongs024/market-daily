@@ -22,7 +22,7 @@ echo  %date% %time%  register deploy tasks >> "%LOG%"
 echo  target: %TARGET% >> "%LOG%"
 
 schtasks /Query /TN "MarketDailyDeployAM" >nul 2>&1 && schtasks /Delete /TN "MarketDailyDeployAM" /F >nul 2>&1
-schtasks /Create /TN "MarketDailyDeployAM" /TR "\"%TARGET%\"" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 07:10 /F >> "%LOG%" 2>&1
+schtasks /Create /TN "MarketDailyDeployAM" /TR "\"%TARGET%\"" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 07:50 /F >> "%LOG%" 2>&1
 set "A=%ERRORLEVEL%"
 
 schtasks /Query /TN "MarketDailyDeployPM" >nul 2>&1 && schtasks /Delete /TN "MarketDailyDeployPM" /F >nul 2>&1
