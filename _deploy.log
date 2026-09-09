@@ -310,3 +310,28 @@ branch 'main' set up to track 'origin/main'.
  
 ==================================================== 
  START 2026-09-09  7:50:01.47 
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_deploy.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-26.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-27.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-28.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-31.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-01.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-02.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-03.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-04.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-07.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-08.html', LF will be replaced by CRLF the next time Git touches it
+[main 97795c4] dashboard update
+ 3 files changed, 643 insertions(+), 87 deletions(-)
+ create mode 100644 days/2026-09-08.html
+To https://github.com/yongs024/market-daily.git
+   d102fa4..97795c4  main -> main
+branch 'main' set up to track 'origin/main'.
+ pushed OK 
+ END   2026-09-09  7:50:07.35 
+ 
+==================================================== 
+ START 2026-09-09 16:30:01.32 
