@@ -14,7 +14,7 @@ REM sign-in. After that the stored credential lets the task push with no prompt.
 
 setlocal
 cd /d "%~dp0"
-set "TARGET=%~dp0¹èÆ÷_¹«ÀÎ.bat"
+set "TARGET=%~dp0ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½.bat"
 set "LOG=%~dp0_register.log"
 
 echo ==================================================== > "%LOG%"
@@ -22,7 +22,7 @@ echo  %date% %time%  register deploy tasks >> "%LOG%"
 echo  target: %TARGET% >> "%LOG%"
 
 schtasks /Query /TN "MarketDailyDeployAM" >nul 2>&1 && schtasks /Delete /TN "MarketDailyDeployAM" /F >nul 2>&1
-schtasks /Create /TN "MarketDailyDeployAM" /TR "\"%TARGET%\"" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 07:50 /F >> "%LOG%" 2>&1
+schtasks /Create /TN "MarketDailyDeployAM" /TR "\"%TARGET%\"" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 07:20 /F >> "%LOG%" 2>&1
 set "A=%ERRORLEVEL%"
 
 schtasks /Query /TN "MarketDailyDeployPM" >nul 2>&1 && schtasks /Delete /TN "MarketDailyDeployPM" /F >nul 2>&1

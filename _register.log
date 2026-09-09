@@ -1,6 +1,6 @@
 ==================================================== 
- 2026-09-07  7:37:04.07  register deploy tasks 
- target: C:\Users\yongs\OneDrive\바탕 화면\kiwoom-autotrader_1\market-daily-site\배포_무인.bat 
+ 2026-09-10  7:14:14.10  register deploy tasks 
+ target: C:\Users\yongs\OneDrive\바탕 화면\kiwoom-autotrader_1\market-daily-site\占쏙옙占쏙옙_占쏙옙占쏙옙.bat 
 성공: 예약된 작업 "MarketDailyDeployAM"을(를) 만들었습니다.
 성공: 예약된 작업 "MarketDailyDeployPM"을(를) 만들었습니다.
  AM=0  PM=0   (0 = success) 
@@ -8,14 +8,14 @@
 폴더: \
 호스트 이름:    YONGS024
 작업 이름:      \MarketDailyDeployAM
-다음 실행 시간: 2026-09-07 오전 7:50:00
+다음 실행 시간: 2026-09-10 오전 7:20:00
 상태:           준비
 로그온 모드:    대화형만
 
 폴더: \
 호스트 이름:    YONGS024
 작업 이름:      \MarketDailyDeployPM
-다음 실행 시간: 2026-09-07 오후 4:30:00
+다음 실행 시간: 2026-09-10 오후 4:30:00
 상태:           준비
 로그온 모드:    대화형만
  DONE 
