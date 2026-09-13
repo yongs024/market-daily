@@ -1,0 +1,12 @@
+==== manual deploy 2026-09-11 19:37:07.22 ====
+warning: in the working copy of '배포로그.bat', LF will be replaced by CRLF the next time Git touches it
+AM _manual_deploy.log
+A  "\353\260\260\355\217\254\353\241\234\352\267\270.bat"
+[main 370532f] dashboard update manual
+ 2 files changed, 19 insertions(+)
+ create mode 100644 _manual_deploy.log
+ create mode 100644 "\353\260\260\355\217\254\353\241\234\352\267\270.bat"
+To https://github.com/yongs024/market-daily.git
+   9e06b5c..370532f  main -> main
+branch 'main' set up to track 'origin/main'.
+exit=0
