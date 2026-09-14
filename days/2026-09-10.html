@@ -286,7 +286,8 @@ details.calm{margin-bottom:2px}
 .hbars li:has(.wv){grid-template-columns:82px 1fr 52px 46px}
 .k7 td.rn,.k7 th.rn{width:1%;text-align:center;color:#a8abb8;font-size:10px;
   font-variant-numeric:tabular-nums;padding-right:2px}
-.tgs{display:flex;flex-direction:column;gap:11px}
+.tgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+@media(max-width:420px){.tgs{grid-template-columns:1fr}}
 .tg{border:1px solid var(--line);border-radius:7px;padding:9px 10px;background:#fbfbfd}
 .tg-h{display:flex;align-items:center;gap:6px;margin-bottom:4px}
 .tg-h b{font-size:11.5px}
