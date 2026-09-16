@@ -2,7 +2,8 @@
 REM ASCII only. cmd reads .bat in the OEM codepage and mangles Korean text.
 REM
 REM Registers the unattended deploy bat as TWO scheduled tasks. Run ONCE.
-REM   07:10 weekdays - after the 06:30 Claude morning task rebuilds the page
+REM   07:05 weekdays - after the 06:35 Claude morning task rebuilds the page
+REM   07:15 weekdays - catch-up run in case the 06:35 build ran long
 REM   16:30 weekdays - after the 16:00 Claude close task rebuilds the page
 REM
 REM No pause: it writes the result to _register.log and closes by itself,
@@ -14,7 +15,7 @@ REM sign-in. After that the stored credential lets the task push with no prompt.
 
 setlocal
 cd /d "%~dp0"
-set "TARGET=%~dp0ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½.bat"
+set "TARGET=%~dp0¹èÆ÷_¹«ÀÎ.bat"
 set "LOG=%~dp0_register.log"
 
 echo ==================================================== > "%LOG%"
@@ -22,15 +23,20 @@ echo  %date% %time%  register deploy tasks >> "%LOG%"
 echo  target: %TARGET% >> "%LOG%"
 
 schtasks /Query /TN "MarketDailyDeployAM" >nul 2>&1 && schtasks /Delete /TN "MarketDailyDeployAM" /F >nul 2>&1
-schtasks /Create /TN "MarketDailyDeployAM" /TR "\"%TARGET%\"" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 07:20 /F >> "%LOG%" 2>&1
+schtasks /Create /TN "MarketDailyDeployAM" /TR "\"%TARGET%\"" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 07:05 /F >> "%LOG%" 2>&1
 set "A=%ERRORLEVEL%"
+
+schtasks /Query /TN "MarketDailyDeployAM2" >nul 2>&1 && schtasks /Delete /TN "MarketDailyDeployAM2" /F >nul 2>&1
+schtasks /Create /TN "MarketDailyDeployAM2" /TR "\"%TARGET%\"" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 07:15 /F >> "%LOG%" 2>&1
+set "A2=%ERRORLEVEL%"
 
 schtasks /Query /TN "MarketDailyDeployPM" >nul 2>&1 && schtasks /Delete /TN "MarketDailyDeployPM" /F >nul 2>&1
 schtasks /Create /TN "MarketDailyDeployPM" /TR "\"%TARGET%\"" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 16:30 /F >> "%LOG%" 2>&1
 set "B=%ERRORLEVEL%"
 
-echo  AM=%A%  PM=%B%   (0 = success) >> "%LOG%"
+echo  AM=%A%  AM2=%A2%  PM=%B%   (0 = success) >> "%LOG%"
 schtasks /Query /TN "MarketDailyDeployAM" /FO LIST >> "%LOG%" 2>&1
+schtasks /Query /TN "MarketDailyDeployAM2" /FO LIST >> "%LOG%" 2>&1
 schtasks /Query /TN "MarketDailyDeployPM" /FO LIST >> "%LOG%" 2>&1
 echo  DONE >> "%LOG%"
 exit /b 0
