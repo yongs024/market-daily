@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="일일 시황 — 2026-09-16">
+<meta name="robots" content="noindex">
+<title>일일 시황</title>
+<style>
+:root{--bg:#f5f5fa;--panel:#fff;--line:#e8e8f0;--fg:#1c1b2e;--mut:#7a7e91;
+ --ink:#2e1f5e;--lav:#efedfa;--up:#e0374a;--down:#1f6fdc;--warn:#f5a623}
+*{box-sizing:border-box} html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);
+ font:13.5px/1.6 "Pretendard","Apple SD Gothic Neo",-apple-system,"Malgun Gothic",system-ui,sans-serif;
+ -webkit-font-smoothing:antialiased}
+a{color:inherit} h1,h2,h3{margin:0;letter-spacing:-.02em}
+.up{color:var(--up)} .down{color:var(--down)} .mut{color:var(--mut)}
+.ink{color:var(--ink)!important}
+
+.layout{display:flex;align-items:flex-start;min-height:100vh}
+.side{position:sticky;top:0;flex:0 0 246px;width:246px;align-self:flex-start;background:var(--panel);
+ border-right:1px solid var(--line);padding:16px 14px 20px;max-height:100vh;overflow-y:auto}
+.logo{font-size:15px;font-weight:800;letter-spacing:-.04em;color:var(--ink)}
+.logo em{font-style:normal;color:#8478d3}
+.logo-s{font-size:9.5px;color:var(--mut);letter-spacing:.04em;margin-bottom:12px}
+
+/* ── 달력 ── */
+/* 월 접기 (2026-09-10): 연·월 제목 클릭으로 펼침/접힘. 이번 달만 기본 open */
+details.calm summary{cursor:pointer;list-style:none;display:flex;align-items:center;
+ justify-content:space-between;user-select:none}
+details.calm summary::-webkit-details-marker{display:none}
+.calm-tg::after{content:"▸";font-size:10px;color:#9a9eb0}
+details[open].calm .calm-tg::after{content:"▾"}
+details.calm{margin-bottom:2px}
+.calh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;
+ padding-top:10px;border-top:1px solid var(--line)}
+.calh b{font-size:13px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.calh .yr{font-size:10.5px;color:var(--mut);font-weight:600}
+.cal{width:100%;border-collapse:collapse;table-layout:fixed}
+.cal th{font-size:9.5px;font-weight:600;color:#9a9eb0;padding:3px 0 5px}
+.cal th.wk{color:#c2a0b0}
+.cal td{text-align:center;padding:1px}
+.cal td .d{display:flex;align-items:center;justify-content:center;width:24px;height:24px;margin:0 auto;
+ font-size:11.5px;border-radius:50%;font-variant-numeric:tabular-nums;color:#4a4d5e}
+.cal td.none .d{color:#c8cad4}
+.cal td a.dl{text-decoration:none;display:block}
+.cal td a.dl .d{cursor:pointer}
+.cal td a.dl:hover .d{background:#4c3d95;color:#fff}
+.calm{margin-bottom:10px}
+.calm-h{font-size:11px;font-weight:700;color:#4c3d95;margin:8px 0 4px}
+.cal td.wk .d{color:#b9a5ae}
+.cal td.wk.none .d{color:#dcd2d6}
+.cal td.has .d{background:#efedfa;color:var(--ink);font-weight:700;cursor:pointer}
+.cal td.today .d{box-shadow:0 0 0 2px var(--ink) inset;background:var(--ink);color:#fff;font-weight:800}
+.callg{display:flex;gap:10px;margin:9px 0 0;font-size:9.5px;color:#9a9eb0;flex-wrap:wrap}
+.callg i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;
+ vertical-align:-1px}
+.calnote{font-size:9.5px;color:#a8abb8;line-height:1.5;margin:8px 0 0}
+
+.side hr{border:0;border-top:1px solid var(--line);margin:14px 0 10px}
+.slbl{font-size:9.5px;letter-spacing:.1em;color:#9a9eb0;font-weight:700;margin-bottom:6px}
+/* ── 테마 목록(사이드바) + 세부 패널 전환: 숨긴 라디오 + label ── */
+.pgin{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
+.tnavs{display:flex;flex-direction:column;gap:2px}
+.tnav{display:flex;align-items:center;gap:7px;padding:7px 8px;border:1px solid transparent;
+ border-radius:7px;cursor:pointer;transition:.14s;user-select:none}
+.tnav:hover{background:#f7f6fc}
+.tn-c{width:8px;height:8px;border-radius:2px;flex:none}
+.tn-b{display:flex;flex-direction:column;min-width:0;flex:1}
+.tn-b b{font-size:11.5px;font-weight:650;color:#4a4d5e;overflow:hidden;text-overflow:ellipsis;
+ white-space:nowrap}
+.titem{border-bottom:1px solid #f2f2f7}
+.titem:last-child{border-bottom:0}
+.tpan{display:none;padding:1px 0 8px 15px}
+.slist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.slist li{font-size:10.5px;padding:2px 4px;border-radius:4px}
+.slist li.top{background:#fffdf6}
+.sn{color:#4a4d5e;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slist li.top .sn{color:var(--ink);font-weight:700}
+.sn b{display:inline-block;margin-left:4px;font-size:8px;font-weight:800;padding:0 3px;
+ border-radius:3px;background:var(--ink);color:#fff;vertical-align:1px}
+#t0:checked ~ .layout .tnav[for="t0"]{background:var(--lav);border-color:#d9d3f2}#t0:checked ~ .layout .tnav[for="t0"] .tn-b b{color:var(--ink);font-weight:800}#t0:checked ~ .layout #tp0{display:block}#t1:checked ~ .layout .tnav[for="t1"]{background:var(--lav);border-color:#d9d3f2}#t1:checked ~ .layout .tnav[for="t1"] .tn-b b{color:var(--ink);font-weight:800}#t1:checked ~ .layout #tp1{display:block}#t2:checked ~ .layout .tnav[for="t2"]{background:var(--lav);border-color:#d9d3f2}#t2:checked ~ .layout .tnav[for="t2"] .tn-b b{color:var(--ink);font-weight:800}#t2:checked ~ .layout #tp2{display:block}#t3:checked ~ .layout .tnav[for="t3"]{background:var(--lav);border-color:#d9d3f2}#t3:checked ~ .layout .tnav[for="t3"] .tn-b b{color:var(--ink);font-weight:800}#t3:checked ~ .layout #tp3{display:block}#t4:checked ~ .layout .tnav[for="t4"]{background:var(--lav);border-color:#d9d3f2}#t4:checked ~ .layout .tnav[for="t4"] .tn-b b{color:var(--ink);font-weight:800}#t4:checked ~ .layout #tp4{display:block}#t5:checked ~ .layout .tnav[for="t5"]{background:var(--lav);border-color:#d9d3f2}#t5:checked ~ .layout .tnav[for="t5"] .tn-b b{color:var(--ink);font-weight:800}#t5:checked ~ .layout #tp5{display:block}#t6:checked ~ .layout .tnav[for="t6"]{background:var(--lav);border-color:#d9d3f2}#t6:checked ~ .layout .tnav[for="t6"] .tn-b b{color:var(--ink);font-weight:800}#t6:checked ~ .layout #tp6{display:block}#t7:checked ~ .layout .tnav[for="t7"]{background:var(--lav);border-color:#d9d3f2}#t7:checked ~ .layout .tnav[for="t7"] .tn-b b{color:var(--ink);font-weight:800}#t7:checked ~ .layout #tp7{display:block}#t8:checked ~ .layout .tnav[for="t8"]{background:var(--lav);border-color:#d9d3f2}#t8:checked ~ .layout .tnav[for="t8"] .tn-b b{color:var(--ink);font-weight:800}#t8:checked ~ .layout #tp8{display:block}#t9:checked ~ .layout .tnav[for="t9"]{background:var(--lav);border-color:#d9d3f2}#t9:checked ~ .layout .tnav[for="t9"] .tn-b b{color:var(--ink);font-weight:800}#t9:checked ~ .layout #tp9{display:block}#t10:checked ~ .layout .tnav[for="t10"]{background:var(--lav);border-color:#d9d3f2}#t10:checked ~ .layout .tnav[for="t10"] .tn-b b{color:var(--ink);font-weight:800}#t10:checked ~ .layout #tp10{display:block}#t11:checked ~ .layout .tnav[for="t11"]{background:var(--lav);border-color:#d9d3f2}#t11:checked ~ .layout .tnav[for="t11"] .tn-b b{color:var(--ink);font-weight:800}#t11:checked ~ .layout #tp11{display:block}#t12:checked ~ .layout .tnav[for="t12"]{background:var(--lav);border-color:#d9d3f2}#t12:checked ~ .layout .tnav[for="t12"] .tn-b b{color:var(--ink);font-weight:800}#t12:checked ~ .layout #tp12{display:block}#t13:checked ~ .layout .tnav[for="t13"]{background:var(--lav);border-color:#d9d3f2}#t13:checked ~ .layout .tnav[for="t13"] .tn-b b{color:var(--ink);font-weight:800}#t13:checked ~ .layout #tp13{display:block}#t14:checked ~ .layout .tnav[for="t14"]{background:var(--lav);border-color:#d9d3f2}#t14:checked ~ .layout .tnav[for="t14"] .tn-b b{color:var(--ink);font-weight:800}#t14:checked ~ .layout #tp14{display:block}#t15:checked ~ .layout .tnav[for="t15"]{background:var(--lav);border-color:#d9d3f2}#t15:checked ~ .layout .tnav[for="t15"] .tn-b b{color:var(--ink);font-weight:800}#t15:checked ~ .layout #tp15{display:block}#t16:checked ~ .layout .tnav[for="t16"]{background:var(--lav);border-color:#d9d3f2}#t16:checked ~ .layout .tnav[for="t16"] .tn-b b{color:var(--ink);font-weight:800}#t16:checked ~ .layout #tp16{display:block}#t17:checked ~ .layout .tnav[for="t17"]{background:var(--lav);border-color:#d9d3f2}#t17:checked ~ .layout .tnav[for="t17"] .tn-b b{color:var(--ink);font-weight:800}#t17:checked ~ .layout #tp17{display:block}#t18:checked ~ .layout .tnav[for="t18"]{background:var(--lav);border-color:#d9d3f2}#t18:checked ~ .layout .tnav[for="t18"] .tn-b b{color:var(--ink);font-weight:800}#t18:checked ~ .layout #tp18{display:block}#t19:checked ~ .layout .tnav[for="t19"]{background:var(--lav);border-color:#d9d3f2}#t19:checked ~ .layout .tnav[for="t19"] .tn-b b{color:var(--ink);font-weight:800}#t19:checked ~ .layout #tp19{display:block}#t20:checked ~ .layout .tnav[for="t20"]{background:var(--lav);border-color:#d9d3f2}#t20:checked ~ .layout .tnav[for="t20"] .tn-b b{color:var(--ink);font-weight:800}#t20:checked ~ .layout #tp20{display:block}#t21:checked ~ .layout .tnav[for="t21"]{background:var(--lav);border-color:#d9d3f2}#t21:checked ~ .layout .tnav[for="t21"] .tn-b b{color:var(--ink);font-weight:800}#t21:checked ~ .layout #tp21{display:block}
+
+
+/* 장전 관심종목 — 테마 하나당 박스 하나, 2열 그리드로 순위 상관없이 배치 */
+.wcols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.wcols{grid-template-columns:1fr}}
+.wbox{min-width:0;padding:9px 10px;border-radius:8px}
+.wbox.r1{background:#fffdf6;border:1px solid #f3e3bd}
+.wbox.r2{background:#fbfbfd;border:1px solid var(--line)}
+.wbt{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;padding-bottom:6px;
+ border-bottom:1px solid rgba(0,0,0,.06)}
+.wbt b{font-size:12px;font-weight:800;color:var(--ink)}
+.wbox.r1 .wbt b{color:#b8730d}
+.wbt span{font-size:9px;color:#9a9eb0;line-height:1.35}
+.wempty{margin:0;font-size:11px;color:#a8abb8}
+.wno{font-style:normal;font-size:8.5px;font-weight:700;padding:1px 4px;border-radius:3px;
+ background:#f0f0f4;color:#8a8fa0}
+.wgh{display:flex;align-items:center;gap:6px;padding-bottom:5px;margin-bottom:4px;
+ border-bottom:1px solid var(--line)}
+.wgh b{font-size:12px;color:var(--ink)}
+.wgh em{font-style:normal;font-size:9.5px;color:#9a9eb0;margin-left:auto;
+ font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
+.wl li{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:baseline;
+ font-size:11.5px;padding:2px 0}
+.wl li.top{background:#fffdf6;margin:0 -6px;padding:3px 6px;border-radius:5px}
+.wn{color:#4a4d5e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wl li.top .wn{color:var(--ink);font-weight:700}
+.wn b{display:inline-block;margin-left:5px;font-size:8.5px;font-weight:800;padding:1px 4px;
+ border-radius:3px;background:var(--warn);color:#3a2600;vertical-align:1px}
+.wp{font-variant-numeric:tabular-nums;white-space:nowrap;min-width:52px;text-align:right}
+.wv{font-variant-numeric:tabular-nums;color:#9a9eb0;font-size:10.5px;min-width:52px;
+ text-align:right;white-space:nowrap}
+
+/* ── 본문: 3열 ── */
+.main{flex:1;min-width:0;padding:18px 20px 56px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;
+ margin-bottom:14px}
+.top h1{font-size:18px;font-weight:800}
+.top .meta{font-size:11px;color:var(--mut);text-align:right;font-variant-numeric:tabular-nums}
+
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+@media(max-width:1240px){.cols{grid-template-columns:1fr}}
+@media(max-width:900px){.layout{display:block}
+ .side{position:static;width:auto;flex:none;max-height:none;border-right:0;
+  border-bottom:1px solid var(--line)}
+ .cal td .d{width:30px;height:30px;font-size:13px}
+ .main{padding:16px 14px 48px}}
+.col{min-width:0;display:flex;flex-direction:column;gap:10px}
+.colh{position:sticky;top:0;z-index:2;background:var(--bg);padding:2px 0 9px;
+ border-bottom:2px solid var(--ink);margin-bottom:2px}
+.colh h2{font-size:14.5px;font-weight:800;display:flex;align-items:baseline;gap:7px}
+.colh h2 span{font-size:10.5px;font-weight:500;color:var(--mut)}
+.colh.c2{border-bottom-color:#a3336a} .colh.c3{border-bottom-color:#8478d3}
+
+.card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--ac,#4c3d95);
+ border-radius:9px;padding:13px 14px}
+.card-h{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.card-h h3{font-size:12.5px;font-weight:700;flex:1;min-width:0;overflow:hidden;
+ text-overflow:ellipsis;white-space:nowrap}
+.card-h small{color:var(--mut);font-size:10px}
+.badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;white-space:nowrap}
+.badge.a{background:#e9e6f8;color:#4c3d95} .badge.b{background:#fbe6ee;color:#a3336a}
+.badge.c{background:#e4f0e8;color:#2f6b45} .badge.w{background:#f0f0f4;color:#8a8fa0}
+.badge.d{background:#1c1b2e;color:#fff}
+
+.k7{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.k7 th{font-size:9.5px;font-weight:600;color:#9a9eb0;text-align:left;padding:0 0 6px;
+ border-bottom:1px solid var(--line)}
+.k7 th.pc,.k7 th.vl{text-align:right}
+.k7 td{font-size:11.5px;padding:5px 0;border-bottom:1px solid #f2f2f7}
+.k7 tr:last-child td{border-bottom:0}
+.k7 td.nm{color:#4a4d5e;white-space:nowrap;width:1%}
+.k7 td.pc{text-align:right;padding-right:8px;white-space:nowrap}
+.k7 td.vl{text-align:right;color:var(--ink);font-weight:650;white-space:nowrap;padding-right:8px}
+.k7 th.th{text-align:left;padding-left:2px}
+.k7 td.th{font-size:10px;color:#6b6f80;white-space:nowrap;padding-left:2px}
+.k7 td.th span{display:inline-block;width:6px;height:6px;border-radius:2px;margin-right:4px;
+ vertical-align:1px}
+.k7 tr.lead td{background:#fbfaff}
+.k7 tr.lead td.nm{color:var(--ink);font-weight:650}
+.lead-mark{display:inline-block;margin-left:5px;font-size:9px;font-weight:800;padding:1px 4px;
+ border-radius:3px;background:var(--ink);color:#fff;vertical-align:1px}
+
+.verdict{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:11px;padding:9px 10px;
+ background:#fffdf6;border:1px solid #f3e3bd;border-radius:8px}
+.verdict.none{background:#fafafc;border-color:var(--line)}
+.vlbl{font-size:9.5px;font-weight:800;letter-spacing:.06em;color:#b8730d;margin-right:2px}
+.verdict.none .vlbl{color:#9a9eb0}
+.lchip{display:inline-flex;align-items:baseline;gap:5px;font-size:11px;padding:3px 8px;
+ border-radius:99px;background:#fff;border:1px solid var(--c,#d8d8e4);
+ border-left:3px solid var(--c,#d8d8e4)}
+.lchip i{font-style:normal;font-size:9.5px;color:#9a9eb0}
+.lchip b{font-size:11px;color:var(--ink);font-weight:700}
+.lchip.none{color:var(--mut);border-color:var(--line);border-left-color:var(--line)}
+
+.card.hide{display:none}
+.slot{border-left-color:#d8d8e4;border-style:dashed;background:#fbfbfd}
+.slotlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.slotlist li{font-size:11.5px;color:#8a8fa0;padding-left:16px;position:relative;line-height:1.5}
+.slotlist li::before{content:"";position:absolute;left:0;top:6px;width:8px;height:8px;border-radius:2px;
+ border:1.5px dashed #c6c6d4}
+
+/* 지수 리스트 */
+.idxl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.idxl li{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:baseline;
+ font-size:12.5px}
+.idxl li>span:first-child{color:var(--mut)}
+.idxl li b{font-variant-numeric:tabular-nums;font-weight:700;font-size:14px}
+.idxl .gap{font-style:normal;font-size:10px;color:#a8abb8;font-variant-numeric:tabular-nums;
+ border:1px solid var(--line);border-radius:99px;padding:1px 5px}
+
+.kv{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.kv li{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:baseline;font-size:12px}
+.kv li>span:first-child{color:var(--mut)} .kv li b{font-variant-numeric:tabular-nums;font-weight:650}
+.kv li.hot{background:#fff8ec;margin:0 -7px;padding:3px 7px;border-radius:5px}
+.kv li.hot>span:first-child{color:#b8730d;font-weight:600}
+
+.hbars{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.hbars li{display:grid;grid-template-columns:minmax(0,96px) 1fr auto;align-items:center;gap:7px}
+.hb-n{font-size:11px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+ color:#4a4d5e}
+.hb-n em{font-style:normal;color:#9a9eb0;font-size:10px}
+.hb-t{position:relative;min-width:0}
+.hb-t i{display:block;height:14px;border-radius:3px;min-width:2px}
+.hb-t.zero{background:linear-gradient(90deg,transparent 49.6%,#e0e0ec 49.6%,#e0e0ec 50.4%,transparent 50.4%);
+ height:14px;border-radius:3px}
+.hb-t.zero i{position:absolute;top:0}
+.hb-p{font-size:10.5px;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;
+ min-width:46px}
+
+.gname{display:flex;align-items:center;gap:5px;font-size:11.5px;overflow:hidden;
+ text-overflow:ellipsis;white-space:nowrap}
+.gname i{width:8px;height:8px;border-radius:2px;flex:none}
+.gname em{font-style:normal;color:#9a9eb0;font-size:10px;margin-left:auto;padding-left:4px}
+
+.stks{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stkcol{background:#fbfbfd;border:1px solid var(--line);border-radius:8px;padding:9px 10px}
+.stkh{display:flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;margin-bottom:6px;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dot{width:6px;height:6px;border-radius:50%;flex:none}
+.stkl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.stkl li{display:grid;grid-template-columns:1fr auto;gap:6px;font-size:10.5px;align-items:baseline}
+.stkl li span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.ovs{display:flex;flex-direction:column;gap:8px}
+.ov{background:#fbfbfd;border:1px solid var(--line);border-radius:8px;padding:10px 11px;
+ border-left:3px solid #d8d8e4}
+.ov.hi{border-left-color:var(--warn);background:#fffdf8}
+.ov.neg{border-left-color:var(--down)} .ov.lo{opacity:.7}
+.ov-h{display:flex;align-items:center;gap:6px;margin-bottom:6px} .ov-h b{font-size:12px}
+.lvl{margin-left:auto;font-size:9.5px;font-weight:700;padding:1px 7px;border-radius:99px;
+ background:#f0eef8;color:#6f61c4}
+.lvl.hi{background:var(--warn);color:#3a2600} .lvl.neg{background:#e4eefb;color:#1f6fdc}
+.lvl.lo{background:#f0f0f4;color:#8a8fa0}
+.ov-b{margin:0;display:flex;flex-direction:column;gap:5px}
+.ov-b dt{font-size:9.5px;color:#9a9eb0;font-weight:700;letter-spacing:.04em;display:inline}
+.ov-b dd{margin:1px 0 0;font-size:11px;line-height:1.5}
+.note{margin:8px 0 0;font-size:10.5px;color:var(--mut);line-height:1.55}
+
+.arts{list-style:none;margin:0;padding:0}
+.arts li{display:grid;grid-template-columns:auto 1fr;gap:8px;padding:7px 0;
+ border-bottom:1px solid var(--line);font-size:11.5px;align-items:baseline}
+.arts li:last-child{border-bottom:0}
+.arts time{font-size:10px;color:#6f61c4;font-weight:700;font-variant-numeric:tabular-nums;
+ white-space:nowrap}
+.arts em{grid-column:2;font-style:normal;font-size:9.5px;color:#9a9eb0}
+.late{margin:8px 0 0;padding-left:15px;font-size:10.5px;color:var(--mut);line-height:1.6}
+
+.watch{margin:0;padding-left:16px;display:flex;flex-direction:column;gap:8px;font-size:11.5px;
+ line-height:1.65}
+.watch li::marker{color:#b0a8ea}
+.cns{display:flex;flex-direction:column;gap:10px}
+.cn{border:1px solid var(--line);border-left:3px solid #e0d8ec;border-radius:8px;padding:10px 11px;
+ background:#fbfbfd}
+.cn-h{display:flex;align-items:baseline;gap:7px;margin-bottom:5px}
+.cn-h b{font-size:12.5px;color:var(--ink)}
+.tag{font-style:normal;font-size:9px;font-weight:800;padding:1px 6px;border-radius:20px;
+ margin-left:auto;background:var(--c);color:#fff}
+.cn-w{margin:0 0 7px;font-size:11px;line-height:1.55}
+.cn-k{display:flex;align-items:baseline;gap:6px;margin-bottom:5px}
+.cn-lbl{font-size:9px;font-weight:800;color:#9a9eb0;letter-spacing:.06em}
+.cn-th{font-size:10.5px;color:var(--ink);font-weight:700}
+.krs{display:flex;flex-wrap:wrap;gap:4px}
+.krchip{font-size:10.5px;padding:2px 8px;border-radius:20px;background:#f2f2f7;color:#8a8fa0;
+ border:1px solid transparent}
+.krchip.on{background:#fffdf6;border-color:#f3e3bd;color:var(--ink);font-weight:700}
+.cn .note{margin-top:7px;padding-top:6px;border-top:1px dashed var(--line)}
+.vds{display:flex;flex-direction:column;gap:9px}
+.vd{border:1px solid var(--line);border-left:3px solid #c9ccd8;border-radius:7px;padding:9px 11px;background:#fbfbfd}
+.vd.hit{border-left-color:#d13b3b;background:#fefaf9}
+.vd.miss{border-left-color:#1f6fdc;background:#f8fafe}
+.vd-h{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.vd-h b{font-size:12px}
+.vb{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:20px;letter-spacing:.02em;
+  background:#eceef4;color:#6b7080}
+.vb.hit{background:#fbe4e2;color:#b8302f}.vb.miss{background:#e2ecfb;color:#1a5cb8}
+.vd-b{margin:0;display:flex;flex-direction:column;gap:4px}
+.vd-b>div{display:grid;grid-template-columns:30px 1fr;gap:8px}
+.vd-b dt{font-size:9.5px;color:var(--mut);padding-top:1px}
+.vd-b dd{margin:0;font-size:11px;line-height:1.55}
+.vd .note{margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
+.wv{font-size:9.5px;color:#a8abb8;font-variant-numeric:tabular-nums;text-align:right;
+  white-space:nowrap;min-width:44px}
+.hbars li:has(.wv){grid-template-columns:82px 1fr 52px 46px}
+.k7 td.rn,.k7 th.rn{width:1%;text-align:center;color:#a8abb8;font-size:10px;
+  font-variant-numeric:tabular-nums;padding-right:2px}
+.k7.tgt tr.tgh td{padding:8px 6px 6px;background:#f7f6fc;border-top:1px solid var(--line);
+  border-bottom:0}
+.k7.tgt tr.tgh:first-child td{border-top:0}
+.tg-h{display:flex;align-items:center;gap:6px}
+.tg-h b{font-size:11.5px}
+.tg-h i{font-style:normal;font-size:9.5px;color:var(--mut);font-variant-numeric:tabular-nums;
+  margin-left:auto}
+.tg-n{margin:3px 0 0;font-size:10px;color:#9a9eb0;line-height:1.4}
+.k7.sm td{padding:4px 5px;font-size:10.5px}
+/* 고점대비 — 120일 최고종가 대비 위치. 신고가권(-5% 이내)은 초록으로 세운다.
+   등락률 색(빨강/파랑) 규칙과 섞이면 안 되므로 회색 계열을 쓴다. */
+.k7 td.gp{text-align:right;font-size:10px;color:#8a8e9c;white-space:nowrap;
+  width:1%;padding-left:8px}
+.k7 td.gp.new{color:#0b8a4b;font-weight:700}
+.tg-h em.gp{background:#eef0f4;color:#6b6f80}
+.live{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;
+ background:#fff5f5;border:1px solid #f5cfcf}
+.live b{font-size:11.5px;color:#b8302f;white-space:nowrap}
+.live span:last-child{font-size:10px;color:#8a7070;line-height:1.45}
+.dot-l{width:7px;height:7px;border-radius:50%;background:#e0374a;flex:none}
+.pending{text-align:center;padding:34px 16px;background:var(--panel);border:1px dashed #d8d8e4;
+ border-radius:10px}
+.pending .ic{font-size:26px;margin-bottom:8px}
+.pending b{display:block;font-size:13px;margin-bottom:4px}
+.pending p{margin:0;font-size:11px;color:var(--mut)}
+footer{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);font-size:10.5px;
+ color:var(--mut);line-height:1.75}
+footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
+</style>
+</head>
+<body>
+
+<input class="pgin" type="radio" name="th" id="t0" checked><input class="pgin" type="radio" name="th" id="t1"><input class="pgin" type="radio" name="th" id="t2"><input class="pgin" type="radio" name="th" id="t3"><input class="pgin" type="radio" name="th" id="t4"><input class="pgin" type="radio" name="th" id="t5"><input class="pgin" type="radio" name="th" id="t6"><input class="pgin" type="radio" name="th" id="t7"><input class="pgin" type="radio" name="th" id="t8"><input class="pgin" type="radio" name="th" id="t9"><input class="pgin" type="radio" name="th" id="t10"><input class="pgin" type="radio" name="th" id="t11"><input class="pgin" type="radio" name="th" id="t12"><input class="pgin" type="radio" name="th" id="t13"><input class="pgin" type="radio" name="th" id="t14"><input class="pgin" type="radio" name="th" id="t15"><input class="pgin" type="radio" name="th" id="t16"><input class="pgin" type="radio" name="th" id="t17"><input class="pgin" type="radio" name="th" id="t18"><input class="pgin" type="radio" name="th" id="t19"><input class="pgin" type="radio" name="th" id="t20"><input class="pgin" type="radio" name="th" id="t21">
+<div class="layout">
+<aside class="side">
+  <div class="logo">일일<em>시황</em></div>
+  <div class="logo-s">DAILY MARKET</div>
+
+  <details class="calm"><summary class="calm-h">2026년 8월<span class="calm-tg"></span></summary><table class="cal"><tr><th class="">월</th><th class="">화</th><th class="">수</th><th class="">목</th><th class="">금</th><th class="wk">토</th><th class="wk">일</th></tr><tr><td class="off"></td><td class="off"></td><td class="off"></td><td class="off"></td><td class="off"></td><td class="wk none"><span class="d">1</span></td><td class="wk none"><span class="d">2</span></td></tr><tr><td class=" none"><span class="d">3</span></td><td class=" none"><span class="d">4</span></td><td class=" none"><span class="d">5</span></td><td class=" none"><span class="d">6</span></td><td class=" none"><span class="d">7</span></td><td class="wk none"><span class="d">8</span></td><td class="wk none"><span class="d">9</span></td></tr><tr><td class=" none"><span class="d">10</span></td><td class=" none"><span class="d">11</span></td><td class=" none"><span class="d">12</span></td><td class=" none"><span class="d">13</span></td><td class=" none"><span class="d">14</span></td><td class="wk none"><span class="d">15</span></td><td class="wk none"><span class="d">16</span></td></tr><tr><td class=" none"><span class="d">17</span></td><td class=" none"><span class="d">18</span></td><td class=" none"><span class="d">19</span></td><td class=" none"><span class="d">20</span></td><td class=" none"><span class="d">21</span></td><td class="wk none"><span class="d">22</span></td><td class="wk none"><span class="d">23</span></td></tr><tr><td class=" none"><span class="d">24</span></td><td class=" none"><span class="d">25</span></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-08-26.html"><span class="d">26</span></a></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-08-27.html"><span class="d">27</span></a></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-08-28.html"><span class="d">28</span></a></td><td class="wk none"><span class="d">29</span></td><td class="wk none"><span class="d">30</span></td></tr><tr><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-08-31.html"><span class="d">31</span></a></td><td class="off"></td><td class="off"></td><td class="off"></td><td class="off"></td><td class="off"></td><td class="off"></td></tr></table></details><details class="calm" open><summary class="calm-h">2026년 9월<span class="calm-tg"></span></summary><table class="cal"><tr><th class="">월</th><th class="">화</th><th class="">수</th><th class="">목</th><th class="">금</th><th class="wk">토</th><th class="wk">일</th></tr><tr><td class="off"></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-01.html"><span class="d">1</span></a></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-02.html"><span class="d">2</span></a></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-03.html"><span class="d">3</span></a></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-04.html"><span class="d">4</span></a></td><td class="wk none"><span class="d">5</span></td><td class="wk none"><span class="d">6</span></td></tr><tr><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-07.html"><span class="d">7</span></a></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-08.html"><span class="d">8</span></a></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-09.html"><span class="d">9</span></a></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-10.html"><span class="d">10</span></a></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-11.html"><span class="d">11</span></a></td><td class="wk none"><span class="d">12</span></td><td class="wk none"><span class="d">13</span></td></tr><tr><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-14.html"><span class="d">14</span></a></td><td class="has"><a class="dl" href="https://market-daily-git.vercel.app/days/2026-09-15.html"><span class="d">15</span></a></td><td class="has today"><a class="dl" href="https://market-daily-git.vercel.app/"><span class="d">16</span></a></td><td class=" none"><span class="d">17</span></td><td class=" none"><span class="d">18</span></td><td class="wk none"><span class="d">19</span></td><td class="wk none"><span class="d">20</span></td></tr><tr><td class=" none"><span class="d">21</span></td><td class=" none"><span class="d">22</span></td><td class=" none"><span class="d">23</span></td><td class=" none"><span class="d">24</span></td><td class=" none"><span class="d">25</span></td><td class="wk none"><span class="d">26</span></td><td class="wk none"><span class="d">27</span></td></tr><tr><td class=" none"><span class="d">28</span></td><td class=" none"><span class="d">29</span></td><td class=" none"><span class="d">30</span></td><td class="off"></td><td class="off"></td><td class="off"></td><td class="off"></td></tr></table></details>
+  <div class="callg"><span><i style="background:var(--ink)"></i>오늘</span>
+    <span><i style="background:#efedfa"></i>데이터 있음</span></div>
+  <p class="calnote">진한 날짜를 <b>누르면 그날 시황으로</b> 이동한다.
+    최신 날짜는 첫 화면(index)이고, 지난 날짜는 아카이브 페이지다.</p>
+
+  <hr>
+  <div class="slbl">테마 22</div>
+  <nav class="tnavs"><div class="titem"><label for="t0" class="tnav"><span class="tn-c" style="background:#2e1f5e"></span><span class="tn-b"><b>광통신</b></span></label><div class="tpan" id="tp0"><ul class="slist"><li class=""><span class="sn">우리로</span></li><li class=""><span class="sn">RF머트리얼즈</span></li><li class=""><span class="sn">광전자</span></li><li class=""><span class="sn">대한광통신★</span></li><li class=""><span class="sn">빛과전자★</span></li><li class=""><span class="sn">기가레인</span></li></ul></div></div><div class="titem"><label for="t1" class="tnav"><span class="tn-c" style="background:#4c3d95"></span><span class="tn-b"><b>반도체소부장</b></span></label><div class="tpan" id="tp1"><ul class="slist"><li class=""><span class="sn">해치텍</span></li><li class=""><span class="sn">디아이</span></li><li class=""><span class="sn">티에스이</span></li><li class=""><span class="sn">한빛레이저</span></li><li class=""><span class="sn">심텍</span></li><li class=""><span class="sn">원익IPS</span></li><li class=""><span class="sn">테스</span></li><li class=""><span class="sn">DB하이텍★</span></li><li class=""><span class="sn">와이씨</span></li><li class=""><span class="sn">필옵틱스</span></li><li class=""><span class="sn">대덕전자</span></li><li class=""><span class="sn">티엘비</span></li><li class=""><span class="sn">HPSP</span></li><li class=""><span class="sn">LG이노텍</span></li><li class=""><span class="sn">주성엔지니어링★</span></li><li class=""><span class="sn">한미반도체</span></li></ul></div></div><div class="titem"><label for="t2" class="tnav"><span class="tn-c" style="background:#5b4cb0"></span><span class="tn-b"><b>반도체대형주</b></span></label><div class="tpan" id="tp2"><ul class="slist"><li class=""><span class="sn">삼성전기★</span></li><li class=""><span class="sn">SK하이닉스★</span></li><li class=""><span class="sn">삼성전자★</span></li><li class=""><span class="sn">SK스퀘어★</span></li><li class=""><span class="sn">LG이노텍</span></li><li class=""><span class="sn">삼성전자우</span></li><li class=""><span class="sn">주성엔지니어링</span></li></ul></div></div><div class="titem"><label for="t3" class="tnav"><span class="tn-c" style="background:#6f61c4"></span><span class="tn-b"><b>원전</b></span></label><div class="tpan" id="tp3"><ul class="slist"><li class=""><span class="sn">삼미금속</span></li><li class=""><span class="sn">오르비텍</span></li><li class=""><span class="sn">SNT에너지</span></li><li class=""><span class="sn">비에이치아이</span></li><li class=""><span class="sn">한전산업</span></li><li class=""><span class="sn">태웅</span></li><li class=""><span class="sn">현대건설</span></li><li class=""><span class="sn">지투파워</span></li><li class=""><span class="sn">한전기술</span></li><li class=""><span class="sn">한국전력</span></li><li class=""><span class="sn">우리기술</span></li><li class=""><span class="sn">대우건설</span></li><li class=""><span class="sn">두산에너빌리티★</span></li></ul></div></div><div class="titem"><label for="t4" class="tnav"><span class="tn-c" style="background:#8478d3"></span><span class="tn-b"><b>보안</b></span></label><div class="tpan" id="tp4"><ul class="slist"><li class=""><span class="sn">에스투더블유</span></li><li class=""><span class="sn">샌즈랩</span></li><li class=""><span class="sn">드림시큐리티</span></li><li class=""><span class="sn">엑스게이트★</span></li></ul></div></div><div class="titem"><label for="t5" class="tnav"><span class="tn-c" style="background:#a99ce8"></span><span class="tn-b"><b>방산</b></span></label><div class="tpan" id="tp5"><ul class="slist"><li class=""><span class="sn">한화에어로스페이스★</span></li></ul></div></div><div class="titem"><label for="t6" class="tnav"><span class="tn-c" style="background:#2e1f5e"></span><span class="tn-b"><b>금융</b></span></label><div class="tpan" id="tp6"><ul class="slist"><li class=""><span class="sn">KB금융★</span></li></ul></div></div><div class="titem"><label for="t7" class="tnav"><span class="tn-c" style="background:#4c3d95"></span><span class="tn-b"><b>MLCC</b></span></label><div class="tpan" id="tp7"><ul class="slist"><li class=""><span class="sn">아모텍</span></li><li class=""><span class="sn">삼화콘덴서</span></li><li class=""><span class="sn">한켐</span></li><li class=""><span class="sn">삼성전기</span></li></ul></div></div><div class="titem"><label for="t8" class="tnav"><span class="tn-c" style="background:#5b4cb0"></span><span class="tn-b"><b>ESS</b></span></label><div class="tpan" id="tp8"><ul class="slist"><li class="top"><span class="sn">삼성SDI<b>주도주</b></span></li><li class=""><span class="sn">한중엔시에스</span></li><li class=""><span class="sn">엘앤에프</span></li><li class=""><span class="sn">SK이노베이션</span></li><li class=""><span class="sn">포스코퓨처엠</span></li><li class=""><span class="sn">에코프로</span></li></ul></div></div><div class="titem"><label for="t9" class="tnav"><span class="tn-c" style="background:#6f61c4"></span><span class="tn-b"><b>2차전지</b></span></label><div class="tpan" id="tp9"><ul class="slist"><li class="top"><span class="sn">삼성SDI<b>주도주</b></span></li><li class=""><span class="sn">엘앤에프</span></li><li class=""><span class="sn">SK이노베이션</span></li><li class=""><span class="sn">에코프로</span></li><li class=""><span class="sn">피노</span></li></ul></div></div><div class="titem"><label for="t10" class="tnav"><span class="tn-c" style="background:#8478d3"></span><span class="tn-b"><b>중동전쟁</b></span></label><div class="tpan" id="tp10"><ul class="slist"><li class=""><span class="sn">흥구석유</span></li><li class=""><span class="sn">한국석유</span></li><li class=""><span class="sn">흥아해운</span></li><li class=""><span class="sn">SK이노베이션</span></li><li class=""><span class="sn">STX그린로지스</span></li></ul></div></div><div class="titem"><label for="t11" class="tnav"><span class="tn-c" style="background:#a99ce8"></span><span class="tn-b"><b>중동재건</b></span></label><div class="tpan" id="tp11"><ul class="slist"><li class="top"><span class="sn">현대건설<b>주도주</b></span></li><li class=""><span class="sn">전진건설로봇</span></li><li class=""><span class="sn">대우건설</span></li><li class=""><span class="sn">GS건설</span></li></ul></div></div><div class="titem"><label for="t12" class="tnav"><span class="tn-c" style="background:#2e1f5e"></span><span class="tn-b"><b>신규상장</b></span></label><div class="tpan" id="tp12"><ul class="slist"><li class=""><span class="sn">스카이랩스</span></li><li class=""><span class="sn">해치텍</span></li><li class=""><span class="sn">레메디</span></li><li class=""><span class="sn">매드업</span></li><li class=""><span class="sn">니어스랩</span></li><li class=""><span class="sn">케이앤에스아이앤씨</span></li><li class=""><span class="sn">인제니아테라퓨틱스(R</span></li><li class=""><span class="sn">마키나락스</span></li></ul></div></div><div class="titem"><label for="t13" class="tnav"><span class="tn-c" style="background:#4c3d95"></span><span class="tn-b"><b>송배전</b></span></label><div class="tpan" id="tp13"><ul class="slist"><li class=""><span class="sn">가온전선</span></li><li class=""><span class="sn">지엔씨에너지</span></li><li class=""><span class="sn">대한전선</span></li><li class=""><span class="sn">효성중공업</span></li><li class=""><span class="sn">HD현대일렉트릭</span></li><li class=""><span class="sn">LS ELECTRIC</span></li><li class=""><span class="sn">산일전기</span></li></ul></div></div><div class="titem"><label for="t14" class="tnav"><span class="tn-c" style="background:#5b4cb0"></span><span class="tn-b"><b>로봇</b></span></label><div class="tpan" id="tp14"><ul class="slist"><li class=""><span class="sn">원익홀딩스</span></li><li class=""><span class="sn">나무가</span></li><li class=""><span class="sn">케이엔알시스템</span></li><li class=""><span class="sn">삼현</span></li><li class=""><span class="sn">티엑스알로보틱스</span></li><li class=""><span class="sn">현대글로비스</span></li><li class=""><span class="sn">LG전자</span></li><li class=""><span class="sn">에스피지</span></li><li class=""><span class="sn">로보티즈</span></li><li class=""><span class="sn">원익</span></li><li class=""><span class="sn">현대차</span></li></ul></div></div><div class="titem"><label for="t15" class="tnav"><span class="tn-c" style="background:#6f61c4"></span><span class="tn-b"><b>조선/기자재</b></span></label><div class="tpan" id="tp15"><ul class="slist"><li class="top"><span class="sn">삼성중공업<b>주도주</b></span></li><li class=""><span class="sn">SK오션플랜트</span></li><li class=""><span class="sn">한화오션</span></li><li class=""><span class="sn">HD현대중공업</span></li></ul></div></div><div class="titem"><label for="t16" class="tnav"><span class="tn-c" style="background:#8478d3"></span><span class="tn-b"><b>K뷰티</b></span></label><div class="tpan" id="tp16"><ul class="slist"><li class=""><span class="sn">한국화장품제조</span></li><li class=""><span class="sn">한국콜마</span></li><li class=""><span class="sn">실리콘투</span></li><li class=""><span class="sn">한국화장품</span></li><li class=""><span class="sn">아로마티카</span></li><li class=""><span class="sn">에이피알</span></li></ul></div></div><div class="titem"><label for="t17" class="tnav"><span class="tn-c" style="background:#a99ce8"></span><span class="tn-b"><b>호남반도체공장</b></span></label><div class="tpan" id="tp17"><ul class="slist"><li class=""><span class="sn">동양파일</span></li><li class=""><span class="sn">서산</span></li><li class=""><span class="sn">강동씨앤엘</span></li><li class=""><span class="sn">남화토건</span></li><li class=""><span class="sn">금호전기</span></li><li class=""><span class="sn">금호건설</span></li><li class=""><span class="sn">금호타이어</span></li></ul></div></div><div class="titem"><label for="t18" class="tnav"><span class="tn-c" style="background:#2e1f5e"></span><span class="tn-b"><b>탈모치료</b></span></label><div class="tpan" id="tp18"><ul class="slist"><li class="top"><span class="sn">현대약품<b>주도주</b></span></li><li class=""><span class="sn">JW신약</span></li><li class=""><span class="sn">바이오니아</span></li></ul></div></div><div class="titem"><label for="t19" class="tnav"><span class="tn-c" style="background:#4c3d95"></span><span class="tn-b"><b>알래스카LNG</b></span></label><div class="tpan" id="tp19"><ul class="slist"><li class=""><span class="sn">신스틸</span></li><li class=""><span class="sn">금강철강</span></li><li class=""><span class="sn">삼성중공업</span></li><li class=""><span class="sn">TCC스틸</span></li></ul></div></div><div class="titem"><label for="t20" class="tnav"><span class="tn-c" style="background:#5b4cb0"></span><span class="tn-b"><b>스테이블코인</b></span></label><div class="tpan" id="tp20"><ul class="slist"><li class=""><span class="sn">쿠콘</span></li><li class=""><span class="sn">헥토파이낸셜</span></li><li class=""><span class="sn">한화투자증권</span></li><li class=""><span class="sn">우리기술투자</span></li><li class=""><span class="sn">더즌</span></li></ul></div></div><div class="titem"><label for="t21" class="tnav"><span class="tn-c" style="background:#6f61c4"></span><span class="tn-b"><b>대북주</b></span></label><div class="tpan" id="tp21"><ul class="slist"><li class=""><span class="sn">코데즈컴바인</span></li><li class=""><span class="sn">아난티</span></li></ul></div></div></nav>
+  <p class="calnote">최근 3거래일 안에 <b>성립</b>한 횟수가 많은 테마가 위로 온다.
+    테마를 누르면 구성 종목이 펼쳐진다 — <b>주도주 먼저, 그다음 상승률 순</b>.</p>
+</aside>
+
+<main class="main">
+  <div class="top">
+    <h1>9/16(수) 시황</h1>
+    <div class="meta">작성 2026-09-16 07:1x KST</div>
+  </div>
+
+  <div class="cols">
+
+  <!-- ═══ ① 전일 시황 ═══ -->
+  <div class="col">
+    <div class="colh"><h2>① 전일 시황 <span>9/15(화) 마감</span></h2></div>
+
+    <article class="card" style="--ac:#4c3d95">
+      <div class="card-h"><span class="badge a">지수</span><h3>코스피 · 코스닥 등락률</h3></div>
+      <ul class="idxl"><li><span>코스피</span><b>6,627.26</b><span class="down">-0.85%</span><i class="gap">-27%</i></li><li><span>코스닥</span><b>812.41</b><span class="up">+0.70%</span><i class="gap">-34%</i></li><li><span>코스피200</span><b>1,042.46</b><span class="down">-0.80%</span><i class="gap">-29%</i></li></ul>
+      <p class="note">우측 회색 배지는 120일 고점 대비 위치. 신고가 트리거는
+        미발동.
+        주간선물 1,039.80 (-8.60, <span class="down">-0.82%</span>).<br>
+        eSignal 주간선물 16:0x 수집 (갱신시간 15:45) — <b>종가 1,039.80(−8.60, −0.82%)</b>, <b>시가 1,047.75</b>. 1,048.40 − 8.60 = 1,039.80으로 <b>내부 일관성 확인</b>했다. 고/저는 차트에만 있어 미확보.<br><b>갭 = 시가 1,047.75 vs 전일 종가 1,048.40 = −0.06%</b> — 사실상 보합 출발이다. 현물 코스피200도 <b>시가 1,047.75 vs 전일 종가 1,050.83 = −0.29%</b>로 같은 방향이다.<br><b>두 값이 1,047.75로 소수점까지 똑같다 — 우연일 수도, Yahoo ^KS200 시가가 선물값을 물고 온 것일 수도 있다.</b> 확인할 방법이 없어 <b>맞추지 않고 불일치 가능성만 적어 둔다</b>.<br><b>오늘의 핵심 숫자</b> — 아침 야간선물이 1,028.80(<b>−1.87%</b>)이었는데 실제 주간선물 시가 갭은 <b>−0.06%</b>다. <b>1.81%p가 또 아침 이후에 되돌았다</b>. 어제(3.41%p)에 이어 <b>이틀 연속</b>이다.</p>
+    </article>
+
+    
+    <article class="card" style="--ac:#1c1b2e">
+      <div class="card-h"><span class="badge d">[0186] 거래대금상위(통합) 화면 정본. 2026-09-15에 사용자가 [0186]과 [0177]을 나란히 캡처해 두 화면이 다르다는 걸 확인했다 — [0177] 특정일자 상한가/하한가는 &#x27;상승&#x27; 라디오를 켜면 오르는 종목만 나오는 조회창이라 정본으로 쓸 수 없고, 방향 필터가 없는 [0186] 거래대금상위가 정본이다(판정 규칙 6 정정, 스킬 반영 완료). 9/14 16:0x 마감 당시엔 이 캡처가 없어 보류했던 상위10·테마 성립·주도주 판정을 여기서 소급 확정한다.</span><h3>거래대금순 상위 10 (양봉) · 주도주</h3>
+        <small>[0186] 거래대금상위 정본 (소급)</small></div>
+      <div class="verdict"><span class="vlbl">주도 테마</span></div>
+      <table class="k7"><thead><tr><th class="rn">#</th><th>종목</th><th class="pc">등락률</th>
+        <th class="vl">거래대금(억)</th><th class="th">테마</th></tr></thead><tbody><tr class=""><td class="rn">1</td><td class="nm">빛과전자</td><td class="pc"><span class="up">+12.53%</span></td><td class="vl">3,452</td><td class="th"><span style="background:#5b4cb0"></span>광통신</td></tr><tr class=""><td class="rn">2</td><td class="nm">엑스게이트</td><td class="pc"><span class="up">+6.97%</span></td><td class="vl">2,919</td><td class="th"><span style="background:#6f61c4"></span>보안</td></tr><tr class=""><td class="rn">3</td><td class="nm">한화에어로스페이스</td><td class="pc"><span class="up">+4.72%</span></td><td class="vl">2,844</td><td class="th"><span style="background:#8478d3"></span>방산</td></tr></tbody></table>
+      <p class="note"><b>판정 규칙</b> · 거래대금 상위 10(양봉만, 음봉 제외) 안에 같은 테마 2종목 이상이면 테마 성립,
+        그 안 거래대금 1위 딱 하나가 주도주.
+        미달 — 광통신(1), 보안(1), 방산(1).<br>
+        캡처 시각 · 2026-09-15 아침 사용자 캡처 ([0186] 거래대금상위(통합) — 9/14치 소급 확정)<br>
+        <b>주의</b> · 16:20 자동 세션엔 캡처가 없어 '오늘 없음'으로 남겨뒀다가, 9/15 아침에 사용자가 준 정정 캡처로 채웠다. 우선주(삼성전자우, 5위·5,935억)는 순위표엔 표기하되 테마 성립 판정에서는 제외.</p>
+    </article>
+
+    <article class="card" style="--ac:#5b4cb0">
+      <div class="card-h"><span class="badge a">세부</span><h3>테마별 종목</h3></div>
+      <table class="k7 tgt"><tbody><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#2e1f5e"></span><b>반도체</b><i>185,795억</i><em class="gp">고점대비 -41% · 신고가권 0/4</em></div><p class="tg-n">AI 개발 속도조절론 + 외국인 유가증권시장 1조5,000억 순매도가 대형주에 집중됐다(watch 참고).</p></td></tr><tr class=""><td class="nm">삼성전자</td><td class="pc"><span class="down">-4.24%</span></td><td class="px">248,500</td><td class="vl">66,427</td><td class="gp">-31%</td></tr><tr class=""><td class="nm">삼성전기</td><td class="pc"><span class="down">-5.57%</span></td><td class="px">1,322,000</td><td class="vl">9,199</td><td class="gp">-41%</td></tr><tr class=""><td class="nm">SK하이닉스</td><td class="pc"><span class="down">-7.12%</span></td><td class="px">1,683,000</td><td class="vl">103,000</td><td class="gp">-41%</td></tr><tr class=""><td class="nm">SK스퀘어</td><td class="pc"><span class="down">-8.17%</span></td><td class="px">1,000,000</td><td class="vl">7,169</td><td class="gp">-49%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#4c3d95"></span><b>원전</b><i>5,166억</i><em class="gp">고점대비 -36% · 신고가권 0/1</em></div><p class="tg-n">금요일 상승분(한전기술 +4.41·두산에너빌리티 +1.33)을 반납한 날 — verdict ③ 참고.</p></td></tr><tr class=""><td class="nm">두산에너빌리티</td><td class="pc"><span class="down">-5.73%</span></td><td class="px">85,600</td><td class="vl">5,166</td><td class="gp">-36%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#5b4cb0"></span><b>광통신</b><i>3,452억</i><em class="gp">고점대비 -41% · 신고가권 0/1</em></div><p class="tg-n">빛과전자 단독 top10 진입 — 동반 종목 미확인이라 성립 보류.</p></td></tr><tr class="lead"><td class="nm">빛과전자</td><td class="pc"><span class="up">+12.53%</span></td><td class="px">4,355</td><td class="vl">3,452</td><td class="gp">-41%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#6f61c4"></span><b>보안</b><i>2,919억</i><em class="gp">고점대비 -38% · 신고가권 0/1</em></div><p class="tg-n">엑스게이트만 top10 진입 — 같은 날 상한가였던 에스투더블유·샌즈랩은 top10 밖.</p></td></tr><tr class="lead"><td class="nm">엑스게이트</td><td class="pc"><span class="up">+6.97%</span></td><td class="px">17,180</td><td class="vl">2,919</td><td class="gp">-38%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#8478d3"></span><b>방산</b><i>2,844억</i><em class="gp">고점대비 -31% · 신고가권 0/1</em></div><p class="tg-n">한화에어로스페이스 단독 top10 진입.</p></td></tr><tr class="lead"><td class="nm">한화에어로스페이스</td><td class="pc"><span class="up">+4.72%</span></td><td class="px">1,132,000</td><td class="vl">2,844</td><td class="gp">-31%</td></tr></tbody></table>
+      <p class="note">테마 안 순서는 상승률 내림차순. 진한 줄이 상위 10 진입 종목.<br>
+        장중에 캡처한 테마 데이터는 가격·등락률이 종가와 조금 다르다.</p>
+    </article>
+
+
+    <article class="card hide" style="--ac:#6f61c4">
+      <div class="card-h"><span class="badge a">분류</span><h3>테마 분류</h3></div>
+      <ul class="hbars"></ul>
+      <p class="note">테마를 상위 그룹으로 묶어 거래대금을 합쳤다.
+        한 종목이 여러 테마에 겹치므로 그룹 간 절대 비교는 주의.</p>
+    </article>
+
+    <article class="card hide" style="--ac:#b8bcc9">
+      <div class="card-h"><span class="badge w">참고</span><h3>테마별 거래대금 (인포스탁)</h3></div>
+      <ul class="hbars"></ul>
+      <p class="note">단위 억원. 인포스탁 테마 구성종목의 거래량×종가 합산이다.
+        한 종목이 여러 테마에 중복으로 들어가 과대계상되므로, 판단은 위 0177 분류를 기준으로 한다.</p>
+    </article>
+
+    <article class="card" style="--ac:#8478d3">
+      <div class="card-h"><span class="badge a">등락률</span><h3>등락률 순위 (참고)</h3></div>
+      <ul class="hbars"></ul>
+      <p class="note">거래대금 순위와 다르다는 점이 핵심이다.<br>
+        하락 · <br>
+        <b>인포스탁 9/15자 특징테마를 오늘 아침 받아 채웠다.</b> 상승 테마 — <b>2차전지/ESS</b>(美 중국산 배터리 견제 반사이익 기대 지속), <b>미디어(방송·신문)</b>(감사원 YTN 지분매각 부당개입 의혹 사실 확인), <b>스테이블코인</b>(美 클래리티법 상원 표결 기대), <b>보안주(정보)</b>(AI 속도조절론 속 크라우드스트라이크 +13.85% 등 美 사이버보안 급등), <b>로봇·피지컬AI·휴머노이드</b>(로봇관절 액추에이터 시장 확대 기대), <b>제약/바이오</b>(치매·유전자치료제·mRNA·비만치료제·면역항암제 — 빅파마 기술이전·M&amp;A 기대와 주요 학회 개최), <b>낙태/피임</b>(정부 먹는 임신중지약 '미프진' 도입 추진), <b>탈모치료</b>(LG AI연구원, 탈모 개선 물질 하루 만에 발굴), <b>양자암호/양자컴퓨팅</b>(11월 양자보안체계 구축 의무화). 이 외 SOFC·핀테크·핵융합·전력반도체·철강·<b>정유</b>·HBM·드론·소캠 등이 상승률 상위.<br>하락 테마 — <b>조선/조선기자재</b>(K조선 노조 파업 확산 우려), <b>손해보험</b>(상반기 자동차 보험손익 6년 만에 적자 전환), <b>항공/LCC</b>(<b>사우디 핵심 송유관 폐쇄로 국제유가 강세</b>). 이 외 뉴로모픽·CCTV/DVR·웹툰·백화점·해운·귀금속·강관·LNG·편의점·타이어·스마트그리드·은행·광통신·종합상사·요소수·홈쇼핑·수산·<b>자동차 대표주</b> 등이 하락률 상위.<br>★ <b>항공 하락 사유로 적힌 '사우디 송유관 폐쇄'가 간밤 미국장 전체를 만든 그 재료다</b> — 국내가 어제 먼저 받았고, 미국이 밤에 훨씬 크게 받았다. 오늘 ③의 1순위 판단 근거다.<br><b>[0186] 거래대금 상위10·티마 테마 분류 캡처는 9/15치가 아직 없다</b> — 위 tima 카드는 9/14치 소급 확정본이다. 저녁에 캡처를 주면 보강 재빌드한다.</p>
+    </article>
+
+    <article class="card" style="--ac:#a3336a">
+      <div class="card-h"><span class="badge b">종목</span><h3>테마별 상위 종목</h3></div>
+      <div class="stks"></div>
+      <p class="note">대장주 판별 기준 확정 전이라 등락률 상위 3종목을 임시로 넣었다.</p>
+    </article>
+
+    <div class="card slot"><div class="card-h"><span class="badge w">대기</span><h3>키움 연동 예정</h3></div><ul class="slotlist"><li>[0186] 거래대금 상위 캡처 — 오늘 없음 (전망 ④ 채점 보류의 직접 원인)</li><li>테마 분류 캡처 — 오늘 없음</li><li>봇 스냅샷 data/market/2026-09-04.json — 미생성 (최신은 2026-08-27)</li><li>인포스탁 당일 특징테마 — 17:30 이후 공개, 내일 아침 반영</li></ul><p class="note">무료 소스로는 확보가 안 되는 값들이다.</p></div>
+  </div>
+
+  <!-- ═══ ② 새벽 미국시황 ═══ -->
+  <div class="col">
+    <div class="colh c2"><h2>② 새벽 미국시황 <span>9/15(화) 미국장 마감</span></h2></div>
+
+    <article class="card" style="--ac:#a3336a">
+      <div class="card-h"><span class="badge b">지수</span><h3>3대 지수 · SOX</h3></div>
+      <ul class="kv"><li class=""><span>S&amp;P 500</span><b>7,585.73</b><span class="down">-0.45%</span></li><li class=""><span>나스닥</span><b>25,981.57</b><span class="down">-0.78%</span></li><li class=""><span>다우존스</span><b>52,093.11</b><span class="down">-0.63%</span></li><li class=""><span>필라델피아 반도체</span><b>11,175.55</b><span class="up">+0.40%</span></li></ul>
+      <div class="card-h" style="margin:14px 0 9px"><span class="badge c">매크로</span><h3>환율 · 유가 · 아시아</h3></div>
+      <ul class="kv"><li><span>브렌트유(BZ=F)</span><b>108.55</b><span class="up">+2.72%</span></li><li><span>WTI(CL=F)</span><b>105.59</b><span class="up">+4.14%</span></li><li><span>원/달러</span><b>1,362.68</b><span class="up">+1.27%</span></li><li><span>금 ETF(GLD)</span><b>394.15</b><span class="up">+0.33%</span></li><li><span>에너지 ETF(XLE)</span><b>65.93</b><span class="up">+2.17%</span></li><li><span>NIKKEI 225</span><b>63,492.99</b><span class="down">-0.81%</span></li><li><span>중국상해종합</span><b>3,885.33</b><span class="down">-0.07%</span></li></ul>
+    </article>
+
+    <article class="card" style="--ac:#6f61c4">
+      <div class="card-h"><span class="badge b">매핑</span><h3>섹터 대표주 → 한국 테마</h3></div>
+      <ul class="hbars"><li><span class="hb-n">AMD <em>AI 가속기 — SOX 보합을 떠받쳤다</em></span><span class="hb-t zero"><i style="left:50.0%;width:10.8%;background:#2e1f5e"></i></span><span class="hb-p"><span class="up">+2.19%</span></span></li><li><span class="hb-n">XLE <em>에너지 섹터 ETF — 유가 급등 직격</em></span><span class="hb-t zero"><i style="left:50.0%;width:10.7%;background:#b8bcc9"></i></span><span class="hb-p"><span class="up">+2.17%</span></span></li><li><span class="hb-n">LMT <em>방산(록히드)</em></span><span class="hb-t zero"><i style="left:50.0%;width:3.8%;background:#a99ce8"></i></span><span class="hb-p"><span class="up">+0.77%</span></span></li><li><span class="hb-n">NVDA <em>AI GPU — 전일 −3.36% 뒤 소폭 반등</em></span><span class="hb-t zero"><i style="left:50.0%;width:2.8%;background:#2e1f5e"></i></span><span class="hb-p"><span class="up">+0.57%</span></span></li><li><span class="hb-n">MU <em>HBM·메모리</em></span><span class="hb-t zero"><i style="left:50.0%;width:1.9%;background:#2e1f5e"></i></span><span class="hb-p"><span class="up">+0.39%</span></span></li><li><span class="hb-n">GLD <em>금</em></span><span class="hb-t zero"><i style="left:50.0%;width:1.6%;background:#b8bcc9"></i></span><span class="hb-p"><span class="up">+0.33%</span></span></li><li><span class="hb-n">RTX <em>방산(RTX)</em></span><span class="hb-t zero"><i style="left:50.0%;width:0.4%;background:#a99ce8"></i></span><span class="hb-p"><span class="up">+0.08%</span></span></li><li><span class="hb-n">BA <em>항공기(보잉) — 유가 급등에 항공 약세</em></span><span class="hb-t zero"><i style="left:48.6%;width:1.4%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-0.28%</span></span></li><li><span class="hb-n">OKLO <em>SMR 원전(오클로)</em></span><span class="hb-t zero"><i style="left:46.8%;width:3.2%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-0.64%</span></span></li><li><span class="hb-n">TSLA <em>전기차</em></span><span class="hb-t zero"><i style="left:46.7%;width:3.3%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-0.67%</span></span></li><li><span class="hb-n">SMR <em>SMR 원전(뉴스케일)</em></span><span class="hb-t zero"><i style="left:45.3%;width:4.7%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-0.94%</span></span></li><li><span class="hb-n">TSM <em>파운드리 — 반도체 중 유일한 하락</em></span><span class="hb-t zero"><i style="left:45.0%;width:5.0%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-1.02%</span></span></li><li><span class="hb-n">CEG <em>원전 유틸리티(컨스텔레이션)</em></span><span class="hb-t zero"><i style="left:41.2%;width:8.8%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-1.77%</span></span></li><li><span class="hb-n">MSTR <em>비트코인 보유</em></span><span class="hb-t zero"><i style="left:23.5%;width:26.5%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-5.36%</span></span></li><li><span class="hb-n">COIN <em>거래소(코인베이스) — 전일 +9.24%를 통째로 반납</em></span><span class="hb-t zero"><i style="left:0.0%;width:50.0%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-10.10%</span></span></li></ul>
+      <p class="note">가운데 선이 0%. 종목 옆 회색 글씨가 대응하는 한국 테마다.
+        이 매핑이 "미국장 → 익일 한국 테마" 가설의 핵심 자산이 된다.</p>
+    </article>
+
+    
+    <article class="card" style="--ac:#a3336a">
+      <div class="card-h"><span class="badge b">체인</span><h3>미국 업종 → 왜 → 국내 관련종목</h3>
+        <small>Finviz Groups(업종 등락) + 인포스탁 9/15 특징테마(국내 사슬) · 2026-09-16 07:0x KST</small></div>
+      <div class="cns"><div class="cn"><div class="cn-h"><b>Oil &amp; Gas Drilling · 정제유통 · 통합정유</b><span class="up">+5.68%</span><em class="tag" style="--c:#5b4cb0">매크로</em></div><p class="cn-w"><b>사우디 핵심 송유관 폐쇄</b>로 공급 차질 우려가 터졌다. 브렌트 +2.72%(108.55)·WTI +4.14%(105.59)·XLE +2.17%까지 실물·ETF 양쪽에서 확인된다. 실적이 아니라 공급 충격이라 <b>유가가 유지되는 동안만</b> 유효하다. 국내는 이미 9/15에 같은 재료로 정유가 상승률 상위, 항공/LCC가 하락률 상위였다.</p><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">정유·에너지</span></div><div class="krs"><span class="krchip on">SK이노베이션</span><span class="krchip on">흥구석유</span><span class="krchip on">S-Oil</span><span class="krchip on">GS</span><span class="krchip on">중앙에너비스</span><span class="krchip">한국석유</span></div><p class="note">어제 SK이노베이션 +3.66·흥구석유 +2.18로 <b>국내가 먼저 받았다</b>. 선반영인지 시작인지가 오늘의 핵심 판단이다.</p></div><div class="cn"><div class="cn-h"><b>Chemicals · Agricultural Inputs · Steel</b><span class="up">+2.90%</span><em class="tag" style="--c:#5b4cb0">매크로</em></div><p class="cn-w">유가·원자재 동반 상승의 2차 파생이다. 다만 화학은 <b>원가 상승 부담을 같이 진다</b> — 국내 화학주는 전일 이미 반대로 움직였다(롯데케미칼 −1.53·금호석유 −1.84). 철강은 인포스탁 9/15 상승 테마에도 들어 있어 방향이 일치한다.</p><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">철강·화학</span></div><div class="krs"><span class="krchip on">POSCO홀딩스</span><span class="krchip">현대제철</span><span class="krchip">롯데케미칼</span><span class="krchip">금호석유</span><span class="krchip">LG화학</span></div><p class="note"><b>철강만 본다.</b> 화학은 미국 업종과 국내 종목의 부호가 이미 갈려 있다.</p></div><div class="cn"><div class="cn-h"><b>Diagnostics &amp; Research</b><span class="up">+3.32%</span><em class="tag" style="--c:#a3336a">실적</em></div><p class="cn-w">에너지 구도 <b>밖에서 홀로 오른</b> 업종이다. 국내에서도 9/15 인포스탁이 치매·유전자치료제·mRNA·비만치료제·면역항암제를 '빅파마 기술이전 및 M&amp;A 기대감, 주요 학회 개최 예정'으로 묶어 상승 테마에 올렸다 — <b>양쪽이 같은 날 같은 방향</b>이다.</p><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">제약·바이오·진단</span></div><div class="krs"><span class="krchip on">씨젠</span><span class="krchip">바이오니아</span><span class="krchip">에스디바이오센서</span><span class="krchip">알테오젠</span></div><p class="note">미국·국내가 독립적으로 같은 방향을 가리킨 유일한 줄이다.</p></div><div class="cn"><div class="cn-h"><b>Food Distribution · Auto Dealerships · Restaurants (하위)</b><span class="down">-4.04%</span><em class="tag" style="--c:#8a8fa0">되돌림</em></div><p class="cn-w"><b>어제 상위를 채웠던 내수·소비 로테이션이 하루 만에 통째로 되감겼다</b>(9/14 게임 +4.62·응용SW +3.83·식료품점 +3.80 → 오늘 하위). 돈이 소비에서 다시 원자재로 옮겨간 밤이다. 국내에서도 9/15에 백화점·편의점·홈쇼핑·자동차 대표주가 하락률 상위였다.</p><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">유통·음식료·자동차 (약세 경계)</span></div><div class="krs"><span class="krchip">현대차</span><span class="krchip">기아</span><span class="krchip">이마트</span><span class="krchip">BGF리테일</span></div><p class="note">매수 후보가 아니라 <b>회피 명단</b>이다.</p></div><div class="cn"><div class="cn-h"><b>가상자산 COIN −10.10 · MSTR −5.36</b><span class="down">-10.10%</span><em class="tag" style="--c:#8a8fa0">되돌림</em></div><p class="cn-w">전일 COIN +9.24%를 <b>통째로 반납</b>했다. 9/15 국내 스테이블코인 테마를 올린 근거가 '美 클래리티법 상원 표결 기대감'이었는데 그 표결일 밤에 코인베이스가 10% 빠졌다 — <b>기대가 식은 쪽</b>으로 봐야 한다.</p><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">스테이블코인·가상자산 (역방향 경계)</span></div><div class="krs"><span class="krchip">우리기술투자</span><span class="krchip">한화투자증권</span><span class="krchip">갤럭시아머니트리</span><span class="krchip">케이피에스</span></div><p class="note">어제 오른 테마가 밤사이 근거를 잃었다. <b>오늘 아침 반등 시도는 받지 않는다.</b></p></div></div>
+      <p class="note">Finviz 종목별 quote 사유 페이지는 시간 압박으로 미수집이라, '왜'는 <b>유가·인포스탁 기사 문장으로 대체</b>했다 — 개별 실적 확인이 아니다. 태그 중 '실적'은 진단·연구 한 줄뿐이고 나머지는 전부 <b>매크로·되돌림</b>이다. 매크로발은 테마로 번지지만 <b>가격이 유지되는 동안만</b> 유효하다.</p>
+    </article>
+
+    
+    <article class="card" style="--ac:#2e1f5e">
+      <div class="card-h"><span class="badge b">업종</span><h3>미국 업종별 등락 (144개 중)</h3>
+        <small>Finviz Groups · Change % 직접 내림차순 · 2026-09-16 07:0x KST 수집 (내장 브라우저)</small></div>
+      <ul class="hbars"><li><span class="hb-n">원유 시추 <em>Oil &amp; Gas Drilling</em></span><span class="hb-t zero"><i style="left:50.0%;width:50.0%;background:#a3336a"></i></span><span class="hb-p"><span class="up">+5.68%</span></span></li><li><span class="hb-n">정제·유통(정유) <em>Oil &amp; Gas Refining &amp; Marketing</em></span><span class="hb-t zero"><i style="left:50.0%;width:29.7%;background:#a3336a"></i></span><span class="hb-p"><span class="up">+3.37%</span></span></li><li><span class="hb-n">진단·연구 <em>Diagnostics &amp; Research</em></span><span class="hb-t zero"><i style="left:50.0%;width:29.2%;background:#a3336a"></i></span><span class="hb-p"><span class="up">+3.32%</span></span></li><li><span class="hb-n">화학 <em>Chemicals</em></span><span class="hb-t zero"><i style="left:50.0%;width:25.5%;background:#a3336a"></i></span><span class="hb-p"><span class="up">+2.90%</span></span></li><li><span class="hb-n">원유 탐사·생산 <em>Oil &amp; Gas E&amp;P</em></span><span class="hb-t zero"><i style="left:50.0%;width:23.8%;background:#a3336a"></i></span><span class="hb-p"><span class="up">+2.70%</span></span></li><li><span class="hb-n">통합 정유 <em>Oil &amp; Gas Integrated</em></span><span class="hb-t zero"><i style="left:50.0%;width:22.9%;background:#a3336a"></i></span><span class="hb-p"><span class="up">+2.60%</span></span></li><li><span class="hb-n">비료·농자재 <em>Agricultural Inputs</em></span><span class="hb-t zero"><i style="left:50.0%;width:15.4%;background:#a3336a"></i></span><span class="hb-p"><span class="up">+1.75%</span></span></li><li><span class="hb-n">철강 <em>Steel</em></span><span class="hb-t zero"><i style="left:50.0%;width:13.9%;background:#a3336a"></i></span><span class="hb-p"><span class="up">+1.58%</span></span></li><li><span class="hb-n">유전 장비·서비스 <em>Oil &amp; Gas Equipment &amp; Services</em></span><span class="hb-t zero"><i style="left:50.0%;width:13.0%;background:#a3336a"></i></span><span class="hb-p"><span class="up">+1.48%</span></span></li><li><span class="hb-n">목재 <em>Lumber &amp; Wood Production</em></span><span class="hb-t zero"><i style="left:50.0%;width:10.8%;background:#a3336a"></i></span><span class="hb-p"><span class="up">+1.23%</span></span></li><li><span class="hb-n">식품 유통 <em>Food Distribution</em></span><span class="hb-t zero"><i style="left:14.4%;width:35.6%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-4.04%</span></span></li><li><span class="hb-n">제철용 석탄 <em>Coking Coal</em></span><span class="hb-t zero"><i style="left:16.3%;width:33.7%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-3.83%</span></span></li><li><span class="hb-n">자동차 딜러 <em>Auto &amp; Truck Dealerships</em></span><span class="hb-t zero"><i style="left:18.8%;width:31.2%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-3.55%</span></span></li><li><span class="hb-n">의약품 유통 <em>Pharmaceutical Retailers</em></span><span class="hb-t zero"><i style="left:20.4%;width:29.6%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-3.36%</span></span></li><li><span class="hb-n">음식점 <em>Restaurants</em></span><span class="hb-t zero"><i style="left:20.4%;width:29.6%;background:#1f6fdc"></i></span><span class="hb-p"><span class="down">-3.36%</span></span></li></ul>
+      <p class="note">상위 10 중 <b>다섯이 에너지 한 덩어리</b>다 — 시추·정제·E&amp;P·통합정유·유전장비. 업종 분산이 아니라 <b>유가 단일 재료</b>가 만든 줄이라 국내에도 같은 한 줄로 번질 가능성이 크다. 옆에 붙은 화학 +2.90·비료 +1.75·철강 +1.58도 원자재 라인이다. 하위 5는 거울상으로 <b>내수 소비</b>(식품유통·자동차딜러·의약품유통·음식점)이고, 어제 상위를 채웠던 게임·응용SW·식료품점 로테이션이 하루 만에 되감겼다. 진단·연구 +3.32%만 이 구도 밖에서 따로 올랐다.</p>
+    </article>
+
+    
+
+    <article class="card" style="--ac:#f5a623">
+      <div class="card-h"><span class="badge b">교집합</span><h3>국내 × 미국</h3></div>
+      <div class="ovs"></div>
+    </article>
+
+    <article class="card" style="--ac:#6f61c4">
+      <div class="card-h"><span class="badge a">07:30 이전</span><h3>새벽 기사</h3></div>
+      <ul class="arts"></ul>
+      <ul class="late"><li>Yahoo day_gainers 스크리너·Finviz 종목별 quote 사유 페이지·한국경제 globalmarket 새벽기사는 미수집이다 — 06:59 시작에 07:10 빌드 데드라인이라 지수·업종·야간선물·인포스탁 테마를 우선 수집했다. 보강 시 이 줄을 지운다.</li><li>Claude in Chrome 확장이 이 세션에서 연결되지 않았다 — 내장 브라우저(Browser pane)로 대체 수집했다. 수집 자체는 정상이나 평소 경로와 다르다.</li><li>매크로·업종·개별주 등락률은 전부 Yahoo 일봉 종가 두 개로 직접 계산했다(chartPreviousClose 미사용). 날짜는 전부 2026-09-15로 확인.</li><li>야간선물 장중 고·저는 실측이 아닌 대용값이다(고=주간종가 1,039.80, 저=시가 1,037.90).</li><li>체인의 &#x27;왜&#x27;는 Finviz quote 확인이 아니라 유가·인포스탁 기사 문장으로 대체했다.</li></ul>
+      <p class="note">위 둘은 07:30 이후에 나온다. 본판을 늦추지 말고 08:30 보강판으로 받는 편이 낫다.</p>
+    </article>
+
+    <article class="card" style="--ac:#2e1f5e">
+      <div class="card-h"><span class="badge a">관전포인트</span><h3>오늘 볼 것</h3></div>
+      <ul class="watch"><li><b>유가 한 방이 미국 업종 상위 10의 절반을 만들었다.</b> 원유시추 +5.68·정제유통 +3.37·E&amp;P +2.70·통합정유 +2.60·유전장비 +1.48 — 사우디 핵심 송유관 폐쇄가 원인이고 브렌트 +2.72%·WTI +4.14%로 실물에서도 확인된다.</li><li><b>국내는 이미 어제 이 재료를 먼저 받았다.</b> 9/15 인포스탁이 '사우디 핵심 송유관 폐쇄 소식에 국제유가 강세'를 항공/LCC <b>하락</b> 사유로 적었고 정유는 상승률 상위에 올렸다. SK이노베이션이 어제 KRX에서 +3.66%였다 — <b>선반영인지 시작인지가 오늘의 핵심 판단</b>이다.</li><li><b>SOX +0.40%, 보합이다.</b> 어제 −5.86%의 연장 하락은 없었고 AMD +2.19·NVDA +0.57·MU +0.39로 개별주도 안정, TSM만 −1.02%. 1년 실측상 SOX 보합 밤은 데이트레이드 승률 67%로 세 구간 중 가장 높다.</li><li><b>원/달러 1,362.68원, 하루 +1.27% 급등.</b> 어제 외국인이 코스피에서 1조5,000억을 판 것과 같은 방향이다 — 환율이 오르는 국면에서 외국인 매수는 잘 들어오지 않는다.</li><li><b>가상자산은 전일 상승분을 통째로 반납했다</b> — COIN −10.10%(전일 +9.24%)·MSTR −5.36%. 어제 국내 스테이블코인 테마를 올린 '클래리티법 표결 기대'가 밤사이 식은 것으로 보인다.</li><li><b>내수·소비는 거울상으로 무너졌다</b> — 식품유통 −4.04·자동차딜러 −3.55·의약품유통 −3.36·음식점 −3.36. 어제 상위를 채웠던 로테이션이 하루 만에 되감겼다.</li><li><b>진단·연구 +3.32%만 이 구도 밖에서 올랐다</b> — 국내 제약/바이오(치매·유전자·mRNA·비만·면역항암)가 9/15에 같은 방향으로 이미 상승 테마였다.</li></ul>
+    </article>
+  </div>
+
+  <!-- ═══ ③ 금일 시황 ═══ -->
+  <div class="col">
+    <div class="colh c3"><h2>③ 금일 시황 <span>9/16(수) 마감</span></h2></div>
+
+    
+    <article class="card" style="--ac:#4c3d95">
+      <div class="card-h"><span class="badge a">야간선물</span><h3>코스피200 18:00~06:00</h3>
+        <small>09/16 07:0x · eSignal</small></div>
+      <div style="display:flex;align-items:baseline;gap:10px">
+        <div style="font-size:24px;font-weight:750;letter-spacing:-.03em;
+          font-variant-numeric:tabular-nums"
+          class="down">1,038.00</div>
+        <div class="down"
+          style="font-size:12px;font-weight:600;font-variant-numeric:tabular-nums">
+          -1.80 (-0.17%)</div>
+      </div>
+      <div style="margin-top:12px">
+        <div style="position:relative;height:5px;border-radius:99px;background:#ece9f7">
+          <u style="position:absolute;top:50%;left:100.0%;width:2px;height:12px;
+            background:#9a9eb0;transform:translate(-50%,-50%)"></u>
+          <i style="position:absolute;top:50%;left:5.3%;width:11px;height:11px;border-radius:50%;
+            background:#4c3d95;border:2px solid #fff;box-shadow:0 0 0 1px #4c3d95;
+            transform:translate(-50%,-50%)"></i></div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:10px;
+          color:var(--mut);font-variant-numeric:tabular-nums">
+          <span><b style="color:var(--fg)">1,037.90</b> 저가</span>
+          <span><b style="color:var(--fg)">1,039.80</b> 고가</span></div>
+      </div>
+      <p class="note">회색 세로선이 주간 종가(1,039.80). 그 위로 올라선 채 마감했다.
+        갭업 출발 가능성을 시사하지만, 갭이 크면 진입가는 오히려 불리해진다.</p>
+    </article>
+
+    
+    <article class="card" style="--ac:#b3452e">
+      <div class="card-h"><span class="badge b">장전</span><h3>분위기 예상</h3>
+        <small>16:00 마감 때 채점</small></div>
+      <ul class="watch"><li><b>유가발 정유·에너지가 오늘 국내 1순위 재료다</b><br><b>정유·에너지 관련주가 오늘 오전 상승률 상위를 차지한다.</b> 간밤 미국 업종 상위 10 중 다섯을 에너지가 채웠다 — 원유시추 +5.68%, 정제·유통 +3.37%, E&amp;P +2.70%, 통합정유 +2.60%, 유전장비 +1.48%. 원인은 <b>사우디 핵심 송유관 폐쇄</b>로, 브렌트 +2.72%(108.55)·WTI +4.14%(105.59)까지 실물 가격으로 확인된 공급 충격이다. 국내에서도 9/15 인포스탁이 같은 재료를 '정유 상승·항공 하락'으로 이미 적었고 SK이노베이션이 어제 KRX에서 +3.66%였다. <b>판정 기준 — 09:30까지 S-Oil·GS·SK이노베이션 중 두 종목 이상이 +2% 이상이면 적중.</b> 셋 다 +1% 미만이면 어제 하루로 선반영이 끝난 것으로 보고 추격하지 않고, 대신 철강(POSCO홀딩스)으로 옮겨 관찰한다.</li><li><b>야간선물 −0.17% — 갭 없는 보합 출발이다</b><br><b>오늘 시가는 전일 종가 바로 옆에서 열린다.</b> 코스피200 야간선물이 1,038.00(−1.80, −0.17%)으로 주간선물 종가 1,039.80에서 1.80포인트만 빠졌다(1,039.80−1.80=1,038.00, 내부 일관성 확인). 시가 1,037.90. 미국 지수가 S&amp;P −0.45%·나스닥 −0.78%로 내렸는데도 선물이 버틴 이유는 <b>SOX가 +0.40%로 보합을 지켜 대형 반도체에 추가 충격이 없었기 때문</b>이다. <b>판정 기준 — 코스피 시가 등락률이 −0.5%~+0.5% 안에서 열리면 적중.</b> 어제도 야간선물 −1.87%에 실제 갭은 −0.06%였던 만큼 <b>폭이 아니라 방향만</b> 쓰고, 시가가 −1% 아래로 열리면 환율(원/달러 +1.27%)이 선물보다 센 날로 보고 대형주 비중을 줄인다.</li><li><b>SOX 보합 밤 — 시가 추격도 공포 매도도 하지 않는다</b><br><b>어제까지 밀린 대형 반도체를 오늘 시가에 따라붙지도, 던지지도 않고 장중 되돌림만 본다.</b> SOX는 +0.40%로 보합이었고 AMD +2.19%·NVDA +0.57%·MU +0.39%로 개별주도 안정, TSM만 −1.02%였다. 1년 실측에서 SOX <b>+2% 이상</b> 밤은 다음날 시가 추격 금지(하이닉스 시가→종가 −0.63%), <b>−2%</b> 밤은 대형주 역발상(시가→고가 +4.2~4.9%)이었고 <b>보합 밤이 데이트레이드 승률 67%로 가장 높았다</b> — 오늘이 정확히 그 보합 구간이다. <b>판정 기준 — SK하이닉스가 시가 대비 종가 플러스로 끝나면 적중.</b> 시가부터 −2% 이상 추가로 밀리면 반도체 되돌림 시나리오를 접고 에너지 한 줄에 집중한다.</li><li><b>원/달러 1,362원 급등 — 외국인은 오늘도 순매도 쪽이다</b><br><b>외국인은 오늘도 유가증권시장에서 순매도 우위로 출발한다.</b> 원/달러가 1,362.68원으로 하루 +1.27% 튀었다. 어제 외국인이 코스피에서 1조5,000억을 팔며 대형주를 끌어내린 것과 같은 방향이고, 환율이 오르는 국면에서 외국인 매수는 잘 들어오지 않는다. <b>판정 기준 — 09:00~11:00 외국인 코스피 누적이 순매도면 적중.</b> 반대로 순매수로 돌아서면 어제의 1조5천억이 환율이 아니라 'AI 속도조절론' 단발 이슈였다는 뜻이므로, 대형 반도체 되돌림(전망 ③) 쪽으로 무게를 옮긴다.</li></ul>
+      <p class="note">아침에 적은 전망 그대로다. 맞았는지는 마감 갱신의 전망 대조가 판정하고,
+        틀린 기록도 지우지 않는다.</p>
+    </article>
+
+    
+    <article class="card" style="--ac:#1f7a5c">
+      <div class="card-h"><span class="badge a">장전 · 전일 수급</span><h3>수급 종가베팅 후보 (마감 때 채점)</h3>
+        <small>2026-09-11 확정 수급</small></div>
+      <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>종목</th><th>테마</th><th>등급</th><th>외인(컷 대비)</th><th>기관</th><th>근거</th></tr></thead>
+        <tbody><tr><td>삼화콘덴서</td><td>MLCC</td><td>◎</td><td class="up">+221억 (22.1배)</td><td class="up">+189억</td><td>기관 동반</td></tr></tbody></table></div>
+      <p class="note"><b>쌍매도 경고(종가베팅 금지·보유 정리)</b> · SK하이닉스 (외인 -10,840·기관 -4,888억) · 삼성전자 (외인 -9,167·기관 -5,704억)</p>
+      <p class="note">수급은 전부 <b>KRX 본장 기준(NXT 제외)</b> — HTS [0796]은 NXT 합산이라 외인 숫자가
+        다르게 보이는 게 정상이다(컷도 본장 기준이라 판정은 일관).
+        판정 = 외인 순매수 ≥ 그 종목 3년 상위 10% 컷(◎○ 등급만) · 당일 +21% 미만.
+        실행 기본 = <b>14:55 잠정치 재확인 → 종가 매수 → 익일 시가 매도</b>,
+        흡수(음봉+매수)형만 익일 종가 홀드 여지. 관찰값 — 확정 규칙 아님.</p>
+    </article>
+
+    
+    <article class="card" style="--ac:#2f6f9c">
+      <div class="card-h"><span class="badge a">장중V2</span><h3>V2 관심종목</h3>
+        <small>9/11(금) 종가 기준</small></div>
+      <div style="overflow-x:auto"><table class="tbl"><thead><tr>
+        <th>★</th><th>종목</th><th>테마</th><th>전일종가</th><th>트리거가</th><th>필요상승</th><th>거래대금순위</th>
+      </tr></thead><tbody><tr><td>★</td><td>KB금융</td><td>-</td><td>177,900</td><td>176,890</td><td class="up">이미 위</td><td>18</td></tr><tr><td>★</td><td>팜스빌</td><td>-</td><td>3,640</td><td>3,605</td><td class="up">이미 위</td><td>23</td></tr><tr><td>★</td><td>신한지주</td><td>-</td><td>112,900</td><td>108,775</td><td class="up">이미 위</td><td>34</td></tr><tr><td>★</td><td>우리금융지주</td><td>-</td><td>35,100</td><td>34,010</td><td class="up">이미 위</td><td>43</td></tr><tr><td>★</td><td>하나금융지주</td><td>-</td><td>137,800</td><td>132,525</td><td class="up">이미 위</td><td>46</td></tr><tr><td>★</td><td>삼성화재</td><td>-</td><td>686,000</td><td>693,500</td><td class="">+1.09%</td><td>47</td></tr><tr><td>★</td><td>DB손해보험</td><td>-</td><td>191,700</td><td>192,850</td><td class="">+0.60%</td><td>75</td></tr><tr><td>★</td><td>아로마티카</td><td>-</td><td>10,590</td><td>10,298</td><td class="up">이미 위</td><td>96</td></tr><tr><td></td><td>GS</td><td>-</td><td>119,000</td><td>122,740</td><td class="">+3.14%</td><td>103</td></tr><tr><td></td><td>지엔씨에너지</td><td>-</td><td>50,600</td><td>52,630</td><td class="">+4.01%</td><td>119</td></tr><tr><td></td><td>금호전기</td><td>-</td><td>12,450</td><td>12,635</td><td class="">+1.49%</td><td>121</td></tr><tr><td></td><td>코웨이</td><td>-</td><td>95,200</td><td>95,380</td><td class="">+0.19%</td><td>144</td></tr><tr><td></td><td>샘씨엔에스</td><td>-</td><td>15,780</td><td>15,504</td><td class="up">이미 위</td><td>146</td></tr><tr><td></td><td>KTG</td><td>-</td><td>171,800</td><td>179,550</td><td class="">+4.51%</td><td>148</td></tr><tr><td></td><td>한화생명</td><td>-</td><td>5,990</td><td>5,804</td><td class="up">이미 위</td><td>150</td></tr><tr><td></td><td>아모레퍼시픽</td><td>-</td><td>140,500</td><td>143,260</td><td class="">+1.96%</td><td>160</td></tr><tr><td></td><td>피에스케이홀딩스</td><td>-</td><td>157,000</td><td>158,175</td><td class="">+0.75%</td><td>162</td></tr><tr><td></td><td>자이에스앤디</td><td>-</td><td>11,330</td><td>10,992</td><td class="up">이미 위</td><td>180</td></tr><tr><td></td><td>현대해상</td><td>-</td><td>51,300</td><td>50,825</td><td class="up">이미 위</td><td>183</td></tr><tr><td></td><td>팬오션</td><td>-</td><td>6,030</td><td>6,061</td><td class="">+0.51%</td><td>195</td></tr><tr><td></td><td>인텍플러스</td><td>-</td><td>48,850</td><td>49,210</td><td class="">+0.74%</td><td>206</td></tr><tr><td></td><td>HMM</td><td>-</td><td>20,850</td><td>21,708</td><td class="">+4.11%</td><td>213</td></tr><tr><td></td><td>씨피시스템</td><td>-</td><td>4,240</td><td>4,161</td><td class="up">이미 위</td><td>232</td></tr><tr><td></td><td>금호타이어</td><td>-</td><td>7,370</td><td>7,733</td><td class="">+4.93%</td><td>234</td></tr><tr><td></td><td>지니언스</td><td>-</td><td>16,950</td><td>16,720</td><td class="up">이미 위</td><td>287</td></tr><tr><td></td><td>컴투스</td><td>-</td><td>35,000</td><td>34,200</td><td class="up">이미 위</td><td>296</td></tr></tbody></table></div>
+      <p class="note"><b>테마 교집합</b> — 없음<br>
+        ★ = 거래대금 100위 이내 + 트리거까지 3% 이내(실측 신호의 64%가 여기서 나옴).
+        09:00 시가가 트리거가 이상이면 09:03 [0186] 거래대금상위 10위 이내 확인 후 시장가 매수,
+        10시 이후 신규 진입 없음 · 종가 전량 청산(손절 없음). <b>매수 리스트가 아니라 관찰 대상</b>이다.</p>
+    </article>
+
+    <article class="card" style="--ac:#f5a623">
+      <div class="card-h"><span class="badge b">장전</span><h3>관심종목</h3>
+        <small>전일 주도테마 ∩ 미국장</small></div>
+      <div class="wcols"><div class="wbox r1"><div class="wbt"><b>1순위</b><span>미국 상승률 1위 섹터 × 성립 테마</span></div><div class="wgh"><span class="dot" style="background:#4c3d95"></span><b>반도체</b><em>AMD +2.19% · NVDA +0.57%</em></div><ul class="wl"><li class=""><span class="wn">삼성전자</span><span class="wp"><span class="down">-4.24%</span></span><span class="wv">66,427</span></li><li class=""><span class="wn">삼성전기</span><span class="wp"><span class="down">-5.57%</span></span><span class="wv">9,199</span></li><li class="top"><span class="wn">SK하이닉스<b>주도주</b></span><span class="wp"><span class="down">-7.12%</span></span><span class="wv">103,000</span></li><li class=""><span class="wn">SK스퀘어</span><span class="wp"><span class="down">-8.17%</span></span><span class="wv">7,169</span></li></ul></div><div class="wbox r2"><div class="wbt"><b>2순위</b><span>오늘 전망 지목</span></div><div class="wgh"><span class="dot" style="background:#b3452e"></span><b>정유·에너지</b><em>성립 검증 전</em></div><ul class="wl"><li><span class="wn">SK이노베이션</span><span class="wp"><span class="up">+3.66%</span></span><span class="wv">—</span></li><li><span class="wn">흥구석유</span><span class="wp"><span class="up">+2.18%</span></span><span class="wv">—</span></li><li><span class="wn">중앙에너비스</span><span class="wp"><span class="up">+0.61%</span></span><span class="wv">—</span></li><li><span class="wn">S-Oil</span><span class="wp"><span class="up">+0.07%</span></span><span class="wv">—</span></li><li><span class="wn">GS</span><span class="wp"><span class="down">-1.12%</span></span><span class="wv">—</span></li></ul><p class="note" style="margin:4px 0 0">판정 기준 — 09:30까지 S-Oil·GS·SK이노베이션 중 <b>2종목 이상 +2%</b>면 적중. 셋 다 +1% 미만이면 어제 선반영으로 보고 추격하지 않는다.</p></div><div class="wbox r2"><div class="wbt"><b>2순위</b><span>오늘 전망 지목</span></div><div class="wgh"><span class="dot" style="background:#b3452e"></span><b>철강·화학(원자재 2차 파생)</b><em>성립 검증 전</em></div><ul class="wl"><li><span class="wn">POSCO홀딩스</span><span class="wp"><span class="up">+1.84%</span></span><span class="wv">—</span></li><li><span class="wn">롯데케미칼</span><span class="wp"><span class="down">-1.53%</span></span><span class="wv">—</span></li><li><span class="wn">금호석유</span><span class="wp"><span class="down">-1.84%</span></span><span class="wv">—</span></li></ul><p class="note" style="margin:4px 0 0">판정 기준 — POSCO홀딩스가 <b>+1% 이상</b>이면 적중. 화학은 원가 부담을 같이 져 전일 이미 역방향(롯데케미칼 −1.53·금호석유 −1.84)이라 <b>철강만</b> 본다.</p></div><div class="wbox r2"><div class="wbt"><b>2순위</b><span>오늘 전망 지목</span></div><div class="wgh"><span class="dot" style="background:#b3452e"></span><b>제약·바이오(진단 포함)</b><em>성립 검증 전</em></div><ul class="wl"><li><span class="wn">씨젠</span><span class="wp"><span class="up">+0.94%</span></span><span class="wv">—</span></li></ul><p class="note" style="margin:4px 0 0">판정 기준 — 미국 진단·연구 +3.32%에 대응해 국내 제약/바이오가 <b>인포스탁 상승 테마로 이틀 연속</b> 나오면 적중. 오늘 확인은 장중 등락률로 대용한다.</p></div><div class="wbox r2"><div class="wbt"><b>2순위</b><span>오늘 전망 지목</span></div><div class="wgh"><span class="dot" style="background:#b3452e"></span><b>가상자산·스테이블코인 (역방향 경계)</b><em>성립 검증 전</em></div><ul class="wl"><li><span class="wn">우리기술투자</span><span class="wp"><span class="up">+0.54%</span></span><span class="wv">—</span></li></ul><p class="note" style="margin:4px 0 0">판정 기준 — COIN −10.10%에 대응해 국내 가상자산주가 <b>하락 출발</b>하면 적중. 어제 올린 '클래리티법 표결 기대'가 밤사이 무너졌다. <b>매수 후보가 아니라 회피 명단</b>이다.</p></div></div>
+      <p class="note"><b>후보는 성립한 테마만</b> — 0177 거래대금 상위 10에 2종목 이상 든 테마다.
+        미성립 테마는 미국이 아무리 좋아도 넣지 않는다.
+        그중 <b>미국 상승률 1위 섹터</b>에 걸린 테마가 1순위, 나머지가 2순위다.
+        테마 안은 상승률 순, 주도주는 거래대금 1위, 오른쪽 숫자는 전일 거래대금(억).<br>
+        <b>주의</b> — 확보된 한국 테마 이력이 <b>1일치(9/15(화))</b>뿐이라
+        "3일 내" 판정이 사실상 전일 1일 기준으로만 돈다. 날짜가 쌓이면 자동으로 3일을 본다.<br>
+        <b>매수 리스트가 아니다</b> — 종가베팅 종목은 조건검색식(신고가 V3)이 뽑는다. 이건 장을 보는 눈이다.</p>
+    </article>
+
+    
+    <article class="card" style="--ac:#8478d3">
+      <div class="card-h"><span class="badge a">마감</span><h3>지수 · 선물</h3>
+        <small>2026-09-16 16:1x</small></div>
+      <ul class="idxl"><li><span>코스피</span><b>6,717.97</b><span class="up">+1.37%</span><i class="gap">-26%</i></li><li><span>코스닥</span><b>815.98</b><span class="up">+0.44%</span><i class="gap">-33%</i></li><li><span>코스피200</span><b>1,060.05</b><span class="up">+1.69%</span><i class="gap">-28%</i></li></ul>
+      <div class="rng" style="margin-top:14px;padding-top:11px;border-top:1px solid var(--line)">
+        <div class="rng-lbl" style="margin:0"><span>코스피200 주간선물</span>
+          <b>1,061.15 (+21.35, +2.05%)</b></div>
+      </div>
+      <p class="note">eSignal 주간선물 16:1x 수집 (갱신시간 15:45) — <b>종가 1,061.15(+21.35, +2.05%)</b>, <b>시가 1,038.90</b>. 1,039.80 + 21.35 = 1,061.15로 <b>내부 일관성 확인</b>했다. 고/저는 차트에만 있어 미확보.<br><b>갭 = 시가 1,038.90 vs 전일 종가 1,039.80 = −0.09%</b> — 사실상 보합 출발이다. 현물 코스피 시가도 6,611.24 vs 전일 종가 6,627.26 = <b>−0.24%</b>로 같은 방향이다.<br><b>오늘의 핵심 숫자</b> — 아침 야간선물이 1,038.00(−0.17%)이었고 실제 주간선물 시가 갭은 −0.09%다. <b>이틀 연속 크게 어긋나던(3.41%p→1.81%p) 야간선물-실제 갭 괴리가 오늘은 0.08%p로 사라졌다.</b> 그리고 보합으로 열린 뒤 <b>장중에 +2.05%까지 밀어올린</b> 날이다 — 갭이 아니라 장중이 전부였다.</p>
+    </article>
+
+    
+    <article class="card" style="--ac:#1c1b2e">
+      <div class="card-h"><span class="badge d">사용자가 실제로 쓰는 주도주 판별 방식 확정 — [0187] 시가총액상위(통합) 전체 목록에서 [0177] &#x27;상승&#x27; 라디오로 양봉만 남기고, 거래대금순으로 재정렬한 상위10이다. [0186] 거래대금상위(통합)과는 기준 지표가 다르다([0186]=거래대금 순위 자체, 이건 시가총액 유니버스 안에서 거래대금순 정렬) — 9/16 캡처는 처음에 [0186]류 화면에 상승 필터가 걸려 있어 재요청했고, 사용자가 진짜 방식은 [0187]→[0177]이라고 정정해줬다(스킬 반영 필요).</span><h3>거래대금순 상위 10 (양봉) · 주도주</h3>
+        <small>[0187]→[0177] 양봉필터 (시가총액 기준)</small></div>
+      <div class="verdict"><span class="vlbl">주도 테마</span><span class="lchip" style="--c:#2e1f5e">반도체 <i>2종목</i> <b>SK하이닉스</b></span><span class="lchip" style="--c:#5b4cb0">반도체소부장 <i>2종목</i> <b>주성엔지니어링</b></span><span class="lchip" style="--c:#4c3d95">광통신 <i>2종목</i> <b>대한광통신</b></span></div>
+      <table class="k7"><thead><tr><th class="rn">#</th><th>종목</th><th class="pc">등락률</th>
+        <th class="vl">거래대금(억)</th><th class="th">테마</th></tr></thead><tbody><tr class="lead"><td class="rn">1</td><td class="nm">SK하이닉스<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+3.96%</span></td><td class="vl">71,621</td><td class="th"><span style="background:#2e1f5e"></span>반도체</td></tr><tr class="lead"><td class="rn">2</td><td class="nm">삼성전자</td><td class="pc"><span class="up">+2.01%</span></td><td class="vl">41,217</td><td class="th"><span style="background:#2e1f5e"></span>반도체</td></tr><tr class=""><td class="rn">3</td><td class="nm">삼성전기</td><td class="pc"><span class="up">+4.18%</span></td><td class="vl">8,813</td><td class="th"><span style="background:#2e1f5e"></span>MLCC·반도체</td></tr><tr class="lead"><td class="rn">4</td><td class="nm">대한광통신<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+14.78%</span></td><td class="vl">7,147</td><td class="th"><span style="background:#4c3d95"></span>광통신</td></tr><tr class=""><td class="rn">5</td><td class="nm">삼성전자우</td><td class="pc"><span class="up">+3.85%</span></td><td class="vl">7,029</td><td class="th"><span style="background:#2e1f5e"></span>반도체(우선주·제외)</td></tr><tr class=""><td class="rn">6</td><td class="nm">SK스퀘어</td><td class="pc"><span class="up">+1.70%</span></td><td class="vl">4,681</td><td class="th"><span style="background:#2e1f5e"></span>반도체(지주)</td></tr><tr class="lead"><td class="rn">7</td><td class="nm">빛과전자</td><td class="pc"><span class="up">+7.40%</span></td><td class="vl">3,350</td><td class="th"><span style="background:#4c3d95"></span>광통신</td></tr><tr class="lead"><td class="rn">8</td><td class="nm">주성엔지니어링<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+3.99%</span></td><td class="vl">2,200</td><td class="th"><span style="background:#5b4cb0"></span>반도체소부장</td></tr><tr class="lead"><td class="rn">9</td><td class="nm">DB하이텍</td><td class="pc"><span class="up">+8.14%</span></td><td class="vl">2,052</td><td class="th"><span style="background:#5b4cb0"></span>반도체소부장</td></tr><tr class=""><td class="rn">10</td><td class="nm">KB금융</td><td class="pc"><span class="up">+0.80%</span></td><td class="vl">1,890</td><td class="th"><span style="background:#6f61c4"></span>금융</td></tr></tbody></table>
+      <p class="note"><b>판정 규칙</b> · 거래대금 상위 10(양봉만, 음봉 제외) 안에 같은 테마 2종목 이상이면 테마 성립,
+        그 안 거래대금 1위 딱 하나가 주도주.
+        미달 — MLCC·반도체(1), 반도체(우선주·제외)(1), 반도체(지주)(1), 금융(1).<br>
+        캡처 시각 · 2026-09-16 저녁 사용자 캡처 ([0187] 시가총액상위(통합) → [0177] 특정일자 상한가/하한가 &#x27;상승&#x27; 필터, 거래대금순 정렬)<br>
+        <b>주의</b> · 10종목 전부 양봉(상승 필터 결과이므로 당연). 삼성전자우(5위)는 순위표엔 표기하되 테마 성립 판정에서는 9/14 선례대로 제외.</p>
+    </article>
+
+    <article class="card" style="--ac:#5b4cb0">
+      <div class="card-h"><span class="badge a">세부</span><h3>테마별 종목</h3></div>
+      <table class="k7 tgt"><tbody><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#2e1f5e"></span><b>반도체대형주</b><i>126,332억</i><em class="gp">고점대비 -36% · 신고가권 0/3</em></div><p class="tg-n">&quot;AI 개발 늦추더라도…삼전·닉스 &#x27;아직 저렴하다&#x27;&quot; — 인포스탁 마감 헤드라인과 동일 재료(watch 참고).</p></td></tr><tr class="lead"><td class="nm">삼성전기</td><td class="pc"><span class="up">+4.18%</span></td><td class="px">1,372,000</td><td class="vl">8,813</td><td class="gp">-40%</td></tr><tr class="lead"><td class="nm">SK하이닉스</td><td class="pc"><span class="up">+3.96%</span></td><td class="px">1,757,000</td><td class="vl">71,621</td><td class="gp">-40%</td></tr><tr class="lead"><td class="nm">삼성전자</td><td class="pc"><span class="up">+2.01%</span></td><td class="px">253,500</td><td class="vl">41,217</td><td class="gp">-30%</td></tr><tr class="lead"><td class="nm">SK스퀘어</td><td class="pc"><span class="up">+1.70%</span></td><td class="px">1,017,000</td><td class="vl">4,681</td><td class="gp">-</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#4c3d95"></span><b>광통신</b><i>10,497억</i><em class=ok>성립</em></div><p class="tg-n">광통신株, AI 데이터센터 인프라 증설 기대감에… (인포스탁 테마캡처).</p></td></tr><tr class="lead"><td class="nm">대한광통신<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+14.78%</span></td><td class="px">16,230</td><td class="vl">7,147</td><td class="gp">-</td></tr><tr class="lead"><td class="nm">빛과전자</td><td class="pc"><span class="up">+7.40%</span></td><td class="px">4,425</td><td class="vl">3,350</td><td class="gp">-</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#5b4cb0"></span><b>반도체소부장</b><i>4,252억</i><em class=ok>성립</em><em class="gp">고점대비 -43% · 신고가권 0/1</em></div><p class="tg-n">로이터 &quot;SK하이닉스, 인텔과 미국서 메모리칩 생산…&quot; (인포스탁 테마캡처).</p></td></tr><tr class="lead"><td class="nm">DB하이텍</td><td class="pc"><span class="up">+8.14%</span></td><td class="px">126,200</td><td class="vl">2,052</td><td class="gp">-43%</td></tr><tr class="lead"><td class="nm">주성엔지니어링<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+3.99%</span></td><td class="px">200,500</td><td class="vl">2,200</td><td class="gp">-</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#6f61c4"></span><b>금융</b><i>1,890억</i></div><p class="tg-n">KB금융 단독 top10 진입 — 동반 종목 미확인, 성립 보류.</p></td></tr><tr class="lead"><td class="nm">KB금융</td><td class="pc"><span class="up">+0.80%</span></td><td class="px">177,200</td><td class="vl">1,890</td><td class="gp">-</td></tr></tbody></table>
+      <p class="note">테마 안 순서는 상승률 내림차순. 진한 줄이 상위 10 진입 종목.<br>
+        장중에 캡처한 테마 데이터는 가격·등락률이 종가와 조금 다르다.</p>
+    </article>
+
+    <div class="card slot"><div class="card-h"><span class="badge w">대기</span><h3>인포스탁 테마 미수집</h3></div><ul class="slotlist"><li>테마별 등락률 · 거래대금</li><li>테마가 오르내린 이유</li></ul><p class="note"><b>인포스탁 Daily 특징테마 9/16자는 16:1x 현재 아직 게시 전이다</b>(목록 최신이 9/15). 보통 17:30~18:00에 올라오므로 <b>이 자리는 비워 두고 내일 아침에 채운다</b> — 추측으로 메우지 않는다.<br>다만 오늘 장을 만든 재료는 인포스탁 마감 헤드라인이 이미 한 줄로 요약했다 — <b>"코스피, FOMC 경계감에도 반도체株 강세에 '6700선 회복'…코스닥 0.44%↑"</b>. 실제로 <b>SK하이닉스 +4.08%(1,759,000) · 삼성전자 +2.01%(253,500)</b>이 지수를 끌었고, 코스피200이 +1.69%로 코스피(+1.37%)보다 더 오른 것도 대형주 쏠림과 일치한다.<br><b>[저녁 소급 확정]</b> 사용자가 [0187] 시가총액상위(통합) → [0177] '상승' 필터(거래대금순 정렬) 캡처를 저녁에 줬다. 이게 사용자가 실제로 주도주를 판별하는 방식이라고 확인됐다 — [0186] 거래대금상위와는 기준 유니버스가 다르다(시가총액 상위군 안에서 거래대금순 vs 시장 전체 거래대금순). 처음 준 캡처는 상승 필터가 걸린 채였다가([0186]류 화면 기준 착오), 사용자가 원래 방식은 [0187]→[0177]이라고 정정해줬다 — 이 부분 스킬에 반영 필요.<br>이 캡처로 top10을 구성하면 <b>SK하이닉스 71,621억·삼성전자 41,217억·삼성전기 8,813억·SK스퀘어 4,681억으로 반도체대형주 4종목이 top10 상위 4자리를 그대로 채운다 — 성립 확정, 주도주 SK하이닉스</b>. <b>광통신(대한광통신·빛과전자 2종목, 10,497억)·반도체소부장(주성엔지니어링·DB하이텍 2종목, 4,252억)도 2종목 규칙 충족으로 성립.</b> 5위 삼성전자우(우선주 제외), MLCC(삼성전기가 이미 반도체대형주로 집계돼 중복 단독), 금융(KB금융 단독)은 각 1종목뿐이라 미성립. 오전 티마 테마캡처에 있던 보안/양자·개별이슈는 이 top10에 전혀 없어 시장 전체 자금 유입으로 보기 어렵다.</p></div>
+
+    <div class="card slot"><div class="card-h"><span class="badge w">대기</span><h3>키움 연동 예정</h3></div><ul class="slotlist"><li>[0187]→[0177] 양봉필터(거래대금순) 9/16 캡처 — 저녁 사용자 캡처로 수령·확정</li><li>티마 테마 분류 9/16 캡처 — 저녁 사용자 캡처로 수령·확정</li><li>인포스탁 Daily 특징테마 9/16 — 16:1x 현재 미게시(17:30~18:00 예정), 내일 아침 반영</li><li>3_장후.bat 9/12 이후 미실행 — 수급 원본이 2026-09-11에 멈춰 있다 (전망 ④ 채점 불가의 직접 원인)</li><li>외국인 시간대별 수급 — 자동 세션에서 접근 가능한 소스 없음</li></ul><p class="note">0177 거래대금 순위는 봇의 조회 TR로 자동 수집된다. 아래는 아직 TR을 못 붙인 항목이다.</p></div>
+
+    <article class="card" style="--ac:#2e1f5e">
+      <div class="card-h"><span class="badge a">관전포인트</span><h3>오늘 정리</h3></div>
+      <ul class="watch"><li><b>오늘의 답은 반도체였다.</b> 코스피 +1.37%(6,717.97)로 6,700선을 회복했는데 SK하이닉스 +4.08% · 삼성전자 +2.01%가 끌었다. 인포스탁 마감 헤드라인도 "FOMC 경계감에도 반도체株 강세에 6700선 회복"으로 같은 진단이다. <b>그런데 아침 전망 4건 중 반도체를 1순위 재료로 적은 항목이 없었다</b> — ③이 "추격도 매도도 하지 말라"며 소극적으로 스쳤을 뿐이다.</li><li><b>아침 1순위였던 에너지는 정확히 반대로 갔다.</b> S-Oil −3.09% · SK이노 −3.81% · GS −2.69%. 브렌트유가 +2.9%로 더 올랐는데도 그랬다. 어제 하루로 선반영이 끝났다는 대체 해석이 맞았다.</li><li><b>회피 명단은 맞았다</b> — 가상자산 역방향 경계로 적은 우리기술투자가 <b>−7.66%</b>로 끝났다. COIN −10.10% 밤에 국내 가상자산주 하락 출발을 예상한 부분은 그대로 실현됐다.</li><li>제약·바이오는 약하게만 맞았다 — 씨젠 +0.62%. 인포스탁 9/16자 테마가 아직 안 올라와 "이틀 연속 상승 테마" 판정은 내일 아침으로 넘긴다.</li><li><b>거래대금 상위10·테마 성립·주도주는 저녁에 소급 확정했다</b> — 반도체대형주(SK하이닉스·삼성전자·삼성전기·SK스퀘어)가 top10 상위 4자리, 광통신·반도체소부장도 2종목씩 성립. 주도주 SK하이닉스. <b>아직 막힌 건 수급</b> — 9/11에 멈춰 있어 전망 ④를 채점하지 못했다. 3_장후.bat 한 번 돌리면 채워 넣는다.</li></ul>
+    </article>
+
+    <article class="card" style="--ac:#f5a623">
+      <div class="card-h"><span class="badge b">대조</span><h3>아침 전망 vs 실제</h3>
+        <small>2/3 적중</small></div>
+      <div class="vds"><article class="vd miss"><div class="vd-h"><b>유가발 정유·에너지가 오늘 국내 1순위 재료다</b><span class="vb miss">빗나감</span></div><dl class="vd-b"><div><dt>전망</dt><dd>09:30까지 S-Oil·GS·SK이노베이션 중 <b>2종목 이상 +2%</b>면 적중. 셋 다 +1% 미만이면 어제 하루로 선반영이 끝난 것으로 보고 추격하지 않고, 대신 철강(POSCO홀딩스)으로 옮겨 관찰한다.</dd></div><div><dt>실제</dt><dd><b>세 종목 모두 마이너스로 끝났다</b> — S-Oil 144,100(<b>−3.09%</b>) · GS 112,000(<b>−2.69%</b>) · SK이노베이션 136,300(<b>−3.81%</b>). 09:30 시점값은 확보할 소스가 없어 <b>장중 고가로 대용</b>했는데, 그 고가로 봐도 S-Oil +1.28% · GS −0.09% · SK이노 +0.78%로 <b>하루 종일 +2%에 닿은 종목이 하나도 없다</b> — 대용값이지만 판정을 뒤집을 여지가 없는 수준이다. 흥구석유는 −6.74%. 대체 시나리오로 지목한 철강 POSCO홀딩스도 <b>−1.66%</b>로 같이 틀렸다.</dd></div></dl><p class="note"><b>"셋 다 +1% 미만이면 선반영 끝"</b>이라는 대체 해석 쪽이 맞았다. 게다가 브렌트유는 오늘도 <b>108.75(+2.9%)</b>로 더 올랐는데 국내 정유주는 반대로 빠졌다 — <b>유가 상승 ≠ 정유주 상승</b> 반례가 하나 더 쌓였다. 더 아픈 건 대체안(철강)까지 틀렸다는 점이다. "에너지가 아니면 철강"이라는 분기 자체가 잘못된 분기였고, 실제 답은 아침 전망 ①~④ 어디에도 1순위로 적히지 않은 <b>반도체</b>였다.</p></article><article class="vd hit"><div class="vd-h"><b>야간선물 −0.17% — 갭 없는 보합 출발이다</b><span class="vb hit">적중</span></div><dl class="vd-b"><div><dt>전망</dt><dd>코스피 시가 등락률이 <b>−0.5%~+0.5%</b> 안에서 열리면 적중. 폭이 아니라 방향만 쓴다. 시가가 −1% 아래로 열리면 환율이 선물보다 센 날로 보고 대형주 비중을 줄인다.</dd></div><div><dt>실제</dt><dd><b>코스피 시가 6,611.24 = 전일 종가 6,627.26 대비 −0.24%</b> — 판정 구간 한가운데다. 주간선물도 시가 1,038.90 vs 전일 종가 1,039.80 = <b>−0.09%</b>로 같은 그림이다.</dd></div></dl><p class="note">방향만 쓴 판단이 맞았고, 이번엔 <b>폭까지 맞았다</b> — 야간선물 −0.17% vs 실제 갭 −0.24%로 0.08%p 차이다. 3.41%p(9/14)·1.81%p(9/15)씩 되돌던 이틀과 달리 오늘은 괴리가 없었다. <b>표본이 3일뿐이라 "야간선물 폭은 못 믿는다"는 기존 판단을 아직 바꾸지 않는다</b> — 하루 맞았다고 매핑을 확정하지 않는다.</p></article><article class="vd hit"><div class="vd-h"><b>SOX 보합 밤 — 시가 추격도 공포 매도도 하지 않는다</b><span class="vb hit">적중</span></div><dl class="vd-b"><div><dt>전망</dt><dd>SK하이닉스가 <b>시가 대비 종가 플러스</b>로 끝나면 적중. 시가부터 −2% 이상 추가로 밀리면 반도체 되돌림 시나리오를 접고 에너지 한 줄에 집중한다.</dd></div><div><dt>실제</dt><dd><b>SK하이닉스 시가 1,686,000 → 종가 1,759,000 = +4.33%</b>(전일 대비 +4.08%). <b>장중 저가가 정확히 시가(1,686,000)였다</b> — 하루 종일 시가를 한 번도 깨지 않고 올랐다. 삼성전자도 시가 248,000 → 종가 253,500 = <b>+2.22%</b>(전일 대비 +2.01%). 이 둘이 코스피 +1.37% · 코스피200 +1.69%를 만들었다.</dd></div></dl><p class="note">판정 기준을 크게 넘겨 적중했지만, <b>규칙 문장에 구멍이 있다</b>. "시가 추격 금지"를 그대로 따랐다면 +4.33%를 통째로 놓친 날이다. 1년 실측의 "SOX 보합 밤 = 데이트레이드 승률 67%"는 <b>장중이 되는 날</b>이라는 뜻이지 <b>시가에 사지 말라</b>는 뜻이 아니었는데, 아침 전망은 그 둘을 붙여 썼다. <b>보합 밤의 행동 규칙을 "시가 매수 허용 + 장중 보유"로 다시 쓸 근거가 오늘 하나 생겼다 — 표본 1건이므로 아직 규칙이 아니다.</b></p></article><article class="vd na"><div class="vd-h"><b>원/달러 1,362원 급등 — 외국인은 오늘도 순매도 쪽이다</b><span class="vb na">해당없음</span></div><dl class="vd-b"><div><dt>전망</dt><dd>09:00~11:00 외국인 코스피 누적이 <b>순매도</b>면 적중. 순매수로 돌아서면 어제의 1조5천억이 환율이 아니라 'AI 속도조절론' 단발 이슈였다는 뜻이므로 대형 반도체 되돌림 쪽으로 무게를 옮긴다.</dd></div><div><dt>실제</dt><dd><b>채점 불가 — 시간대별 외국인 수급 원본을 확보할 소스가 이 세션에 없다.</b> 봇의 수급 수집(3_장후.bat)이 9/12 이후 멈춰 있고 자동 세션이라 HTS 캡처도 없다.<br>정황은 전망과 <b>반대</b>다 — 환율은 오늘 더 올랐는데(1,367.63, Yahoo +1.64% / 한경 +0.49%, 두 소스 불일치) 코스피는 <b>+1.37%</b>로 6,700선을 회복했고 대형 반도체가 시가를 한 번도 깨지 않고 올랐다. 외국인이 어제처럼 1조5천억을 팔면서 나오기 어려운 모양이다.</dd></div></dl><p class="note"><b>정황이 반대라고 false로 확정하지 않는다</b> — 판정 기준이 "09:00~11:00 외국인 누적"인데 그 숫자가 없다. 오늘 밤 3_장후.bat을 한 번 돌리면 확정 수급이 들어와 <b>사후 채점이 가능하다</b>. 그때 순매수로 확인되면 전망 ③(반도체 되돌림)으로 무게를 옮기라던 자기 지시가 실제로 맞았던 셈이 된다.</p></article></div>
+      <p class="note">이 대조가 쌓여야 적중률을 말할 수 있다. 오늘이 <b>표본 1건</b>이다.</p>
+    </article>
+  </div>
+
+  </div>
+
+  <footer>
+    출처 · <a href="https://www.hankyung.com/globalmarket" target="_blank" rel="noopener">한국경제 글로벌마켓</a><a href="https://finance.yahoo.com/" target="_blank" rel="noopener">Yahoo Finance (chart API 일봉 · day_gainers)</a><a href="https://finviz.com/groups.ashx?g=industry&amp;v=140" target="_blank" rel="noopener">Finviz 업종별 등락 (Change %)</a><a href="https://finviz.com/screener.ashx?v=111&amp;f=ind_textilemanufacturing" target="_blank" rel="noopener">Finviz 스크리너 (섬유 제조 · 모기지 금융 구성종목)</a><a href="https://esignal.co.kr/kospi200-futures-night/" target="_blank" rel="noopener">eSignal 야간선물</a><a href="https://esignal.co.kr/kospi200-futures/" target="_blank" rel="noopener">eSignal 주간선물</a><a href="https://www.infostock.co.kr/Theme/DailyFeaturedTheme" target="_blank" rel="noopener">인포스탁 Daily 특징테마 (9/11자)</a><a href="https://www.ket.kr/news/article.html?no=40749" target="_blank" rel="noopener">경제타임스 시황 (9/14 급락 원인)</a><br>
+    교집합 판정은 "국내 주도 테마와 밤사이 미국 강세 섹터가 겹치면 힘을 받는다"는 <b>가설</b>을
+    적용한 것이며, 아직 데이터로 검증되지 않았다. 이 페이지는 투자 자문이 아니다.
+  </footer>
+</main>
+</div>
+
+</body>
+</html>
