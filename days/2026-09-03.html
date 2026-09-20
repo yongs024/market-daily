@@ -191,9 +191,10 @@ details.calm{margin-bottom:2px}
 .idxl .gap{font-style:normal;font-size:10px;color:#a8abb8;font-variant-numeric:tabular-nums;
  border:1px solid var(--line);border-radius:99px;padding:1px 5px}
 
-.mchips{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
-.mchip{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;
-  padding:9px 6px;border:1px solid var(--line);border-radius:10px;background:var(--card2,#faf9fd)}
+.mchips{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding-bottom:2px}
+.mchip{display:flex;flex:1 1 0;flex-direction:column;align-items:center;gap:3px;text-align:center;
+  padding:8px 4px;border:1px solid var(--line);border-radius:10px;background:var(--card2,#faf9fd);
+  min-width:64px}
 .mchip .mc-n{font-size:11px;color:var(--mut);line-height:1.2}
 .mchip .mc-v{font-size:13px;font-variant-numeric:tabular-nums;font-weight:650}
 .mchip.hot{background:#fff8ec;border-color:#f0c878}
@@ -354,7 +355,6 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
     <article class="card" style="--ac:#a3336a">
       <div class="card-h"><span class="badge b">지수</span><h3>미국 대표종목 · 유가 · 환율</h3></div>
       <div class="mchips"><div class="mchip"><span class="mc-n">S&amp;P 500</span><b class="mc-v">7,666.60</b><span class="up">+0.46%</span></div><div class="mchip"><span class="mc-n">나스닥</span><b class="mc-v">26,217.83</b><span class="up">+0.45%</span></div><div class="mchip"><span class="mc-n">필라델피아 반도체</span><b class="mc-v">11,339.25</b><span class="up">+0.45%</span></div><div class="mchip"><span class="mc-n">원/달러</span><b class="mc-v">1,358.88</b><span class="up">+0.02%</span></div></div>
-      
     </article>
 
     <article class="card" style="--ac:#6f61c4">
@@ -491,7 +491,7 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
     <article class="card" style="--ac:#1c1b2e">
       <div class="card-h"><span class="badge d">[0186] 통합 거래대금, &#x27;상승&#x27; 필터 캡처 — 하락 종목 제외. 상위10이 전부 대형(금융·자동차·2차전지·조선) = 로테이션 장.</span><h3>거래대금순 상위 10 (양봉) · 주도주</h3>
         <small>티마 + [0186] 상승필터</small></div>
-      <div class="verdict"><span class="vlbl">주도 테마</span><span class="lchip" style="--c:#2e1f5e">조선/기자재 <i>2종목</i> <b>삼성중공업</b></span><span class="lchip" style="--c:#2e1f5e">금융 <i>2종목</i> <b>KB금융</b></span><span class="lchip" style="--c:#2e1f5e">자동차 <i>2종목</i> <b>현대차</b></span><span class="lchip" style="--c:#2e1f5e">2차전지 <i>2종목</i> <b>삼성SDI</b></span></div>
+      <div class="verdict"><span class="vlbl">주도 테마</span><span class="lchip" style="--c:#2e1f5e">2차전지 <i>2종목</i> <b>삼성SDI</b></span><span class="lchip" style="--c:#2e1f5e">조선/기자재 <i>2종목</i> <b>삼성중공업</b></span><span class="lchip" style="--c:#2e1f5e">자동차 <i>2종목</i> <b>현대차</b></span><span class="lchip" style="--c:#2e1f5e">금융 <i>2종목</i> <b>KB금융</b></span></div>
       <table class="k7"><thead><tr><th class="rn">#</th><th>종목</th><th class="pc">등락률</th>
         <th class="vl">거래대금(억)</th><th class="th">테마</th></tr></thead><tbody><tr class=""><td class="rn">1</td><td class="nm">두산에너빌리티</td><td class="pc"><span class="up">+3.39%</span></td><td class="vl">4,540</td><td class="th"><span style="background:#2e1f5e"></span></td></tr><tr class="lead"><td class="rn">2</td><td class="nm">삼성SDI<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+0.19%</span></td><td class="vl">4,228</td><td class="th"><span style="background:#2e1f5e"></span>2차전지</td></tr><tr class="lead"><td class="rn">3</td><td class="nm">KB금융<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+5.20%</span></td><td class="vl">3,152</td><td class="th"><span style="background:#2e1f5e"></span>금융</td></tr><tr class="lead"><td class="rn">4</td><td class="nm">현대차<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+1.46%</span></td><td class="vl">2,772</td><td class="th"><span style="background:#2e1f5e"></span>자동차</td></tr><tr class=""><td class="rn">5</td><td class="nm">JW신약</td><td class="pc"><span class="up">+10.65%</span></td><td class="vl">2,565</td><td class="th"><span style="background:#5b4cb0"></span>바이오개별</td></tr><tr class="lead"><td class="rn">6</td><td class="nm">삼성중공업<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+8.58%</span></td><td class="vl">2,477</td><td class="th"><span style="background:#2e1f5e"></span>조선/기자재</td></tr><tr class="lead"><td class="rn">7</td><td class="nm">현대모비스</td><td class="pc"><span class="up">+1.93%</span></td><td class="vl">1,956</td><td class="th"><span style="background:#2e1f5e"></span>자동차</td></tr><tr class="lead"><td class="rn">8</td><td class="nm">LG에너지솔루션</td><td class="pc"><span class="up">+5.18%</span></td><td class="vl">1,930</td><td class="th"><span style="background:#2e1f5e"></span>2차전지</td></tr><tr class="lead"><td class="rn">9</td><td class="nm">신한지주</td><td class="pc"><span class="up">+3.62%</span></td><td class="vl">1,923</td><td class="th"><span style="background:#2e1f5e"></span>금융</td></tr><tr class="lead"><td class="rn">10</td><td class="nm">HD현대중공업</td><td class="pc"><span class="up">+3.08%</span></td><td class="vl">1,901</td><td class="th"><span style="background:#2e1f5e"></span>조선/기자재</td></tr></tbody></table>
       <p class="note"><b>판정 규칙</b> · 거래대금 상위 10(양봉만, 음봉 제외) 안에 같은 테마 2종목 이상이면 테마 성립,

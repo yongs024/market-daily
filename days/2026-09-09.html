@@ -191,9 +191,10 @@ details.calm{margin-bottom:2px}
 .idxl .gap{font-style:normal;font-size:10px;color:#a8abb8;font-variant-numeric:tabular-nums;
  border:1px solid var(--line);border-radius:99px;padding:1px 5px}
 
-.mchips{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
-.mchip{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;
-  padding:9px 6px;border:1px solid var(--line);border-radius:10px;background:var(--card2,#faf9fd)}
+.mchips{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding-bottom:2px}
+.mchip{display:flex;flex:1 1 0;flex-direction:column;align-items:center;gap:3px;text-align:center;
+  padding:8px 4px;border:1px solid var(--line);border-radius:10px;background:var(--card2,#faf9fd);
+  min-width:64px}
 .mchip .mc-n{font-size:11px;color:var(--mut);line-height:1.2}
 .mchip .mc-v{font-size:13px;font-variant-numeric:tabular-nums;font-weight:650}
 .mchip.hot{background:#fff8ec;border-color:#f0c878}
@@ -354,7 +355,6 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
     <article class="card" style="--ac:#a3336a">
       <div class="card-h"><span class="badge b">지수</span><h3>미국 대표종목 · 유가 · 환율</h3></div>
       <div class="mchips"><div class="mchip"><span class="mc-n">S&amp;P 500</span><b class="mc-v">7,673.52</b><span class="down">-0.58%</span></div><div class="mchip"><span class="mc-n">나스닥</span><b class="mc-v">26,421.41</b><span class="down">-0.32%</span></div><div class="mchip"><span class="mc-n">필라델피아 반도체</span><b class="mc-v">11,887.87</b><span class="up">+1.30%</span></div><div class="mchip"><span class="mc-n">원/달러</span><b class="mc-v">1,340.44</b><span class="down">-0.10%</span></div></div>
-      
     </article>
 
     <article class="card" style="--ac:#6f61c4">
