@@ -120,7 +120,7 @@ details.calm{margin-bottom:2px}
 .top h1{font-size:18px;font-weight:800}
 .top .meta{font-size:11px;color:var(--mut);text-align:right;font-variant-numeric:tabular-nums}
 
-.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
 @media(max-width:1240px){.cols{grid-template-columns:1fr}}
 @media(max-width:900px){.layout{display:block}
  .side{position:static;width:auto;flex:none;max-height:none;border-right:0;
@@ -344,72 +344,6 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
   </div>
 
   <div class="cols">
-
-  <!-- ═══ ① 전일 시황 ═══ -->
-  <div class="col">
-    <div class="colh"><h2>① 전일 시황 <span>9/1(화) 마감</span></h2></div>
-
-    <article class="card" style="--ac:#4c3d95">
-      <div class="card-h"><span class="badge a">지수</span><h3>코스피 · 코스닥 등락률</h3></div>
-      <ul class="idxl"><li><span>코스피</span><b>6,835.80</b><span class="up">+0.23%</span><i class="gap">-25%</i></li><li><span>코스닥</span><b>821.25</b><span class="down">-1.56%</span><i class="gap">-33%</i></li><li><span>코스피200</span><b>1,075.30</b><span class="up">+0.32%</span></li></ul>
-      <p class="note">우측 회색 배지는 120일 고점 대비 위치. 신고가 트리거는
-        미발동.
-        주간선물 1,078.15 (+10.30, <span class="up">+0.96%</span>).<br>
-        시가 <b>1,068.65</b> — 전일 종가 1,067.85 대비 <b>+0.07% 갭업</b>(야간선물이 시사한 -0.31% 갭다운과 <b>방향이 반대</b>). 그대로 밀어올려 <b>1,078.15 (+10.30, +0.96%)</b>로 마감. 1차 상승목표 1,082.00에 4p 못 미쳤다. <b>고가·저가는 eSignal 페이지에 표시되지 않아 비워뒀다</b> — 추정치를 넣지 않았다. 갱신시간 15:45.</p>
-    </article>
-
-    
-    <article class="card" style="--ac:#1c1b2e">
-      <div class="card-h"><span class="badge d">거래대금=티마 캡처 / 등락률·종가=Yahoo 일봉 확정치</span><h3>거래대금순 상위 10 (양봉) · 주도주</h3>
-        <small>티마 (0186 미수령)</small></div>
-      <div class="verdict"><span class="vlbl">주도 테마</span><span class="lchip" style="--c:#2e1f5e">반도체 <i>3종목</i> <b>SK하이닉스</b></span><span class="lchip" style="--c:#6f61c4">호남반도체공장 <i>2종목</i> <b>금호전기</b></span><span class="lchip" style="--c:#8478d3">탈모치료 <i>2종목</i> <b>현대약품</b></span></div>
-      <table class="k7"><thead><tr><th class="rn">#</th><th>종목</th><th class="pc">등락률</th>
-        <th class="vl">거래대금(억)</th><th class="th">테마</th></tr></thead><tbody><tr class="lead"><td class="rn">1</td><td class="nm">SK하이닉스<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+1.14%</span></td><td class="vl">59,088</td><td class="th"><span style="background:#2e1f5e"></span>반도체</td></tr><tr class="lead"><td class="rn">2</td><td class="nm">삼성전자</td><td class="pc"><span class="up">+0.38%</span></td><td class="vl">46,321</td><td class="th"><span style="background:#2e1f5e"></span>반도체</td></tr><tr class="lead"><td class="rn">3</td><td class="nm">SK스퀘어</td><td class="pc"><span class="up">+2.89%</span></td><td class="vl">5,901</td><td class="th"><span style="background:#2e1f5e"></span>반도체</td></tr><tr class=""><td class="rn">4</td><td class="nm">SK이노베이션</td><td class="pc"><span class="up">+7.81%</span></td><td class="vl">5,434</td><td class="th"><span style="background:#4c3d95"></span>2차전지</td></tr><tr class=""><td class="rn">5</td><td class="nm">비에이치</td><td class="pc"><span class="up">+20.68%</span></td><td class="vl">3,341</td><td class="th"><span style="background:#5b4cb0"></span>개별이슈</td></tr><tr class="lead"><td class="rn">6</td><td class="nm">금호전기<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+4.73%</span></td><td class="vl">2,194</td><td class="th"><span style="background:#6f61c4"></span>호남반도체공장</td></tr><tr class="lead"><td class="rn">7</td><td class="nm">현대약품<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+29.94%</span></td><td class="vl">1,497</td><td class="th"><span style="background:#8478d3"></span>탈모치료</td></tr><tr class=""><td class="rn">8</td><td class="nm">인제니아테라퓨틱스</td><td class="pc"><span class="up">+9.35%</span></td><td class="vl">1,348</td><td class="th"><span style="background:#5b4cb0"></span>개별이슈</td></tr><tr class="lead"><td class="rn">9</td><td class="nm">바이오니아</td><td class="pc"><span class="up">+25.14%</span></td><td class="vl">1,204</td><td class="th"><span style="background:#8478d3"></span>탈모치료</td></tr><tr class="lead"><td class="rn">10</td><td class="nm">금호건설</td><td class="pc"><span class="up">+0.24%</span></td><td class="vl">1,046</td><td class="th"><span style="background:#6f61c4"></span>호남반도체공장</td></tr></tbody></table>
-      <p class="note"><b>판정 규칙</b> · 거래대금 상위 10(양봉만, 음봉 제외) 안에 같은 테마 2종목 이상이면 테마 성립,
-        그 안 거래대금 1위 딱 하나가 주도주.
-        미달 — 2차전지(1).<br>
-        캡처 시각 · 2026-09-01 15:5x 티마 캡처(거래대금) + 등락률·종가는 Yahoo 일봉으로 교정 (16:20 KST)<br>
-        <b>주의</b> · 봇 자동 스냅샷(<code>data/market/2026-09-01.json</code>)이 <b>생성되지 않았다</b> — [0186] 통합 거래대금 순위가 없어 <b>티마 캡처만으로</b> 순위를 세웠다. 티마는 KRX 기준이라 대형주 거래대금이 실제보다 작게 잡힐 수 있고, <b>하락 종목이 누락됐을 가능성</b>도 배제하지 못한다.</p>
-    </article>
-
-    <article class="card" style="--ac:#5b4cb0">
-      <div class="card-h"><span class="badge a">세부</span><h3>테마별 종목</h3></div>
-      <table class="k7 tgt"><tbody><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#2e1f5e"></span><b>반도체</b><i>124,825억</i><em class=ok>성립</em><em class="gp">고점대비 -38% · 신고가권 0/4</em></div><p class="tg-n">8월 수출 466.5억달러 역대 최대 — 반도체가 견인</p></td></tr><tr class="lead"><td class="nm">SK스퀘어</td><td class="pc"><span class="up">+2.89%</span></td><td class="px">1,067,000</td><td class="vl">5,901</td><td class="gp">-46%</td></tr><tr class="lead"><td class="nm">SK하이닉스<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+1.14%</span></td><td class="px">1,693,000</td><td class="vl">59,088</td><td class="gp">-42%</td></tr><tr class="lead"><td class="nm">삼성전자</td><td class="pc"><span class="up">+0.38%</span></td><td class="px">261,000</td><td class="vl">46,321</td><td class="gp">-28%</td></tr><tr class=""><td class="nm">삼성전기</td><td class="pc"><span class="down">-1.92%</span></td><td class="px">1,430,000</td><td class="vl">13,515</td><td class="gp">-37%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#4c3d95"></span><b>2차전지</b><i>14,781억</i><em class="gp">고점대비 -31% · 신고가권 0/4</em></div><p class="tg-n">트럼프 &#x27;美 전력망서 中 배터리 배제&#x27; 발언</p></td></tr><tr class="lead"><td class="nm">SK이노베이션</td><td class="pc"><span class="up">+7.81%</span></td><td class="px">135,300</td><td class="vl">5,434</td><td class="gp">-10%</td></tr><tr class=""><td class="nm">피노</td><td class="pc"><span class="up">+5.48%</span></td><td class="px">8,280</td><td class="vl">495</td><td class="gp">-55%</td></tr><tr class=""><td class="nm">삼성SDI</td><td class="pc"><span class="down">-1.39%</span></td><td class="px">569,000</td><td class="vl">6,265</td><td class="gp">-20%</td></tr><tr class=""><td class="nm">엘앤에프</td><td class="pc"><span class="down">-10.57%</span></td><td class="px">131,200</td><td class="vl">2,587</td><td class="gp">-38%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#5b4cb0"></span><b>개별이슈</b><i>5,873억</i><em class="gp">고점대비 -38% · 신고가권 0/2</em></div><p class="tg-n">개별이슈로 등락중 — 종목 간 연관성 없음</p></td></tr><tr class="lead"><td class="nm">비에이치</td><td class="pc"><span class="up">+20.68%</span></td><td class="px">22,000</td><td class="vl">3,341</td><td class="gp">-45%</td></tr><tr class="lead"><td class="nm">인제니아테라퓨틱스</td><td class="pc"><span class="up">+9.35%</span></td><td class="px">19,290</td><td class="vl">1,348</td><td class="gp">-</td></tr><tr class=""><td class="nm">온코닉테라퓨틱스</td><td class="pc"><span class="down">-0.22%</span></td><td class="px">17,990</td><td class="vl">1,184</td><td class="gp">-31%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#6f61c4"></span><b>호남반도체공장</b><i>4,754억</i><em class=ok>성립</em><em class="ok">고점대비 -5% · 신고가권 2/4</em></div><p class="tg-n">호남 메가프로젝트 후속 — 어제 대비 열기 축소</p></td></tr><tr class=""><td class="nm">강동씨앤엘</td><td class="pc"><span class="up">+22.98%</span></td><td class="px">2,135</td><td class="vl">764</td><td class="gp">-12%</td></tr><tr class="lead"><td class="nm">금호전기<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+4.73%</span></td><td class="px">13,070</td><td class="vl">2,194</td><td class="gp new">+5%</td></tr><tr class=""><td class="nm">금호타이어</td><td class="pc"><span class="up">+1.22%</span></td><td class="px">7,450</td><td class="vl">750</td><td class="gp">-8%</td></tr><tr class="lead"><td class="nm">금호건설</td><td class="pc"><span class="up">+0.24%</span></td><td class="px">16,500</td><td class="vl">1,046</td><td class="gp new">-5%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#8478d3"></span><b>탈모치료</b><i>3,730억</i><em class=ok>성립</em><em class="ok">고점대비 -9% · 신고가권 1/3</em></div><p class="tg-n">탈모 치료제 모멘텀 — 상한가 2종목</p></td></tr><tr class=""><td class="nm">JW신약</td><td class="pc"><span class="up">+30.00%</span></td><td class="px">2,990</td><td class="vl">1,029</td><td class="gp new">-4%</td></tr><tr class="lead"><td class="nm">현대약품<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+29.94%</span></td><td class="px">8,290</td><td class="vl">1,497</td><td class="gp">-13%</td></tr><tr class="lead"><td class="nm">바이오니아</td><td class="pc"><span class="up">+25.14%</span></td><td class="px">11,000</td><td class="vl">1,204</td><td class="gp">-11%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#a99ce8"></span><b>대북주</b><i>1,144억</i><em class="gp">고점대비 -32% · 신고가권 0/2</em></div><p class="tg-n">국정원 &#x27;김주애 후계자&#x27; 발언</p></td></tr><tr class=""><td class="nm">코데즈컴바인</td><td class="pc"><span class="up">+12.54%</span></td><td class="px">3,950</td><td class="vl">628</td><td class="gp">-28%</td></tr><tr class=""><td class="nm">아난티</td><td class="pc"><span class="up">+3.69%</span></td><td class="px">5,340</td><td class="vl">516</td><td class="gp">-36%</td></tr></tbody></table>
-      <p class="note">테마 안 순서는 상승률 내림차순. 진한 줄이 상위 10 진입 종목.<br>
-        장중에 캡처한 테마 데이터는 가격·등락률이 종가와 조금 다르다.</p>
-    </article>
-
-
-    <article class="card hide" style="--ac:#6f61c4">
-      <div class="card-h"><span class="badge a">분류</span><h3>테마 분류</h3></div>
-      <ul class="hbars"><li><span class="gname"><i style="background:#b8bcc9"></i><em>9개</em></span><span class="hb-t"><i style="width:0.0%;background:#b8bcc9"></i></span><span class="hb-p ink">0</span></li></ul>
-      <p class="note">테마를 상위 그룹으로 묶어 거래대금을 합쳤다.
-        한 종목이 여러 테마에 겹치므로 그룹 간 절대 비교는 주의.</p>
-    </article>
-
-    <article class="card hide" style="--ac:#b8bcc9">
-      <div class="card-h"><span class="badge w">참고</span><h3>테마별 거래대금 (인포스탁)</h3></div>
-      <ul class="hbars"><li><span class="hb-n">탈모 치료</span><span class="hb-t"><i style="width:0.0%;background:#b8bcc9"></i></span><span class="hb-p ink">0</span></li><li><span class="hb-n">손해보험</span><span class="hb-t"><i style="width:0.0%;background:#b8bcc9"></i></span><span class="hb-p ink">0</span></li><li><span class="hb-n">생명보험</span><span class="hb-t"><i style="width:0.0%;background:#b8bcc9"></i></span><span class="hb-p ink">0</span></li><li><span class="hb-n">남북경협</span><span class="hb-t"><i style="width:0.0%;background:#b8bcc9"></i></span><span class="hb-p ink">0</span></li><li><span class="hb-n">정유</span><span class="hb-t"><i style="width:0.0%;background:#b8bcc9"></i></span><span class="hb-p ink">0</span></li><li><span class="hb-n">LPG(액화석유가스)</span><span class="hb-t"><i style="width:0.0%;background:#b8bcc9"></i></span><span class="hb-p ink">0</span></li><li><span class="hb-n">윤활유</span><span class="hb-t"><i style="width:0.0%;background:#b8bcc9"></i></span><span class="hb-p ink">0</span></li><li><span class="hb-n">철강 주요종목</span><span class="hb-t"><i style="width:0.0%;background:#b8bcc9"></i></span><span class="hb-p ink">0</span></li></ul>
-      <p class="note">단위 억원. 인포스탁 테마 구성종목의 거래량×종가 합산이다.
-        한 종목이 여러 테마에 중복으로 들어가 과대계상되므로, 판단은 위 0177 분류를 기준으로 한다.</p>
-    </article>
-
-    <article class="card" style="--ac:#8478d3">
-      <div class="card-h"><span class="badge a">등락률</span><h3>등락률 순위 (참고)</h3></div>
-      <ul class="hbars"><li><span class="hb-n">탈모 치료</span><span class="hb-t"><i style="width:100.0%;background:#b8bcc9"></i></span><span class="hb-p"><span class="up">+5.70%</span></span></li><li><span class="hb-n">손해보험</span><span class="hb-t"><i style="width:67.7%;background:#b8bcc9"></i></span><span class="hb-p"><span class="up">+3.86%</span></span></li><li><span class="hb-n">생명보험</span><span class="hb-t"><i style="width:47.0%;background:#b8bcc9"></i></span><span class="hb-p"><span class="up">+2.68%</span></span></li><li><span class="hb-n">남북경협</span><span class="hb-t"><i style="width:42.5%;background:#b8bcc9"></i></span><span class="hb-p"><span class="up">+2.42%</span></span></li><li><span class="hb-n">정유</span><span class="hb-t"><i style="width:40.9%;background:#b8bcc9"></i></span><span class="hb-p"><span class="up">+2.33%</span></span></li><li><span class="hb-n">LPG(액화석유가스)</span><span class="hb-t"><i style="width:25.4%;background:#b8bcc9"></i></span><span class="hb-p"><span class="up">+1.45%</span></span></li><li><span class="hb-n">윤활유</span><span class="hb-t"><i style="width:19.1%;background:#b8bcc9"></i></span><span class="hb-p"><span class="up">+1.09%</span></span></li><li><span class="hb-n">철강 주요종목</span><span class="hb-t"><i style="width:10.7%;background:#b8bcc9"></i></span><span class="hb-p"><span class="up">+0.61%</span></span></li></ul>
-      <p class="note">거래대금 순위와 다르다는 점이 핵심이다.<br>
-        하락 · 귀금속(금/은) · 비철금속 — 워시 Fed 의장 매파 발언 속 9월 인상 경계감, 금·은 가격 하락. 반도체 기판(FC-BGA/PCB/MLB) · 소캠(SOCAMM) · 반도체 재료/부품 · 반도체 장비 — 일부 반도체 관련. 광통신 · 양자암호/양자컴퓨팅 · 전력설비 · 건설 대표주 · 스페이스X · 태양광 · 우주항공 · 해운 · 방위산업 · 원자력발전 · 화장품 · 자동차 대표주. (인포스탁 9/1자 본문 · 무료판은 하락률 수치를 주지 않아 이름만 옮겼다)<br>
-        <b>인포스탁 Daily 특징테마 9/1자</b>(19:30 수신, 마감 3시간 뒤 발행). 오늘 지목된 다섯은 <b>탈모 치료 · 남북경협/철도 · 생명보험/손해보험 · 정유/LPG/윤활유 · 철강 주요종목</b>이다.<br>▷탈모 치료 — <b>블룸버그가 8/29 '월가가 비만치료제에 이어 탈모 치료제에 주목'이라고 보도</b>한 게 재료. 미국 유전성 탈모 인구 남성 5,000만·여성 3,000만명, 1990년대 후반 이후 신약 승인이 없었다는 내용이다. JW신약 +30.00% · 현대약품 +29.94% · 삼익제약 +26.72% · 바이오니아 +25.14%.<br>▷남북경협/철도 — 북미 정상회담 기대감. ▷생명·손해보험 — 금리 상승에 따른 펀더멘탈 개선·주주환원 기대. ▷정유/LPG/윤활유 — <b>美-이란 무력 충돌 재개 속 국제유가 급등</b>. ▷철강 — 실적 정상화·신사업 재평가.<br><b>하락</b> — 워시 Fed 의장 매파 발언에 귀금속(금/은)·비철금속이 밀렸고, <b>반도체 기판(FC-BGA)·소캠·반도체 재료/부품·반도체 장비 등 반도체 소부장 라인이 하락</b>했다(대형주는 올랐는데 소부장은 빠진 갈림). 광통신·양자암호·전력설비도 하락.<br><b>주의 — 인포스탁은 등락률만 주고 거래대금은 안 준다.</b> 위 막대에 거래대금이 비어 있는 이유이고, 테마 성립·주도주 판정에는 쓰지 않는다(판정은 위 거래대금 카드로 한다).</p>
-    </article>
-
-    <article class="card" style="--ac:#a3336a">
-      <div class="card-h"><span class="badge b">종목</span><h3>테마별 상위 종목</h3></div>
-      <div class="stks"><div class="stkcol"><div class="stkh"><span class="dot" style="background:#b8bcc9"></span>탈모 치료</div><ul class="stkl"></ul></div><div class="stkcol"><div class="stkh"><span class="dot" style="background:#b8bcc9"></span>손해보험</div><ul class="stkl"></ul></div><div class="stkcol"><div class="stkh"><span class="dot" style="background:#b8bcc9"></span>생명보험</div><ul class="stkl"></ul></div><div class="stkcol"><div class="stkh"><span class="dot" style="background:#b8bcc9"></span>남북경협</div><ul class="stkl"></ul></div><div class="stkcol"><div class="stkh"><span class="dot" style="background:#b8bcc9"></span>정유</div><ul class="stkl"></ul></div><div class="stkcol"><div class="stkh"><span class="dot" style="background:#b8bcc9"></span>LPG(액화석유가스)</div><ul class="stkl"></ul></div></div>
-      <p class="note">대장주 판별 기준 확정 전이라 등락률 상위 3종목을 임시로 넣었다.</p>
-    </article>
-
-    
-  </div>
 
   <!-- ═══ ② 새벽 미국시황 ═══ -->
   <div class="col">

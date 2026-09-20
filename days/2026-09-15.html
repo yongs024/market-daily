@@ -120,7 +120,7 @@ details.calm{margin-bottom:2px}
 .top h1{font-size:18px;font-weight:800}
 .top .meta{font-size:11px;color:var(--mut);text-align:right;font-variant-numeric:tabular-nums}
 
-.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
 @media(max-width:1240px){.cols{grid-template-columns:1fr}}
 @media(max-width:900px){.layout{display:block}
  .side{position:static;width:auto;flex:none;max-height:none;border-right:0;
@@ -344,72 +344,6 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
   </div>
 
   <div class="cols">
-
-  <!-- ═══ ① 전일 시황 ═══ -->
-  <div class="col">
-    <div class="colh"><h2>① 전일 시황 <span>9/14(월) 마감</span></h2></div>
-
-    <article class="card" style="--ac:#4c3d95">
-      <div class="card-h"><span class="badge a">지수</span><h3>코스피 · 코스닥 등락률</h3></div>
-      <ul class="idxl"><li><span>코스피</span><b>6,684.37</b><span class="down">-3.26%</span><i class="gap">-27%</i></li><li><span>코스닥</span><b>806.79</b><span class="down">-1.69%</span><i class="gap">-34%</i></li><li><span>코스피200</span><b>1,050.83</b><span class="down">-3.61%</span><i class="gap">-29%</i></li></ul>
-      <p class="note">우측 회색 배지는 120일 고점 대비 위치. 신고가 트리거는
-        미발동.
-        주간선물 1,048.40 (-39.90, <span class="down">-3.67%</span>).<br>
-        eSignal 주간선물 16:0x 수집 (갱신시간 15:45) — <b>종가 1,048.40(−39.90, −3.67%)</b>, <b>시가 1,061.75</b>. 1,088.30 − 39.90 = 1,048.40으로 <b>내부 일관성 확인</b>했다. 고/저는 차트에만 있어 미확보.<br><b>갭 = 시가 1,061.75 vs 전일 종가 1,088.30 = −2.44%</b>(갭다운).<br>현물 코스피200은 <b>시가 1,052.91 vs 전일 종가 1,090.22 = −3.42%</b>로 이틀 연속 선물보다 갭이 컸다(금요일도 −3.48 vs −2.81). 장중 저 1,046.27 · 고 1,066.64 · 종가 1,050.83 — <b>시가→종가 −0.20%</b>로 금요일의 '갭다운 매수'와 달리 <b>오늘은 갭을 메우지 못했다</b>.<br><b>오늘의 핵심 숫자는 여기 있다</b> — 아침 07:0x 야간선물이 1,098.85(<b>+0.97%</b>)였는데 실제 주간선물 시가는 1,061.75(<b>−2.44%</b>)다. <b>3.41%p가 아침 이후에 뒤집혔다</b>.</p>
-    </article>
-
-    
-    <article class="card" style="--ac:#1c1b2e">
-      <div class="card-h"><span class="badge d">[0186] 거래대금상위(통합) 화면 정본. 2026-09-15에 사용자가 [0186]과 [0177]을 나란히 캡처해 두 화면이 다르다는 걸 확인했다 — [0177] 특정일자 상한가/하한가는 &#x27;상승&#x27; 라디오를 켜면 오르는 종목만 나오는 조회창이라 정본으로 쓸 수 없고, 방향 필터가 없는 [0186] 거래대금상위가 정본이다(판정 규칙 6 정정, 스킬 반영 완료). 9/14 16:0x 마감 당시엔 이 캡처가 없어 보류했던 상위10·테마 성립·주도주 판정을 여기서 소급 확정한다.</span><h3>거래대금순 상위 10 (양봉) · 주도주</h3>
-        <small>[0186] 거래대금상위 정본 (소급)</small></div>
-      <div class="verdict"><span class="vlbl">주도 테마</span></div>
-      <table class="k7"><thead><tr><th class="rn">#</th><th>종목</th><th class="pc">등락률</th>
-        <th class="vl">거래대금(억)</th><th class="th">테마</th></tr></thead><tbody><tr class=""><td class="rn">1</td><td class="nm">빛과전자</td><td class="pc"><span class="up">+12.53%</span></td><td class="vl">3,452</td><td class="th"><span style="background:#5b4cb0"></span>광통신</td></tr><tr class=""><td class="rn">2</td><td class="nm">엑스게이트</td><td class="pc"><span class="up">+6.97%</span></td><td class="vl">2,919</td><td class="th"><span style="background:#6f61c4"></span>보안</td></tr><tr class=""><td class="rn">3</td><td class="nm">한화에어로스페이스</td><td class="pc"><span class="up">+4.72%</span></td><td class="vl">2,844</td><td class="th"><span style="background:#8478d3"></span>방산</td></tr></tbody></table>
-      <p class="note"><b>판정 규칙</b> · 거래대금 상위 10(양봉만, 음봉 제외) 안에 같은 테마 2종목 이상이면 테마 성립,
-        그 안 거래대금 1위 딱 하나가 주도주.
-        미달 — 광통신(1), 보안(1), 방산(1).<br>
-        캡처 시각 · 2026-09-15 아침 사용자 캡처 ([0186] 거래대금상위(통합) — 9/14치 소급 확정)<br>
-        <b>주의</b> · 16:20 자동 세션엔 캡처가 없어 '오늘 없음'으로 남겨뒀다가, 9/15 아침에 사용자가 준 정정 캡처로 채웠다. 우선주(삼성전자우, 5위·5,935억)는 순위표엔 표기하되 테마 성립 판정에서는 제외.</p>
-    </article>
-
-    <article class="card" style="--ac:#5b4cb0">
-      <div class="card-h"><span class="badge a">세부</span><h3>테마별 종목</h3></div>
-      <table class="k7 tgt"><tbody><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#2e1f5e"></span><b>반도체</b><i>185,795억</i><em class="gp">고점대비 -41% · 신고가권 0/4</em></div><p class="tg-n">AI 개발 속도조절론 + 외국인 유가증권시장 1조5,000억 순매도가 대형주에 집중됐다(watch 참고).</p></td></tr><tr class=""><td class="nm">삼성전자</td><td class="pc"><span class="down">-4.24%</span></td><td class="px">248,500</td><td class="vl">66,427</td><td class="gp">-31%</td></tr><tr class=""><td class="nm">삼성전기</td><td class="pc"><span class="down">-5.57%</span></td><td class="px">1,322,000</td><td class="vl">9,199</td><td class="gp">-42%</td></tr><tr class=""><td class="nm">SK하이닉스</td><td class="pc"><span class="down">-7.12%</span></td><td class="px">1,683,000</td><td class="vl">103,000</td><td class="gp">-42%</td></tr><tr class=""><td class="nm">SK스퀘어</td><td class="pc"><span class="down">-8.17%</span></td><td class="px">1,000,000</td><td class="vl">7,169</td><td class="gp">-49%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#4c3d95"></span><b>원전</b><i>5,166억</i><em class="gp">고점대비 -37% · 신고가권 0/1</em></div><p class="tg-n">금요일 상승분(한전기술 +4.41·두산에너빌리티 +1.33)을 반납한 날 — verdict ③ 참고.</p></td></tr><tr class=""><td class="nm">두산에너빌리티</td><td class="pc"><span class="down">-5.73%</span></td><td class="px">85,600</td><td class="vl">5,166</td><td class="gp">-37%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#5b4cb0"></span><b>광통신</b><i>3,452억</i><em class="gp">고점대비 -38% · 신고가권 0/1</em></div><p class="tg-n">빛과전자 단독 top10 진입 — 동반 종목 미확인이라 성립 보류.</p></td></tr><tr class="lead"><td class="nm">빛과전자</td><td class="pc"><span class="up">+12.53%</span></td><td class="px">4,355</td><td class="vl">3,452</td><td class="gp">-38%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#6f61c4"></span><b>보안</b><i>2,919억</i><em class="gp">고점대비 -38% · 신고가권 0/1</em></div><p class="tg-n">엑스게이트만 top10 진입 — 같은 날 상한가였던 에스투더블유·샌즈랩은 top10 밖.</p></td></tr><tr class="lead"><td class="nm">엑스게이트</td><td class="pc"><span class="up">+6.97%</span></td><td class="px">17,180</td><td class="vl">2,919</td><td class="gp">-38%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#8478d3"></span><b>방산</b><i>2,844억</i><em class="gp">고점대비 -26% · 신고가권 0/1</em></div><p class="tg-n">한화에어로스페이스 단독 top10 진입.</p></td></tr><tr class="lead"><td class="nm">한화에어로스페이스</td><td class="pc"><span class="up">+4.72%</span></td><td class="px">1,132,000</td><td class="vl">2,844</td><td class="gp">-26%</td></tr></tbody></table>
-      <p class="note">테마 안 순서는 상승률 내림차순. 진한 줄이 상위 10 진입 종목.<br>
-        장중에 캡처한 테마 데이터는 가격·등락률이 종가와 조금 다르다.</p>
-    </article>
-
-
-    <article class="card hide" style="--ac:#6f61c4">
-      <div class="card-h"><span class="badge a">분류</span><h3>테마 분류</h3></div>
-      <ul class="hbars"></ul>
-      <p class="note">테마를 상위 그룹으로 묶어 거래대금을 합쳤다.
-        한 종목이 여러 테마에 겹치므로 그룹 간 절대 비교는 주의.</p>
-    </article>
-
-    <article class="card hide" style="--ac:#b8bcc9">
-      <div class="card-h"><span class="badge w">참고</span><h3>테마별 거래대금 (인포스탁)</h3></div>
-      <ul class="hbars"></ul>
-      <p class="note">단위 억원. 인포스탁 테마 구성종목의 거래량×종가 합산이다.
-        한 종목이 여러 테마에 중복으로 들어가 과대계상되므로, 판단은 위 0177 분류를 기준으로 한다.</p>
-    </article>
-
-    <article class="card" style="--ac:#8478d3">
-      <div class="card-h"><span class="badge a">등락률</span><h3>등락률 순위 (참고)</h3></div>
-      <ul class="hbars"></ul>
-      <p class="note">거래대금 순위와 다르다는 점이 핵심이다.<br>
-        하락 · <br>
-        <b>인포스탁 9/14자 특징테마는 아직 없다</b> — 16:0x 시점에 최신이 9/11자였다(통상 17:30~18:00 게시). 내일 아침 갱신 때 채운다.<br>대신 오늘자 시황 기사로 방향만 적어 둔다 — 경제타임스는 부제에 <b>'보안·양자 테마는 강세'</b>라고 적었고, 실제로 지수가 −3.26%인 날 KB금융 +0.39 · 한화에어로스페이스 +0.58 · 신한지주 +0.35가 플러스로 버텼다(9시21분 기준). <b>이 값들은 종가가 아니라 장중값이므로 확정치로 쓰지 않는다</b> — 8/31에 장중값을 종가로 적었다가 인포스탁 종가와 어긋난 전례가 있어 명시해 둔다.<br><b>거래대금 순위·테마 성립·주도주 판정은 정본(0177 당일주도주 개별종목 상위10) 캡처가 없어 오늘 못 했다.</b> 봇 스냅샷(data/market/2026-09-14.json)도 미생성(최신 2026-08-27). <b>추측으로 채우지 않는다.</b><br><b>다만 사용자가 밤에 준 '테마별 거래대금' 집계 캡처로 반도체 하나는 확인된다</b> — 반도체 테마 합산 거래대금 <b>180,523억</b>으로 광통신(6,991억)·보안(5,792억)·방산(5,459억)·개별이슈(4,677억)를 전부 합친 것보다 8배 이상 크다. 구성은 SK하이닉스 102,977억·삼성전자 66,380억·삼성전기 9,194억·한미반도체 1,972억. <b>화면 표기가 +4.24%·+7.12%·+5.50%로 양수인데, 같은 캡처의 현재가(삼성전자 248,500·SK하이닉스 1,683,000·삼성전기 1,323,000)를 금요일 종가로 역산하면 전부 그 절댓값 그대로의 음수와 정확히 일치한다</b>(예: 삼성전자 248,500/259,500 = −4.24%). <b>파란 글씨가 양수로 보이는 표기 오류이며, 실제로는 전부 하락</b>이다. 다만 이건 개별종목 상위10 표가 아니라 테마 합산 표라 '상위10 안에 2종목' 규칙을 엄밀히 적용할 순 없다 — 반도체는 값 차이가 압도적이라 성립으로 보되, 광통신·보안·방산은 전체 상위10 편입 여부가 미확인이라 성립 선언은 보류한다.<br><b>[2026-09-15 소급 확정] 위 보류를 개별종목 정본 캡처로 확정한다.</b> 사용자가 [0186] 거래대금상위(통합)와 [0177] 특정일자 상한가/하한가를 나란히 캡처해 대조한 결과, 그동안 '0177 정본'이라 불러온 화면이 실은 [0177]의 '상승' 필터(오르는 종목만 나옴)였고 진짜 정본은 방향 필터가 없는 [0186]이었다는 게 드러났다(스킬 판정 규칙 6 정정). 이 [0186] 캡처로 9/14 top10을 다시 구성하면 — <b>SK하이닉스 103,000억·삼성전자 66,427억·삼성전기 9,199억·SK스퀘어 7,169억으로 반도체 4종목이 top10 상위 4자리를 그대로 채운다 — 성립 확정, 주도주 SK하이닉스</b>. 5위 삼성전자우(우선주 제외), 6위 두산에너빌리티(원전) · 7위 빛과전자(광통신) · 8위 엑스게이트(보안) · 9위 현대차 · 10위 한화에어로스페이스(방산)는 각 테마 1종목뿐이라 <b>원전·광통신·보안·방산 전부 미성립</b>으로 확정한다 — 추측이 아니라 top10 전 종목을 직접 확인한 결과다.</p>
-    </article>
-
-    <article class="card" style="--ac:#a3336a">
-      <div class="card-h"><span class="badge b">종목</span><h3>테마별 상위 종목</h3></div>
-      <div class="stks"></div>
-      <p class="note">대장주 판별 기준 확정 전이라 등락률 상위 3종목을 임시로 넣었다.</p>
-    </article>
-
-    <div class="card slot"><div class="card-h"><span class="badge w">대기</span><h3>키움 연동 예정</h3></div><ul class="slotlist"><li>[0186] 거래대금 상위 캡처 — 오늘 없음 (전망 ④ 채점 보류의 직접 원인)</li><li>테마 분류 캡처 — 오늘 없음</li><li>봇 스냅샷 data/market/2026-09-04.json — 미생성 (최신은 2026-08-27)</li><li>인포스탁 당일 특징테마 — 17:30 이후 공개, 내일 아침 반영</li></ul><p class="note">무료 소스로는 확보가 안 되는 값들이다.</p></div>
-  </div>
 
   <!-- ═══ ② 새벽 미국시황 ═══ -->
   <div class="col">

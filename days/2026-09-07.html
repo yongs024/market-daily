@@ -120,7 +120,7 @@ details.calm{margin-bottom:2px}
 .top h1{font-size:18px;font-weight:800}
 .top .meta{font-size:11px;color:var(--mut);text-align:right;font-variant-numeric:tabular-nums}
 
-.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
 @media(max-width:1240px){.cols{grid-template-columns:1fr}}
 @media(max-width:900px){.layout{display:block}
  .side{position:static;width:auto;flex:none;max-height:none;border-right:0;
@@ -344,72 +344,6 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
   </div>
 
   <div class="cols">
-
-  <!-- ═══ ① 전일 시황 ═══ -->
-  <div class="col">
-    <div class="colh"><h2>① 전일 시황 <span>9/4(금) 마감</span></h2></div>
-
-    <article class="card" style="--ac:#4c3d95">
-      <div class="card-h"><span class="badge a">지수</span><h3>코스피 · 코스닥 등락률</h3></div>
-      <ul class="idxl"><li><span>코스피</span><b>6,687.21</b><span class="up">+1.64%</span><i class="gap">-29%</i></li><li><span>코스닥</span><b>813.50</b><span class="up">+2.95%</span><i class="gap">-34%</i></li><li><span>코스피200</span><b>1,051.52</b><span class="up">+1.67%</span><i class="gap">-31%</i></li></ul>
-      <p class="note">우측 회색 배지는 120일 고점 대비 위치. 신고가 트리거는
-        미발동.
-        주간선물 1,052.50 (+22.50, <span class="up">+2.18%</span>).<br>
-        eSignal 주간선물 16:10 수집. 시가 <b>1,043.90</b> · 전일종가 <b>1,030.00</b> → <b>갭 +13.90p(+1.35%)</b>로 열고 <b>종가 1,052.50(+22.50, +2.18%)</b> — <b>갭업분을 반납한 게 아니라 장중에 8.6p를 더 올렸다.</b> 어제(갭 +1.47% → 종가 +0.08%)와 정반대 모양이다.<br><b>야간선물 예보 대조</b> · 예보 1,049.05(+1.85%) vs 실제 선물 시가 갭 <b>+1.35%</b> · 현물 갭 <b>+1.04%</b>. <b>방향은 사흘 연속 맞았지만 폭은 오늘 처음 빗나갔다</b>(0.5~0.8%p 과장). 9/2에 "폭은 과장"이라 썼다 틀려서 어제·오늘 폭을 그대로 믿기로 했는데, 오늘은 그 폭이 과장이었다 — <b>폭은 아직 규칙이 안 선다</b>는 것이 3일치 기록의 결론이다.<br>전일종가는 페이지가 대시(—)로만 떠서 <b>제목 역산</b>(1,052.50 − 22.50 = 1,030.00)으로 얻었고 어제 기록치 1,030.00과 일치한다. 고/저는 페이지가 주지 않아 미수집.</p>
-    </article>
-
-    
-    <article class="card" style="--ac:#1c1b2e">
-      <div class="card-h"><span class="badge d">[0186] 통합 거래대금, &#x27;상승&#x27; 필터. 반도체 대형 4종이 상위권 복귀 — 반등 주도.</span><h3>거래대금순 상위 10 (양봉) · 주도주</h3>
-        <small>티마 + [0186] 상승필터</small></div>
-      <div class="verdict"><span class="vlbl">주도 테마</span><span class="lchip" style="--c:#4c3d95">반도체대형주 <i>4종목</i> <b>SK하이닉스</b></span><span class="lchip" style="--c:#2e1f5e"> <i>2종목</i> <b>삼성전자우</b></span></div>
-      <table class="k7"><thead><tr><th class="rn">#</th><th>종목</th><th class="pc">등락률</th>
-        <th class="vl">거래대금(억)</th><th class="th">테마</th></tr></thead><tbody><tr class="lead"><td class="rn">1</td><td class="nm">SK하이닉스<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+3.07%</span></td><td class="vl">66,481</td><td class="th"><span style="background:#4c3d95"></span>반도체대형주</td></tr><tr class="lead"><td class="rn">2</td><td class="nm">삼성전자</td><td class="pc"><span class="up">+2.20%</span></td><td class="vl">51,888</td><td class="th"><span style="background:#4c3d95"></span>반도체대형주</td></tr><tr class=""><td class="rn">3</td><td class="nm">스카이랩스</td><td class="pc"><span class="up">+135.00%</span></td><td class="vl">16,765</td><td class="th"><span style="background:#8478d3"></span>개별이슈</td></tr><tr class="lead"><td class="rn">4</td><td class="nm">삼성전기</td><td class="pc"><span class="up">+3.56%</span></td><td class="vl">12,678</td><td class="th"><span style="background:#4c3d95"></span>반도체대형주</td></tr><tr class=""><td class="rn">5</td><td class="nm">로보티즈</td><td class="pc"><span class="up">+21.93%</span></td><td class="vl">8,989</td><td class="th"><span style="background:#2e1f5e"></span>로봇</td></tr><tr class="lead"><td class="rn">6</td><td class="nm">SK스퀘어</td><td class="pc"><span class="up">+5.10%</span></td><td class="vl">5,900</td><td class="th"><span style="background:#4c3d95"></span>반도체대형주</td></tr><tr class="lead"><td class="rn">7</td><td class="nm">삼성전자우<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+4.07%</span></td><td class="vl">3,979</td><td class="th"><span style="background:#2e1f5e"></span></td></tr><tr class=""><td class="rn">8</td><td class="nm">알테오젠</td><td class="pc"><span class="up">+1.41%</span></td><td class="vl">3,752</td><td class="th"><span style="background:#2e1f5e"></span>바이오</td></tr><tr class=""><td class="rn">9</td><td class="nm">한미반도체</td><td class="pc"><span class="up">+8.55%</span></td><td class="vl">3,403</td><td class="th"><span style="background:#5b4cb0"></span>반도체소부장</td></tr><tr class="lead"><td class="rn">10</td><td class="nm">SK이노베이션</td><td class="pc"><span class="up">+5.58%</span></td><td class="vl">2,667</td><td class="th"><span style="background:#2e1f5e"></span></td></tr></tbody></table>
-      <p class="note"><b>판정 규칙</b> · 거래대금 상위 10(양봉만, 음봉 제외) 안에 같은 테마 2종목 이상이면 테마 성립,
-        그 안 거래대금 1위 딱 하나가 주도주.
-        미달 — 로봇(1), 바이오(1), 반도체소부장(1).<br>
-        캡처 시각 · 16:55 사용자 캡처<br>
-        <b>주의</b> · 16:00 자동 세션이 캡처 없이 마감 기입 → 16:5x 사용자 캡처로 보강.</p>
-    </article>
-
-    <article class="card" style="--ac:#5b4cb0">
-      <div class="card-h"><span class="badge a">세부</span><h3>테마별 종목</h3></div>
-      <table class="k7 tgt"><tbody><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#2e1f5e"></span><b>로봇</b><i>14,037억</i><em class="gp">고점대비 -27% · 신고가권 0/4</em></div><p class="tg-n">샘 올트먼 오픈AI CEO &quot;휴머노이드 로봇&quot; 발언</p></td></tr><tr class=""><td class="nm">원익홀딩스</td><td class="pc"><span class="up">+29.91%</span></td><td class="px">22,500</td><td class="vl">1,449</td><td class="gp">-37%</td></tr><tr class="lead"><td class="nm">로보티즈</td><td class="pc"><span class="up">+21.93%</span></td><td class="px">303,000</td><td class="vl">8,989</td><td class="gp">-25%</td></tr><tr class=""><td class="nm">원익</td><td class="pc"><span class="up">+17.13%</span></td><td class="px">10,050</td><td class="vl">1,450</td><td class="gp">-11%</td></tr><tr class=""><td class="nm">에스피지</td><td class="pc"><span class="up">+12.65%</span></td><td class="px">94,400</td><td class="vl">2,148</td><td class="gp">-34%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#4c3d95"></span><b>반도체대형주</b><i>136,939억</i><em class=ok>성립</em><em class="gp">고점대비 -40% · 신고가권 0/4</em></div><p class="tg-n">美 반도체주 혼조 — 엔비디아 1.8%↑, 대형 4종 동반 반등</p></td></tr><tr class="lead"><td class="nm">SK스퀘어</td><td class="pc"><span class="up">+5.10%</span></td><td class="px">1,032,000</td><td class="vl">5,900</td><td class="gp">-47%</td></tr><tr class="lead"><td class="nm">삼성전기</td><td class="pc"><span class="up">+3.56%</span></td><td class="px">1,396,000</td><td class="vl">12,678</td><td class="gp">-38%</td></tr><tr class="lead"><td class="nm">SK하이닉스<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+3.07%</span></td><td class="px">1,645,000</td><td class="vl">66,481</td><td class="gp">-44%</td></tr><tr class="lead"><td class="nm">삼성전자</td><td class="pc"><span class="up">+2.20%</span></td><td class="px">255,500</td><td class="vl">51,888</td><td class="gp">-30%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#5b4cb0"></span><b>반도체소부장</b><i>6,965억</i><em class="gp">고점대비 -36% · 신고가권 0/4</em></div><p class="tg-n">美 반도체 등 첨단기업 4곳, 韓에 2.8조원</p></td></tr><tr class=""><td class="nm">원익IPS</td><td class="pc"><span class="up">+9.33%</span></td><td class="px">114,800</td><td class="vl">1,017</td><td class="gp">-37%</td></tr><tr class=""><td class="nm">테스</td><td class="pc"><span class="up">+9.19%</span></td><td class="px">146,200</td><td class="vl">1,020</td><td class="gp">-33%</td></tr><tr class="lead"><td class="nm">한미반도체</td><td class="pc"><span class="up">+8.55%</span></td><td class="px">228,500</td><td class="vl">3,401</td><td class="gp">-44%</td></tr><tr class=""><td class="nm">주성엔지니어링</td><td class="pc"><span class="up">+6.13%</span></td><td class="px">178,300</td><td class="vl">1,526</td><td class="gp">-29%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#6f61c4"></span><b>스테이블코인</b><i>2,674억</i><em class="ok">고점대비 -25% · 신고가권 1/4</em></div><p class="tg-n">美 서클 강세</p></td></tr><tr class=""><td class="nm">쿠콘</td><td class="pc"><span class="up">+14.95%</span></td><td class="px">30,750</td><td class="vl">624</td><td class="gp new">-4%</td></tr><tr class=""><td class="nm">헥토파이낸셜</td><td class="pc"><span class="up">+13.48%</span></td><td class="px">25,250</td><td class="vl">723</td><td class="gp">-37%</td></tr><tr class=""><td class="nm">한화투자증권</td><td class="pc"><span class="up">+8.97%</span></td><td class="px">5,100</td><td class="vl">376</td><td class="gp">-46%</td></tr><tr class=""><td class="nm">우리기술투자</td><td class="pc"><span class="up">+8.93%</span></td><td class="px">6,220</td><td class="vl">949</td><td class="gp">-12%</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#8478d3"></span><b>개별이슈</b><i>20,045억</i><em class="gp">고점대비 -49% · 신고가권 0/3</em></div><p class="tg-n">개별이슈 — 스카이랩스 신규상장 첫날 +135%</p></td></tr><tr class="lead"><td class="nm">스카이랩스</td><td class="pc"><span class="up">+135.00%</span></td><td class="px">23,500</td><td class="vl">16,765</td><td class="gp">-</td></tr><tr class=""><td class="nm">삼익제약</td><td class="pc"><span class="up">+19.22%</span></td><td class="px">6,760</td><td class="vl">600</td><td class="gp">-44%</td></tr><tr class=""><td class="nm">비에이치</td><td class="pc"><span class="up">+13.03%</span></td><td class="px">22,300</td><td class="vl">1,512</td><td class="gp">-46%</td></tr><tr class=""><td class="nm">두산퓨얼셀</td><td class="pc"><span class="up">+10.90%</span></td><td class="px">43,250</td><td class="vl">1,168</td><td class="gp">-57%</td></tr></tbody></table>
-      <p class="note">테마 안 순서는 상승률 내림차순. 진한 줄이 상위 10 진입 종목.<br>
-        장중에 캡처한 테마 데이터는 가격·등락률이 종가와 조금 다르다.</p>
-    </article>
-
-
-    <article class="card hide" style="--ac:#6f61c4">
-      <div class="card-h"><span class="badge a">분류</span><h3>테마 분류</h3></div>
-      <ul class="hbars"></ul>
-      <p class="note">테마를 상위 그룹으로 묶어 거래대금을 합쳤다.
-        한 종목이 여러 테마에 겹치므로 그룹 간 절대 비교는 주의.</p>
-    </article>
-
-    <article class="card hide" style="--ac:#b8bcc9">
-      <div class="card-h"><span class="badge w">참고</span><h3>테마별 거래대금 (인포스탁)</h3></div>
-      <ul class="hbars"></ul>
-      <p class="note">단위 억원. 인포스탁 테마 구성종목의 거래량×종가 합산이다.
-        한 종목이 여러 테마에 중복으로 들어가 과대계상되므로, 판단은 위 0177 분류를 기준으로 한다.</p>
-    </article>
-
-    <article class="card" style="--ac:#8478d3">
-      <div class="card-h"><span class="badge a">등락률</span><h3>등락률 순위 (참고)</h3></div>
-      <ul class="hbars"></ul>
-      <p class="note">거래대금 순위와 다르다는 점이 핵심이다.<br>
-        하락 · <br>
-        인포스탁 <b>Daily 특징테마 9/4분</b>은 목록 제목까지만 확인됐다 — <b>정유 등 · 로봇 등 · 지역화폐 · STO(토큰증권) · 가상화폐 · 스페이스X/우주항공</b>. 본문(테마별 등락·거래대금)은 무료 열람 클릭이 열리지 않아 <b>미수집</b>이다. <b>9/3분 테마표가 그대로 남아 9/4로 오독되는 것을 막기 위해 비웠다</b> — 아래 티마·[0186] 카드가 9/4의 정본이다.</p>
-    </article>
-
-    <article class="card" style="--ac:#a3336a">
-      <div class="card-h"><span class="badge b">종목</span><h3>테마별 상위 종목</h3></div>
-      <div class="stks"></div>
-      <p class="note">대장주 판별 기준 확정 전이라 등락률 상위 3종목을 임시로 넣었다.</p>
-    </article>
-
-    <div class="card slot"><div class="card-h"><span class="badge w">대기</span><h3>키움 연동 예정</h3></div><ul class="slotlist"><li>[0186] 거래대금 상위 캡처 — 오늘 없음 (전망 ④ 채점 보류의 직접 원인)</li><li>티마 테마 분류 캡처 — 오늘 없음</li><li>봇 스냅샷 data/market/2026-09-04.json — 미생성 (최신은 2026-08-27)</li><li>인포스탁 당일 특징테마 — 17:30 이후 공개, 내일 아침 반영</li></ul><p class="note">무료 소스로는 확보가 안 되는 값들이다.</p></div>
-  </div>
 
   <!-- ═══ ② 새벽 미국시황 ═══ -->
   <div class="col">
