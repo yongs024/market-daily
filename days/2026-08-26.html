@@ -191,11 +191,13 @@ details.calm{margin-bottom:2px}
 .idxl .gap{font-style:normal;font-size:10px;color:#a8abb8;font-variant-numeric:tabular-nums;
  border:1px solid var(--line);border-radius:99px;padding:1px 5px}
 
-.kv{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
-.kv li{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:baseline;font-size:12px}
-.kv li>span:first-child{color:var(--mut)} .kv li b{font-variant-numeric:tabular-nums;font-weight:650}
-.kv li.hot{background:#fff8ec;margin:0 -7px;padding:3px 7px;border-radius:5px}
-.kv li.hot>span:first-child{color:#b8730d;font-weight:600}
+.mchips{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.mchip{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;
+  padding:9px 6px;border:1px solid var(--line);border-radius:10px;background:var(--card2,#faf9fd)}
+.mchip .mc-n{font-size:11px;color:var(--mut);line-height:1.2}
+.mchip .mc-v{font-size:13px;font-variant-numeric:tabular-nums;font-weight:650}
+.mchip.hot{background:#fff8ec;border-color:#f0c878}
+.mchip.hot .mc-n{color:#b8730d;font-weight:600}
 
 .hbars{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
 .hbars li{display:grid;grid-template-columns:minmax(0,96px) 1fr auto;align-items:center;gap:7px}
@@ -350,10 +352,10 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
     <div class="colh c2"><h2>② 새벽 미국시황 <span>2026-08-25 미국장 (08/26 05:00 KST 마감)</span></h2></div>
 
     <article class="card" style="--ac:#a3336a">
-      <div class="card-h"><span class="badge b">지수</span><h3>3대 지수 · SOX</h3></div>
-      <ul class="kv"><li class=""><span>S&amp;P 500</span><b>7,677.28</b><span class="up">+0.32%</span></li><li class=""><span>나스닥</span><b>26,151.3</b><span class="up">+0.66%</span></li><li class=""><span>다우존스</span><b>53,577.4</b><span class="up">+0.30%</span></li><li class="hot"><span>필라델피아 반도체</span><b>11,588.04</b><span class="up">+1.44%</span></li></ul>
-      <div class="card-h" style="margin:14px 0 9px"><span class="badge c">매크로</span><h3>환율 · 유가 · 아시아</h3></div>
-      <ul class="kv"><li><span>원/달러</span><b>1,382.1</b><span class="down">-0.20%</span></li><li><span>브렌트유</span><b>90.54</b><span class="down">-2.30%</span></li><li><span>NIKKEI 225</span><b>65,856.43</b><span class="up">+0.50%</span></li><li><span>상해종합</span><b>3,889.45</b><span class="up">+0.19%</span></li></ul>
+      <div class="card-h"><span class="badge c">매크로</span><h3>환율 · 유가 · 아시아</h3></div>
+      <div class="mchips"><div class="mchip"><span class="mc-n">원/달러</span><b class="mc-v">1,382.1</b><span class="down">-0.20%</span></div><div class="mchip"><span class="mc-n">브렌트유</span><b class="mc-v">90.54</b><span class="down">-2.30%</span></div><div class="mchip"><span class="mc-n">NIKKEI 225</span><b class="mc-v">65,856.43</b><span class="up">+0.50%</span></div><div class="mchip"><span class="mc-n">상해종합</span><b class="mc-v">3,889.45</b><span class="up">+0.19%</span></div></div>
+      <div class="card-h" style="margin:14px 0 9px"><span class="badge b">지수</span><h3>미국 대표종목 (3대 지수 · SOX)</h3></div>
+      <div class="mchips"><div class="mchip"><span class="mc-n">S&amp;P 500</span><b class="mc-v">7,677.28</b><span class="up">+0.32%</span></div><div class="mchip"><span class="mc-n">나스닥</span><b class="mc-v">26,151.3</b><span class="up">+0.66%</span></div><div class="mchip"><span class="mc-n">다우존스</span><b class="mc-v">53,577.4</b><span class="up">+0.30%</span></div><div class="mchip hot"><span class="mc-n">필라델피아 반도체</span><b class="mc-v">11,588.04</b><span class="up">+1.44%</span></div></div>
     </article>
 
     <article class="card" style="--ac:#6f61c4">
