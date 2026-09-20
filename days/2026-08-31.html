@@ -122,6 +122,7 @@ details.calm{margin-bottom:2px}
 
 .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
 @media(max-width:1240px){.cols{grid-template-columns:1fr}}
+@media(max-width:1240px){.cn{flex-direction:column}.cn-r{width:auto}}
 @media(max-width:900px){.layout{display:block}
  .side{position:static;width:auto;flex:none;max-height:none;border-right:0;
   border-bottom:1px solid var(--line)}
@@ -256,7 +257,10 @@ details.calm{margin-bottom:2px}
 .watch li::marker{color:#b0a8ea}
 .cns{display:flex;flex-direction:column;gap:10px}
 .cn{border:1px solid var(--line);border-left:3px solid #e0d8ec;border-radius:8px;padding:10px 11px;
- background:#fbfbfd}
+ background:#fbfbfd;display:flex;gap:12px;align-items:flex-start}
+.cn-l{flex:1 1 auto;min-width:0}
+.cn-r{flex:0 0 auto;width:210px;background:#fff;border:1px solid var(--line);border-radius:10px;
+ padding:9px 10px}
 .cn-h{display:flex;align-items:baseline;gap:7px;margin-bottom:5px}
 .cn-h b{font-size:14.5px;color:var(--ink)}
 .tag{font-style:normal;font-size:11px;font-weight:800;padding:1px 6px;border-radius:20px;
@@ -366,7 +370,7 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
     <article class="card" style="--ac:#a3336a">
       <div class="card-h"><span class="badge b">체인</span><h3>미국 업종 → 이유 → 국내 관련종목</h3>
         <small>Finviz 업종 · Finviz 종목 뉴스 · 한국경제 · 8/28 미국장</small></div>
-      <div class="cns"><div class="cn"><div class="cn-h"><b>도박 · 스포츠베팅</b><span class="up">+4.13%</span><em class="tag" style="--c:#4c3d95">정책</em></div><p class="cn-w">미 법원이 <b>스포츠 베팅은 스왑(파생상품)이 아니다</b>라고 판결. 드래프트킹스 +4.29%, 플러터 +7.13%. 플러터 실적일은 8/5로 이날이 아니다.</p><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">카지노·베팅 (전일 국내 성립 테마 아님)</span></div><div class="krs"><span class="krchip">강원랜드</span><span class="krchip">파라다이스</span><span class="krchip">GKL</span></div><p class="note">미국 예측시장 규제 판결이라 <b>국내 카지노주와는 사업 구조가 다르다.</b> 전이 근거가 약하고, 세 종목 다 전일 거래대금 상위 10 밖이라 규칙상 후보가 아니다. <b>미국 1위 섹터가 국내 성립 테마에 없으므로 오늘 1순위는 없다.</b></p></div><div class="cn"><div class="cn-h"><b>인터넷 소매</b><span class="up">+3.46%</span><em class="tag" style="--c:#5b4cb0">매크로</em></div><p class="cn-w">아마존 +3.97%. 금리 인상 우려에도 <b>현금흐름이 확실한 대형 내수주로 자금이 피신</b>한 흐름. 개별 실적 재료는 없다.</p><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">이커머스·인터넷</span></div><div class="krs"><span class="krchip on">NAVER</span><span class="krchip">카페24</span><span class="krchip">코리아센터</span></div><p class="note">NAVER는 전일 거래대금 4,289억으로 상위 10(9위)에 들었지만 티마 분류가 <b>“미확인”</b>이라 규칙 3에 걸려 테마로 성립하지 않는다. 관심종목 후보가 아니다.</p></div><div class="cn"><div class="cn-h"><b>농산물 · 방송 · 신발 · 정유</b><span class="up">+2.39%</span><em class="tag" style="--c:#5b4cb0">매크로</em></div><p class="cn-w">개별 재료 없이 <b>방어 업종이 통째로 상승</b>. 워시 매파 발언 뒤 성장주에서 빠진 돈이 옮겨간 자리다. 정유(+1.64%)는 브렌트유가 -0.47%인데도 올랐다.</p><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">음식료·미디어·정유</span></div><div class="krs"><span class="krchip">CJ제일제당</span><span class="krchip">S-Oil</span><span class="krchip">SK이노베이션</span></div><p class="note">국내에도 같은 순환매가 오면 <b>대형 방어주</b>가 받는 자리다. 다만 전일 거래대금 상위 10에 든 종목이 없어 규칙상 후보는 아니다.</p></div></div>
+      <div class="cns"><div class="cn"><div class="cn-l"><div class="cn-h"><b>도박 · 스포츠베팅</b><span class="up">+4.13%</span><em class="tag" style="--c:#4c3d95">정책</em></div><p class="cn-w">미 법원이 <b>스포츠 베팅은 스왑(파생상품)이 아니다</b>라고 판결. 드래프트킹스 +4.29%, 플러터 +7.13%. 플러터 실적일은 8/5로 이날이 아니다.</p><p class="note">미국 예측시장 규제 판결이라 <b>국내 카지노주와는 사업 구조가 다르다.</b> 전이 근거가 약하고, 세 종목 다 전일 거래대금 상위 10 밖이라 규칙상 후보가 아니다. <b>미국 1위 섹터가 국내 성립 테마에 없으므로 오늘 1순위는 없다.</b></p></div><div class="cn-r"><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">카지노·베팅 (전일 국내 성립 테마 아님)</span></div><div class="krs"><span class="krchip">강원랜드</span><span class="krchip">파라다이스</span><span class="krchip">GKL</span></div></div></div><div class="cn"><div class="cn-l"><div class="cn-h"><b>인터넷 소매</b><span class="up">+3.46%</span><em class="tag" style="--c:#5b4cb0">매크로</em></div><p class="cn-w">아마존 +3.97%. 금리 인상 우려에도 <b>현금흐름이 확실한 대형 내수주로 자금이 피신</b>한 흐름. 개별 실적 재료는 없다.</p><p class="note">NAVER는 전일 거래대금 4,289억으로 상위 10(9위)에 들었지만 티마 분류가 <b>“미확인”</b>이라 규칙 3에 걸려 테마로 성립하지 않는다. 관심종목 후보가 아니다.</p></div><div class="cn-r"><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">이커머스·인터넷</span></div><div class="krs"><span class="krchip on">NAVER</span><span class="krchip">카페24</span><span class="krchip">코리아센터</span></div></div></div><div class="cn"><div class="cn-l"><div class="cn-h"><b>농산물 · 방송 · 신발 · 정유</b><span class="up">+2.39%</span><em class="tag" style="--c:#5b4cb0">매크로</em></div><p class="cn-w">개별 재료 없이 <b>방어 업종이 통째로 상승</b>. 워시 매파 발언 뒤 성장주에서 빠진 돈이 옮겨간 자리다. 정유(+1.64%)는 브렌트유가 -0.47%인데도 올랐다.</p><p class="note">국내에도 같은 순환매가 오면 <b>대형 방어주</b>가 받는 자리다. 다만 전일 거래대금 상위 10에 든 종목이 없어 규칙상 후보는 아니다.</p></div><div class="cn-r"><div class="cn-k"><span class="cn-lbl">국내</span><span class="cn-th">음식료·미디어·정유</span></div><div class="krs"><span class="krchip">CJ제일제당</span><span class="krchip">S-Oil</span><span class="krchip">SK이노베이션</span></div></div></div></div>
       <p class="note">오늘은 <b>상승 업종보다 하락 업종이 국내에 더 중요하다.</b> 국내 성립 테마(반도체·송배전)가 밤사이 미국에서 그대로 얻어맞았기 때문에, 아래 체인은 상위 3개와 함께 <b>국내 성립 테마에 걸린 하락 업종</b>을 같이 싣는다.</p>
     </article>
 
