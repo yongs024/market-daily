@@ -200,6 +200,8 @@ details.calm{margin-bottom:2px}
 .mchip .mc-v{font-size:15px;font-variant-numeric:tabular-nums;font-weight:650}
 .mchip.hot{background:#fff8ec;border-color:#f0c878}
 .mchip.hot .mc-n{color:#b8730d;font-weight:600}
+.mchip.dash{border-style:dashed;background:transparent}
+.mchip.dash .mc-v{color:#b8bcc9;font-weight:600;font-size:13px}
 
 .hbars{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
 .hbars li{display:grid;grid-template-columns:minmax(0,96px) 1fr auto;align-items:center;gap:7px}
@@ -423,30 +425,16 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
 
     
     <article class="card" style="--ac:#4c3d95">
-      <div class="card-h"><span class="badge a">야간선물</span><h3>코스피200 18:00~06:00</h3>
-        <small>09/08 07:26 · eSignal 야간선물(9/7 18:00 ~ 9/8 06:00 세션). 상세 페이지가 또 홈으로 리다이렉트돼 시/고/저는 받지 못했고, 티커의 종가 1,123.30과 전일대비 +13.55만 정본이다. 전일종가 1,109.75는 역산(1,123.30−13.55)이며 9/7 주간선물 종가와 일치한다. 이 +1.22%는 지난 이틀과 성격이 다르다. 9/7 미국은 노동절 휴장이라 새 연료가 아예 공급되지 않았는데도 야간선물이 올랐다. 같은 시각 나스닥100 선물은 29,570.00(+4.75, +0.02%) · S&amp;P500 선물 7,707.00(−15.00, −0.19%)으로 사실상 제자리라, 괴리는 1.2%p다. 어제의 3.9%p 괴리가 실제 갭 +3.73%로 확인된 직후라 방향은 믿되, 폭은 여전히 믿지 않는다 — 미국 없이 혼자 만든 값이라 표본이 없다. 막대의 저가·고가는 대용값이다 — eSignal이 시/고/저를 주지 않아 전일종가 1,109.75를 저가로, 현재가 1,123.30을 고가로 넣어 그린 것이다. 실제 세션 중 어디까지 밀렸다 올라왔는지는 모른다.</small></div>
-      <div style="display:flex;align-items:baseline;gap:10px">
-        <div style="font-size:24px;font-weight:750;letter-spacing:-.03em;
-          font-variant-numeric:tabular-nums"
-          class="up">1,123.30</div>
-        <div class="up"
-          style="font-size:14px;font-weight:600;font-variant-numeric:tabular-nums">
-          +13.55 (+1.22%)</div>
+      <div class="card-h"><span class="badge a">한눈에</span><h3>전일·금일 시황</h3>
+        <small>야간선물 09/08 07:26 · eSignal 야간선물(9/7 18:00 ~ 9/8 06:00 세션). 상세 페이지가 또 홈으로 리다이렉트돼 시/고/저는 받지 못했고, 티커의 종가 1,123.30과 전일대비 +13.55만 정본이다. 전일종가 1,109.75는 역산(1,123.30−13.55)이며 9/7 주간선물 종가와 일치한다. 이 +1.22%는 지난 이틀과 성격이 다르다. 9/7 미국은 노동절 휴장이라 새 연료가 아예 공급되지 않았는데도 야간선물이 올랐다. 같은 시각 나스닥100 선물은 29,570.00(+4.75, +0.02%) · S&amp;P500 선물 7,707.00(−15.00, −0.19%)으로 사실상 제자리라, 괴리는 1.2%p다. 어제의 3.9%p 괴리가 실제 갭 +3.73%로 확인된 직후라 방향은 믿되, 폭은 여전히 믿지 않는다 — 미국 없이 혼자 만든 값이라 표본이 없다. 막대의 저가·고가는 대용값이다 — eSignal이 시/고/저를 주지 않아 전일종가 1,109.75를 저가로, 현재가 1,123.30을 고가로 넣어 그린 것이다. 실제 세션 중 어디까지 밀렸다 올라왔는지는 모른다.</small></div>
+      <div style="display:flex;gap:7px;margin-bottom:5px">
+        <span style="flex:2 1 0;font-size:11px;font-weight:800;color:#9a9eb0;letter-spacing:.05em">전일시황</span>
+        <span style="flex:3 1 0;font-size:11px;font-weight:800;color:#9a9eb0;letter-spacing:.05em">금일시황</span>
       </div>
-      <div style="margin-top:12px">
-        <div style="position:relative;height:5px;border-radius:99px;background:#ece9f7">
-          <u style="position:absolute;top:50%;left:0.0%;width:2px;height:12px;
-            background:#9a9eb0;transform:translate(-50%,-50%)"></u>
-          <i style="position:absolute;top:50%;left:100.0%;width:11px;height:11px;border-radius:50%;
-            background:#4c3d95;border:2px solid #fff;box-shadow:0 0 0 1px #4c3d95;
-            transform:translate(-50%,-50%)"></i></div>
-        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px;
-          color:var(--mut);font-variant-numeric:tabular-nums">
-          <span><b style="color:var(--fg)">1,109.75</b> 저가</span>
-          <span><b style="color:var(--fg)">1,123.30</b> 고가</span></div>
-      </div>
-      <p class="note">회색 세로선이 주간 종가(1,109.75). 그 위로 올라선 채 마감했다.
-        갭업 출발 가능성을 시사하지만, 갭이 크면 진입가는 오히려 불리해진다.</p>
+      <div class="mchips"><div class="mchip"><span class="mc-n">코스피</span><b class="mc-v up">+4.61%</b></div><div class="mchip"><span class="mc-n">코스닥</span><b class="mc-v up">+1.07%</b></div><div class="mchip"><span class="mc-n">야간선물</span><b class="mc-v up">+1.22%</b></div><div class="mchip"><span class="mc-n">코스피</span><b class="mc-v down">-0.58%</b></div><div class="mchip"><span class="mc-n">코스닥</span><b class="mc-v down">-1.25%</b></div></div>
+      <p class="note"><b>코스피200 야간선물</b> 1,123.30 (+13.55, +1.22%) —
+        저가 1,109.75 · 고가 1,123.30 · 주간 종가 1,109.75 위로 올라선 채
+        마감했다. 갭업 출발 가능성을 시사하지만, 갭이 크면 진입가는 오히려 불리해진다.</p>
     </article>
 
     
