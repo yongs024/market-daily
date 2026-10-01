@@ -1109,3 +1109,39 @@ branch 'main' set up to track 'origin/main'.
  
 ==================================================== 
  START 2026-10-01 16:30:01.44 
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-26.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-27.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-28.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-08-31.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-01.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-02.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-03.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-04.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-07.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-08.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-09.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-10.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-11.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-14.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-15.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-16.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-17.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-18.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-21.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-22.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-23.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-28.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-29.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'days/2026-09-30.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '배포로그.bat', LF will be replaced by CRLF the next time Git touches it
+[main 889db6c] dashboard update
+ 26 files changed, 123 insertions(+), 78 deletions(-)
+To https://github.com/yongs024/market-daily.git
+   04f7aed..889db6c  main -> main
+branch 'main' set up to track 'origin/main'.
+ pushed OK 
+ END   2026-10-01 16:30:06.53 
+ 
