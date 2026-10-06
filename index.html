@@ -360,7 +360,7 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
 <main class="main">
   <div class="top">
     <h1>10/6(화) 시황</h1>
-    <div class="meta">작성 2026-10-06T07:18:00+09:00</div>
+    <div class="meta">작성 2026-10-06T16:15:00+09:00</div>
   </div>
 
   <div class="cols">
@@ -438,7 +438,7 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
         <span style="flex:2 1 0;font-size:11px;font-weight:800;color:#9a9eb0;letter-spacing:.05em">전일시황</span>
         <span style="flex:3 1 0;font-size:11px;font-weight:800;color:#9a9eb0;letter-spacing:.05em">금일시황</span>
       </div>
-      <div class="mchips"><div class="mchip"><span class="mc-n">코스피</span><b class="mc-v up">+0.46%</b></div><div class="mchip"><span class="mc-n">코스닥</span><b class="mc-v down">-0.19%</b></div><div class="mchip"><span class="mc-n">야간선물</span><b class="mc-v up">+1.24%</b></div><div class="mchip dash"><span class="mc-n">코스피</span><b class="mc-v">장마감전</b></div><div class="mchip dash"><span class="mc-n">코스닥</span><b class="mc-v">장마감전</b></div></div>
+      <div class="mchips"><div class="mchip"><span class="mc-n">코스피</span><b class="mc-v up">+0.46%</b></div><div class="mchip"><span class="mc-n">코스닥</span><b class="mc-v down">-0.19%</b></div><div class="mchip"><span class="mc-n">야간선물</span><b class="mc-v up">+1.24%</b></div><div class="mchip"><span class="mc-n">코스피</span><b class="mc-v down">-0.89%</b></div><div class="mchip"><span class="mc-n">코스닥</span><b class="mc-v up">+2.98%</b></div></div>
       <p class="note"><b>코스피200 야간선물</b> 1,127.05 (+13.85, +1.24%) —
         저가 1,113.20 · 고가 1,127.05 · 주간 종가 1,113.20 위로 올라선 채
         마감했다. 갭업 출발 가능성을 시사하지만, 갭이 크면 진입가는 오히려 불리해진다.</p>
@@ -474,15 +474,58 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
     </article>
 
     
-    <div class="pending"><div class="ic">🕒</div>
-      <b>아직 장이 끝나지 않았습니다</b>
-      <p>마감 후 사용자 [0177]·티마 레이더 캡처(2026-10-06)로 보강 재빌드했다.</p></div>
+    <article class="card" style="--ac:#8478d3">
+      <div class="card-h"><span class="badge a">마감</span><h3>지수 · 선물</h3>
+        <small>2026-10-06 15:30</small></div>
+      <ul class="idxl"><li><span>코스피</span><b>6,941.39</b><span class="down">-0.89%</span><i class="gap">-24%</i></li><li><span>코스닥</span><b>919.92</b><span class="up">+2.98%</span><i class="gap">-25%</i></li><li><span>코스피200</span><b>1,095.83</b><span class="down">-1.19%</span></li></ul>
+      <div class="rng" style="margin-top:14px;padding-top:11px;border-top:1px solid var(--line)">
+        <div class="rng-lbl" style="margin:0"><span>코스피200 주간선물</span>
+          <b>1,102.95 (-10.25, -0.92%)</b></div>
+      </div>
+      <p class="note">eSignal 주간선물(derived, 15:45 갱신) <b>1,102.95(-10.25, -0.92%)</b>. <b>갭 = 시가 1,121.50 vs 전일 종가 1,113.20 = +0.75% 갭업</b> 뒤 종가는 시가 대비 -1.65%. 고가·저가는 페이지 텍스트로 안 잡혀 비웠다. 코스피200 현물 종가 1,095.83(Yahoo)과 선물은 별개 값이다.</p>
+    </article>
 
-    <div class="card slot"><div class="card-h"><span class="badge w">대기</span><h3>마감 후 자동 수집</h3></div><ul class="slotlist"><li>코스피·코스닥 종가 / 등락률 / 120일 위치 / 트리거</li><li>0177 거래대금 상위 10 + 테마 분류</li><li>테마가 오르내린 이유</li><li>코스피200 주간선물</li></ul><p class="note">지금도 자동으로 걷히는 항목이다. 마감 후 실행하면 바로 채워진다.</p></div>
+    
+    <article class="card" style="--ac:#1c1b2e">
+      <div class="card-h"><span class="badge d">[0177] 상승·거래대금순 캡처 + 삼성전자·SK하이닉스(하락, 같은 캡처의 반도체 카드 표기값)를 합쳐 상위10 재구성</span><h3>거래대금순 상위 10 (양봉) · 주도주</h3>
+        <small>반도체 4종목·PCB 3종목 성립 (대형주 2종목은 하락)</small></div>
+      <div class="verdict"><span class="vlbl">주도 테마</span><span class="lchip" style="--c:#4c3d95">PCB <i>3종목</i> <b>LG이노텍</b></span><span class="lchip" style="--c:#2e1f5e">반도체 <i>2종목</i> <b>삼성전기</b></span></div>
+      <table class="k7"><thead><tr><th class="rn">#</th><th>종목</th><th class="pc">등락률</th>
+        <th class="vl">거래대금(억)</th><th class="th">테마</th></tr></thead><tbody><tr class="lead"><td class="rn">1</td><td class="nm">삼성전기<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+5.88%</span></td><td class="vl">21,044</td><td class="th"><span style="background:#2e1f5e"></span>반도체</td></tr><tr class="lead"><td class="rn">2</td><td class="nm">주성엔지니어링</td><td class="pc"><span class="up">+17.51%</span></td><td class="vl">8,533</td><td class="th"><span style="background:#2e1f5e"></span>반도체</td></tr><tr class=""><td class="rn">3</td><td class="nm">LG전자</td><td class="pc"><span class="up">+6.94%</span></td><td class="vl">6,536</td><td class="th"><span style="background:#2e1f5e"></span>미확인</td></tr><tr class=""><td class="rn">4</td><td class="nm">삼성SDI</td><td class="pc"><span class="up">+8.51%</span></td><td class="vl">6,533</td><td class="th"><span style="background:#5b4cb0"></span>2차전지</td></tr><tr class=""><td class="rn">5</td><td class="nm">HLB</td><td class="pc"><span class="up">+16.93%</span></td><td class="vl">4,814</td><td class="th"><span style="background:#2e1f5e"></span>미확인</td></tr><tr class="lead"><td class="rn">6</td><td class="nm">LG이노텍<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+12.02%</span></td><td class="vl">4,481</td><td class="th"><span style="background:#4c3d95"></span>PCB</td></tr><tr class="lead"><td class="rn">7</td><td class="nm">이수페타시스</td><td class="pc"><span class="up">+8.66%</span></td><td class="vl">3,319</td><td class="th"><span style="background:#4c3d95"></span>PCB</td></tr><tr class="lead"><td class="rn">8</td><td class="nm">두산</td><td class="pc"><span class="up">+9.17%</span></td><td class="vl">3,252</td><td class="th"><span style="background:#4c3d95"></span>PCB</td></tr></tbody></table>
+      <p class="note"><b>판정 규칙</b> · 거래대금 상위 10(양봉만, 음봉 제외) 안에 같은 테마 2종목 이상이면 테마 성립,
+        그 안 거래대금 1위 딱 하나가 주도주.
+        미달 — 2차전지(1).<br>
+        캡처 시각 · 2026-10-06 (사용자 캡처 [0177] 특정일자 상한가/하한가(통합) 2026/10/06, 상승·거래대금순 + 티마 레이더)<br>
+        <b>주의</b> · 0177은 '상승' 필터라 하락 종목이 빠진다 — 삼성전자(-1.45%)·SK하이닉스(-3.53%)가 거래대금 1·2위인데 화면에 없어 합쳐서 상위10을 다시 세웠다. 하락 종목 중 이 두 종목 외에 컷(3,252억) 이상이 더 있는지는 확인 못 했다(캡처에 없음). 원래 상승필터 10위는 심텍 3,030억·한미반도체 3,056억이었고 재구성으로 밀려났다. 역산 검증: 전일종가 ×등락률이 호가단위로 맞아떨어짐(삼성전자 276,000·하이닉스 1,841,000·LG이노텍 574,000·두산 1,341,000·삼성SDI 529,000).</p>
+    </article>
+
+    <article class="card" style="--ac:#5b4cb0">
+      <div class="card-h"><span class="badge a">세부</span><h3>테마별 종목</h3></div>
+      <table class="k7 tgt"><tbody><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#2e1f5e"></span><b>반도체</b><i>144,428억</i><em class=ok>성립</em></div><p class="tg-n">메모리는 데이터센터 전력대란에 약세 — 삼성전자·SK하이닉스는 거래대금 1·2위인데 하락. 삼성전기(+5.88%)·주성엔지니어링(+17.51%)이 상승. 4종목 성립이지만 대형주는 내렸다(성립 ≠ 상승).</p></td></tr><tr class="lead"><td class="nm">주성엔지니어링</td><td class="pc"><span class="up">+17.51%</span></td><td class="px">278,500</td><td class="vl">8,533</td><td class="gp">-</td></tr><tr class="lead"><td class="nm">삼성전기<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+5.88%</span></td><td class="px">1,674,000</td><td class="vl">21,044</td><td class="gp">-</td></tr><tr class=""><td class="nm">삼성전자</td><td class="pc"><span class="down">-1.45%</span></td><td class="px">272,000</td><td class="vl">49,255</td><td class="gp">-</td></tr><tr class=""><td class="nm">SK하이닉스</td><td class="pc"><span class="down">-3.53%</span></td><td class="px">1,776,000</td><td class="vl">65,596</td><td class="gp">-</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#4c3d95"></span><b>PCB</b><i>11,052억</i><em class=ok>성립</em></div><p class="tg-n">K기판 르네상스…역대 최대 수출액 — LG이노텍·이수페타시스·두산 3종목이 top10에 들며 성립.</p></td></tr><tr class="lead"><td class="nm">LG이노텍<b class=lead-mark>주도주</b></td><td class="pc"><span class="up">+12.02%</span></td><td class="px">643,000</td><td class="vl">4,481</td><td class="gp">-</td></tr><tr class="lead"><td class="nm">두산</td><td class="pc"><span class="up">+9.17%</span></td><td class="px">1,464,000</td><td class="vl">3,252</td><td class="gp">-</td></tr><tr class="lead"><td class="nm">이수페타시스</td><td class="pc"><span class="up">+8.66%</span></td><td class="px">131,700</td><td class="vl">3,319</td><td class="gp">-</td></tr><tr class=""><td class="nm">코리아써키트</td><td class="pc"><span class="up">+7.52%</span></td><td class="px">88,600</td><td class="vl">1,240</td><td class="gp">-</td></tr><tr class="tgh"><td colspan="5"><div class="tg-h"><span class="tn-c" style="background:#5b4cb0"></span><b>2차전지</b><i>0억</i></div><p class="tg-n">美 ESS가 판 키운다…K배터리 — top10 진입 1종목(삼성SDI)뿐, 성립 보류.</p></td></tr><tr class=""><td class="nm">에코프로비엠</td><td class="pc"><span class="up">+11.41%</span></td><td class="px">128,900</td><td class="vl">1,677</td><td class="gp">-</td></tr><tr class=""><td class="nm">포스코퓨처엠</td><td class="pc"><span class="up">+8.88%</span></td><td class="px">203,500</td><td class="vl">1,603</td><td class="gp">-</td></tr><tr class="lead"><td class="nm">삼성SDI</td><td class="pc"><span class="up">+8.51%</span></td><td class="px">574,000</td><td class="vl">6,533</td><td class="gp">-</td></tr><tr class=""><td class="nm">에코프로</td><td class="pc"><span class="up">+6.97%</span></td><td class="px">95,100</td><td class="vl">2,470</td><td class="gp">-</td></tr></tbody></table>
+      <p class="note">테마 안 순서는 상승률 내림차순. 진한 줄이 상위 10 진입 종목.<br>
+        장중에 캡처한 테마 데이터는 가격·등락률이 종가와 조금 다르다.</p>
+    </article>
+
+    <article class="card" style="--ac:#b8bcc9">
+      <div class="card-h"><span class="badge w">참고</span><h3>테마별 등락률 (인포스탁)</h3></div>
+      <ul class="hbars"><li><span class="hb-n">반도체</span><span class="hb-t zero"><i style="left:50.0%;width:50.0%;background:#4c3d95"></i></span><span class="hb-p"><span class="up">+17.51%</span></span><span class="wv">144,428</span></li><li><span class="hb-n">PCB</span><span class="hb-t zero"><i style="left:50.0%;width:34.3%;background:#4c3d95"></i></span><span class="hb-p"><span class="up">+12.02%</span></span><span class="wv">11,052</span></li></ul>
+      <p class="note">가운데 선이 0%. 오른쪽 회색은 거래대금(억, 인포스탁 기준).<br>
+        <b>PCB가 3종목 성립</b> — LG이노텍(+12.02%, 4,481억)·이수페타시스(+8.66%)·두산(+9.17%). 주도주는 거래대금 1위 LG이노텍. 재료는 K기판 르네상스·역대 최대 수출액.<br><b>반도체는 4종목이 상위10에 들어 성립</b>(SK하이닉스 6.6조·삼성전자 4.9조·삼성전기 2.1조·주성엔지니어링 8,533억)이지만 <b>대형주 둘은 하락</b>(-3.53%·-1.45%), 삼성전기·주성엔지니어링만 올랐다. 거래대금 성립이 상승을 뜻하지 않는 날이다. 거래대금 1위 SK하이닉스(하락)라 '주도주'는 거래대금 규칙상 SK하이닉스이나 방향은 하락임을 같이 적는다.<br>2차전지는 삼성SDI(+8.51%) 단독이라 성립 보류. LG전자·HLB는 개별이슈, 한미반도체·심텍은 이번 캡처에 테마 카드가 없어 미확인. 인포스탁 당일 테마·등락률 순위는 대기(17:30 이후).</p>
+    </article>
 
     
 
-    <div class="card slot"><div class="card-h"><span class="badge w">대기</span><h3>전망 대조</h3></div><ul class="slotlist"><li>연휴 뒤 +1% 안팎 갭업 시작 — 종가는 시가 대비 ±0.7% 안에서 끝난다</li><li>반도체대형주 3일째 성립 여부 — 엔비디아·TSMC 강세, 마이크론은 약세</li><li>광통신·정유 — 전일 불성립 테마가 연휴 뒤 상위10에 들어오는지</li></ul><p class="note">전망과 실제를 같은 날짜에 나란히 남겨야 적중률이 계산된다.</p></div>
+    <article class="card" style="--ac:#2e1f5e">
+      <div class="card-h"><span class="badge a">관전포인트</span><h3>오늘 정리</h3></div>
+      <ul class="watch"><li><b>갭업이 시초에 팔린 날 — 지수는 -0.89%, 코스닥만 +2.98%.</b> 내일은 갭 방향보다 시초가 대비 위치를 본다. 코스피 시가 7,044.67이 고점이라 이 선을 회복 못 하면 반등도 시가 아래 매물대다.</li><li><b>대형주 이탈 + 비메모리·PCB로 이동.</b> 삼성전기·주성엔지니어링·PCB 3종목(LG이노텍·이수페타시스·두산)이 상승을 이끌었다. 판정 기준 — 다음 날 상위10에 PCB 2종목 이상이 남으면 지속, 1종목 이하면 하루 재료.</li><li><b>삼성전자·SK하이닉스 거래대금 1·2위 하락.</b> 메모리 약세가 이어지는지는 오늘 미국 마이크론 신호와 함께 본다. 0177 상승 필터로는 이 하락이 안 보이니 합산해서 판단한다.</li><li><b>인포스탁 당일 테마(광통신·정유 포함)는 대기.</b> 17:30 이후 올라오면 다음 아침에 채운다.</li></ul>
+    </article>
+
+    <article class="card" style="--ac:#f5a623">
+      <div class="card-h"><span class="badge b">대조</span><h3>아침 전망 vs 실제</h3>
+        <small>1/2 적중</small></div>
+      <div class="vds"><article class="vd miss"><div class="vd-h"><b>연휴 뒤 +1% 안팎 갭업 시작 — 종가는 시가 대비 ±0.7% 안에서 끝난다</b><span class="vb miss">빗나감</span></div><dl class="vd-b"><div><dt>전망</dt><dd>야간선물 +1.24% 갭업, 종가는 시가 대비 ±0.7% 안.</dd></div><div><dt>실제</dt><dd>코스피 시가 7,044.67(전일 대비 +0.58%)이 곧 장중 고가, 종가 6,941.39로 시가 대비 -1.47%. 전일 대비로는 -0.89%. 주간선물도 +0.75% 갭업 뒤 -0.92%로 마감.</dd></div></dl><p class="note">판정 기준(시가 대비 -0.7% 초과 하락 = 갭업 차익실현 우세)에 걸렸다. 갭업이 시초에 팔리는 날이었다. 반면 코스닥은 +2.98%로 갈렸다.</p></article><article class="vd hit"><div class="vd-h"><b>반도체대형주 3일째 성립 여부 — 엔비디아·TSMC 강세, 마이크론은 약세</b><span class="vb hit">적중</span></div><dl class="vd-b"><div><dt>전망</dt><dd>반도체대형주 3일째 성립, 메모리보다 삼성전기 등 비메모리가 나을 수 있다.</dd></div><div><dt>실제</dt><dd>상위10에 SK하이닉스·삼성전자·삼성전기·주성엔지니어링 4종목(하락 종목 합산 재구성). 하지만 SK하이닉스 -3.53%·삼성전자 -1.45%, 삼성전기 +5.88%·주성 +17.51%.</dd></div></dl><p class="note">거래대금 기준 성립은 맞았고 '메모리보다 비메모리' 서술도 맞았다. 그러나 대형주 성립 = 상승이 아니었다. 하락 종목은 0177 화면에서 빠지는 만큼 재구성 후 판정했다는 점을 적는다.</p></article><article class="vd na"><div class="vd-h"><b>광통신·정유 — 전일 불성립 테마가 연휴 뒤 상위10에 들어오는지</b><span class="vb na">해당없음</span></div><dl class="vd-b"><div><dt>전망</dt><dd>광통신 재진입이 관건, 정유는 신호 약함. 각각 2종목 이상이면 성립.</dd></div><div><dt>실제</dt><dd>상위10(컷 3,252억)에 광통신·정유 종목은 한 곳도 없다 — 불성립 연장.</dd></div></dl><p class="note">전망이 어느 한쪽을 단정하지 않아 채점은 보류(null). 광통신 종목의 당일 등락률은 인포스탁 대기로 확인 못 했다.</p></article></div>
+      <p class="note">이 대조가 쌓여야 적중률을 말할 수 있다. 오늘이 <b>표본 1건</b>이다.</p>
+    </article>
   </div>
 
   </div>
