@@ -360,7 +360,7 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
 <main class="main">
   <div class="top">
     <h1>10/8(목) 시황</h1>
-    <div class="meta">작성 2026-10-08 07:35 KST</div>
+    <div class="meta">작성 2026-10-08T16:25:00+09:00</div>
   </div>
 
   <div class="cols">
@@ -438,7 +438,7 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
         <span style="flex:2 1 0;font-size:11px;font-weight:800;color:#9a9eb0;letter-spacing:.05em">전일시황</span>
         <span style="flex:3 1 0;font-size:11px;font-weight:800;color:#9a9eb0;letter-spacing:.05em">금일시황</span>
       </div>
-      <div class="mchips"><div class="mchip"><span class="mc-n">코스피</span><b class="mc-v down">-1.98%</b></div><div class="mchip"><span class="mc-n">코스닥</span><b class="mc-v down">-2.03%</b></div><div class="mchip"><span class="mc-n">야간선물</span><b class="mc-v up">+0.00%</b></div><div class="mchip dash"><span class="mc-n">코스피</span><b class="mc-v">장마감전</b></div><div class="mchip dash"><span class="mc-n">코스닥</span><b class="mc-v">장마감전</b></div></div>
+      <div class="mchips"><div class="mchip"><span class="mc-n">코스피</span><b class="mc-v down">-1.98%</b></div><div class="mchip"><span class="mc-n">코스닥</span><b class="mc-v down">-2.03%</b></div><div class="mchip"><span class="mc-n">야간선물</span><b class="mc-v up">+0.00%</b></div><div class="mchip"><span class="mc-n">코스피</span><b class="mc-v down">-2.62%</b></div><div class="mchip"><span class="mc-n">코스닥</span><b class="mc-v down">-0.62%</b></div></div>
       <p class="note"><b>코스피200 야간선물</b> 1,078.70 (-0.05, +0.00%) —
         저가 1,078.55 · 고가 1,078.70 · 주간 종가 1,078.75 위로 올라선 채
         마감했다. 갭업 출발 가능성을 시사하지만, 갭이 크면 진입가는 오히려 불리해진다.</p>
@@ -474,15 +474,53 @@ footer a{color:#6f61c4;text-decoration:none;margin-right:10px}
     </article>
 
     
-    <div class="pending"><div class="ic">🕒</div>
-      <b>아직 장이 끝나지 않았습니다</b>
-      <p>07:22 KST에 시작해 07:00 데드라인을 넘겼고, 핵심 우선으로 빌드했다. 수급종베 기준일이 2026-09-18로 약 3주 밀려 있다(3_장후.bat 미실행 추정) — 수급 후보는 신뢰하지 않는다. 인포스탁 장전 테마와 기사 본문은 미수집.</p></div>
+    <article class="card" style="--ac:#8478d3">
+      <div class="card-h"><span class="badge a">마감</span><h3>지수 · 선물</h3>
+        <small>2026-10-08 15:30</small></div>
+      <ul class="idxl"><li><span>코스피</span><b>6,625.93</b><span class="down">-2.62%</span><i class="gap">-27%</i></li><li><span>코스닥</span><b>892.83</b><span class="down">-0.62%</span><i class="gap">-27%</i></li><li><span>코스피200</span><b>1,044.52</b><span class="down">-2.71%</span></li></ul>
+      <div class="rng" style="margin-top:14px;padding-top:11px;border-top:1px solid var(--line)">
+        <div class="rng-lbl" style="margin:0"><span>코스피200 주간선물</span>
+          <b>1,048.25 (-30.50, -2.83%)</b></div>
+      </div>
+      <p class="note">eSignal 주간선물(derived, 15:45 갱신) <b>1,048.25(-30.50, -2.83%)</b>. <b>갭 = 시가 1,086.00 vs 전일 종가 1,078.75 = +0.67% 갭업</b> 뒤 종가는 시가 대비 -3.47%. 고가·저가는 페이지 텍스트로 안 잡혀 비웠다.</p>
+    </article>
 
-    <div class="card slot"><div class="card-h"><span class="badge w">대기</span><h3>마감 후 자동 수집</h3></div><ul class="slotlist"><li>코스피·코스닥 종가 / 등락률 / 120일 위치 / 트리거</li><li>0177 거래대금 상위 10 + 테마 분류</li><li>테마가 오르내린 이유</li><li>코스피200 주간선물</li></ul><p class="note">지금도 자동으로 걷히는 항목이다. 마감 후 실행하면 바로 채워진다.</p></div>
+    
+    <article class="card" style="--ac:#1c1b2e">
+      <div class="card-h"><span class="badge d">대기 — 봇 0177 파일(2026-10-08.json) 없음, 티마 캡처 없음</span><h3>거래대금순 상위 10 (양봉) · 주도주</h3>
+        <small>상위10 대기</small></div>
+      <div class="verdict"><span class="vlbl">주도 테마</span></div>
+      <table class="k7"><thead><tr><th class="rn">#</th><th>종목</th><th class="pc">등락률</th>
+        <th class="vl">거래대금(억)</th><th class="th">테마</th></tr></thead><tbody></tbody></table>
+      <p class="note"><b>판정 규칙</b> · 거래대금 상위 10(양봉만, 음봉 제외) 안에 같은 테마 2종목 이상이면 테마 성립,
+        그 안 거래대금 1위 딱 하나가 주도주.
+        <br>
+        캡처 시각 · 2026-10-08 16:20 (캡처 없음)<br>
+        <b>주의</b> · 거래대금 상위10·테마 성립 판정은 소스가 없어 비웠다. 추측으로 채우지 않는다.</p>
+    </article>
+
+    <article class="card" style="--ac:#5b4cb0">
+      <div class="card-h"><span class="badge a">세부</span><h3>테마별 종목</h3></div>
+      <table class="k7 tgt"><tbody></tbody></table>
+      <p class="note">테마 안 순서는 상승률 내림차순. 진한 줄이 상위 10 진입 종목.<br>
+        장중에 캡처한 테마 데이터는 가격·등락률이 종가와 조금 다르다.</p>
+    </article>
+
+    <div class="card slot"><div class="card-h"><span class="badge w">대기</span><h3>인포스탁 테마 미수집</h3></div><ul class="slotlist"><li>테마별 등락률 · 거래대금</li><li>테마가 오르내린 이유</li></ul><p class="note"><b>거래대금 상위10·테마 성립은 대기.</b> 키움 봇의 0177 파일(15:40 생성)이 오늘치가 없고 티마 캡처도 받지 못했다(봇 data/market 폴더는 8/27 이후 갱신 없음). 인포스탁 Daily 특징테마는 17:30 이후에야 올라온다. 소스 없이 테마를 짚지 않는다 — 캡처를 주시면 보강 재빌드한다.</p></div>
 
     
 
-    <div class="card slot"><div class="card-h"><span class="badge w">대기</span><h3>전망 대조</h3></div><ul class="slotlist"><li>야간선물 보합 — 갭 없이 출발, 종가는 시가 대비 ±0.7% 안에서 끝난다</li><li>반도체 — 마이크론만 오른 갈림, 국내 성립 지속은 하이닉스·삼성전자 반등이 판정</li><li>원전·귀금속 되돌림 — 국내 관심 제외, K뷰티 전일 지속 여부가 대신 판정</li></ul><p class="note">전망과 실제를 같은 날짜에 나란히 남겨야 적중률이 계산된다.</p></div>
+    <article class="card" style="--ac:#2e1f5e">
+      <div class="card-h"><span class="badge a">관전포인트</span><h3>오늘 정리</h3></div>
+      <ul class="watch"><li><b>코스피 이틀 연속 급락(-1.98%→-2.62%), 장중 최저로 마감.</b> 시가 6,808 갭 없이 시작해 반등 없이 흘러내렸다. 120일 고점(9,114) 대비 -27%대. 내일은 6,625 하회 여부와 야간선물 방향을 먼저 본다.</li><li><b>코스닥은 -0.62%(대용값)로 코스피보다 덜 빠졌다.</b> 대형주 중심 하락 가능성이 있으나 거래대금 순위 없이는 확인 불가.</li><li><b>오늘 테마 성립은 미확정.</b> 0177·티마 캡처(또는 17:30 이후 인포스탁)가 오면 반도체·K뷰티 전망을 채점한다.</li></ul>
+    </article>
+
+    <article class="card" style="--ac:#f5a623">
+      <div class="card-h"><span class="badge b">대조</span><h3>아침 전망 vs 실제</h3>
+        <small>0/1 적중</small></div>
+      <div class="vds"><article class="vd miss"><div class="vd-h"><b>야간선물 보합 — 갭 없이 출발, 종가는 시가 대비 ±0.7% 안에서 끝난다</b><span class="vb miss">빗나감</span></div><dl class="vd-b"><div><dt>전망</dt><dd>갭 없이 출발해 종가는 시가 대비 ±0.7% 안.</dd></div><div><dt>실제</dt><dd>코스피 시가 6,808.68(전일 대비 +0.07%, 갭은 맞음) → 종가 6,625.93은 시가 대비 -2.68%, 장중 최저(저가=종가). 주간선물은 +0.67% 갭업 출발 뒤 시가 대비 -3.47%.</dd></div></dl><p class="note">갭 없음은 맞았지만 판정 기준(시가 대비 -0.7%보다 더 밀리면 추가 하락)에 크게 걸렸다. 이틀 연속 급락(-1.98%, -2.62%)을 '보합 야간선물'로는 못 읽었다. 코스닥은 대용값이라 코스피 기준으로 채점.</p></article><article class="vd na"><div class="vd-h"><b>반도체 — 마이크론만 오른 갈림, 국내 성립 지속은 하이닉스·삼성전자 반등이 판정</b><span class="vb na">해당없음</span></div><dl class="vd-b"><div><dt>전망</dt><dd>상위10에 반도체 2종목 이상이면 성립 지속.</dd></div><div><dt>실제</dt><dd>대기 — 상위10 소스 없음.</dd></div></dl><p class="note">0177 파일·티마 캡처가 없어 채점 보류. 지수가 -2.6% 빠진 날이라 대형주 약세는 짐작되나 순위 없이 단정하지 않는다.</p></article><article class="vd na"><div class="vd-h"><b>원전·귀금속 되돌림 — 국내 관심 제외, K뷰티 전일 지속 여부가 대신 판정</b><span class="vb na">해당없음</span></div><dl class="vd-b"><div><dt>전망</dt><dd>K뷰티 상위10 2종목 이상이면 성립 지속, 원전은 성립 어려움.</dd></div><div><dt>실제</dt><dd>대기 — 상위10 소스 없음.</dd></div></dl><p class="note">채점 보류. 캡처를 받으면 채운다.</p></article></div>
+      <p class="note">이 대조가 쌓여야 적중률을 말할 수 있다. 오늘이 <b>표본 1건</b>이다.</p>
+    </article>
   </div>
 
   </div>
